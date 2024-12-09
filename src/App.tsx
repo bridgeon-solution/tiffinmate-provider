@@ -1,11 +1,15 @@
 
+import AppRouter from './Routes'
+import Index from './Routes/index'
 import './App.css'
-import Index from './Routes/Index'
 
 function App() {
+  
+
   return (
     <>
-      <Index/>
+       <AppRouter/>
+       <Index/>
     </>
   )
 }
