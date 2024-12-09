@@ -15,7 +15,7 @@ const revenueData = [
   { id: 'Revenue Pending', value: 20, label: 'Pending', color: '#ff7043' },
 ];
 
-const PieCard = () => {
+const PieCard :React.FC = () => {
   return (
     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center',mt:4 }}>
       <Card sx={{ minWidth: 470,  boxShadow: 3 }}>

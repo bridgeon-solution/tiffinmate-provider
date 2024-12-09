@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -21,6 +21,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -104,8 +105,8 @@ const icons = [
 ];
 
 const menuItems = [
-    { name: 'Dashboard', path: '/' },
-    { name: 'Order List', path: '/orderList' },
+    { name: 'Dashboard', path: '/Dashboard' },
+    { name: 'Order List', path: '/Orderlist' },
     { name: 'Users', path: '/users' },
     { name: 'Food Providers', path: '/food-providers' },
     { name: 'Subscriptions', path: '/subscriptions' },
@@ -113,10 +114,11 @@ const menuItems = [
   ];
   
 
-export default function Navbar() {
+export default function Navbar({children}:{children:React.ReactNode}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); 
+  const navigate = useNavigate();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -128,6 +130,8 @@ export default function Navbar() {
 
   const handleMenuItemClick = (index: number) => {
     setActiveIndex(index); 
+    navigate(menuItems[index].path);
+    
   };
 
   return (
@@ -189,6 +193,7 @@ export default function Navbar() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
       <DrawerHeader />  
+      {children}
       </Box>
     </Box>
   );
