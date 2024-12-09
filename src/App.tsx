@@ -1,7 +1,6 @@
 
-import AppRouter from './Routes'
-import Index from './Routes/index'
 import './App.css'
+import AppRouter from './Routes'
 
 function App() {
   
@@ -9,7 +8,6 @@ function App() {
   return (
     <>
        <AppRouter/>
-       <Index/>
     </>
   )
 }
