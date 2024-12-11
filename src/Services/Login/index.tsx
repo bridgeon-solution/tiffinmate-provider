@@ -1,14 +1,18 @@
-import axios from "axios";
 
-const BASE_URL = "https://localhost:7009/api";
+import api from "../api";
 
 const PostProviderLogin = async (data: FormData) => {
-  const response = await axios.post(`${BASE_URL}/Provider/Login`, data, {
+  const newdta = JSON.stringify(data)
+  console.log(newdta);
+  
+  const response = await api.post(`/Provider/Login`,data, {
     headers: {
-      "Content-Type": "multipart/form-data", 
+      'Content-Type': 'application/json',
     },
   });
   return response.data;
 };
 
 export default PostProviderLogin;
+
+

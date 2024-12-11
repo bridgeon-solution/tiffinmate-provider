@@ -28,18 +28,39 @@ function LoginContainer() {
      
     },
     validationSchema,
-    onSubmit: (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
-      try{
-        const formData=new FormData();
-      formData.append("email",values.email);
-      formData.append("password",values.password);
-       PostProviderLogin(formData);
+    onSubmit: async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+      try {
+        const formData = new FormData();
+        formData.append("email", values.email);
+        formData.append("password", values.password);
+        
+        const response = await PostProviderLogin(formData);
+        
+    
+
+        console.log("ksdhjhfbsf,",response.status)
+     
+        if (response.status== "success") {
+       
+          const { id, email, token } = response.result;
+
       
-      navigate('/home');
+      localStorage.setItem("token", token);
+      localStorage.setItem('id', id);
+      localStorage.setItem('username', email);
+          alert('Login successful!');
+          navigate('/details');
+        }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           console.error('Axios error:', error.response?.data || error.message);
-          alert(`Error: ${error.response?.data?.message || 'Registration failed. Please try again.'}`);
+    
+          if (error.response?.status === 401) {
+            alert('Incorrect email or password. Please try again.');
+          } 
+          else {
+            alert(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`);
+          }
         } else {
           console.error('Unexpected error:', error);
           alert('An unexpected error occurred. Please try again.');
@@ -47,8 +68,8 @@ function LoginContainer() {
       } finally {
         helpers.resetForm();
       }
-      
     },
+    
   });
 
  
