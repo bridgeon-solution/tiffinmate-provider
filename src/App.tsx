@@ -1,15 +1,14 @@
+
 import './App.css'
 import AppRouter from './Routes'
 
-
 function App() {
   
+
   return (
     <>
-
-
-    <AppRouter/>
-          </>
+       <AppRouter/>
+    </>
   )
 }
 
