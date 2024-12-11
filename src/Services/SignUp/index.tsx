@@ -1,14 +1,16 @@
-import axios from "axios";
 
-const BASE_URL = "https://localhost:7009/api";
+import api from "../api";
 
-const PostProviderSignup = async (data: FormData) => {
-  const response = await axios.post(`${BASE_URL}/Provider/UploadCertificate`, data, {
-    headers: {
-      'Content-Type': 'multipart/form-data', //a file upload -interpreted
-    },
-  });
-  return response;
+const PostProviderLogin = async (data: FormData) => {
+  console.log('FormData contents before sending:', Array.from(data.entries()));
+
+  const response = await api.post(`/Provider/addprovider`, data);
+  return response.data;
 };
 
-export default PostProviderSignup;
+
+
+
+export default PostProviderLogin;
+
+

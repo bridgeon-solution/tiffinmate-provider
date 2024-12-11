@@ -6,7 +6,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PostProviderSignup from '../../Services/SignUp';
 
-
 interface SignupFormValues {
   username: string;
   email: string;
@@ -43,17 +42,18 @@ function SignupContainer() {
         formData.append('username', values.username);
         formData.append('email', values.email);
         if (values.file) {
-          formData.append('certificate', values.file);
+          formData.append('certificateFile', values.file); 
         }
-    
-        // await axios.post('https://localhost:7009/api/Provider/UploadCertificate', formData);
+
+        console.log('FormData contents before sending:', Array.from(formData.entries()));
+
         await PostProviderSignup(formData);
-    
+
         navigate('/login');
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Axios error:', error.response?.data || error.message);
-          alert(`Error: ${error.response?.data?.message || 'Registration failed. Please try again.'}`);
+          console.error('Error response:', error.response?.data);
+          alert(`Error: ${error.response?.data?.title || 'Registration failed. Please try again.'}`);
         } else {
           console.error('Unexpected error:', error);
           alert('An unexpected error occurred. Please try again.');
@@ -61,8 +61,7 @@ function SignupContainer() {
       } finally {
         helpers.resetForm();
       }
-    }
-    
+    }, 
   });
 
   const { values, handleChange, handleSubmit, setFieldValue } = formik;

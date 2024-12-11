@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
+import { Link } from 'react-router-dom';
 
 interface LoginComponentProps {
   formValues: {
@@ -89,6 +90,35 @@ function LoginComponent({
               <StyledButton type="submit" variant="contained">
                 Submit
               </StyledButton>
+              <Typography
+  sx={{
+    textAlign: "center",
+    marginTop: "1rem",
+    fontSize: "14px",
+    color: "text.primary",
+  }}
+>
+  DONT HAVE AN ACCOUNT?{' '}
+  <Box
+    component="span"
+    sx={{
+      color: "#e6852c",
+      cursor: "pointer",
+      textDecoration: "underline",
+    }}
+  >
+    <Link
+      to="/signup"
+      style={{
+        textDecoration: "none",
+        color: "#e6852c",
+      }}
+    >
+      Register Now.
+    </Link>
+  </Box>
+</Typography>
+
             </Box>
           </form>
         </Box>
