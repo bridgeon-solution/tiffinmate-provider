@@ -31,10 +31,10 @@ function SignupComponent({
       }}
     >
       {/* Left */}
-      <Box 
-        sx={{ 
-          display: { xs: "none", md: "block" }, 
-          flex: 1
+      <Box
+        sx={{
+          display: { xs: "none", md: "block" },
+          flex: 1.5,
         }}
       >
         <img
@@ -47,7 +47,6 @@ function SignupComponent({
           }}
         />
       </Box>
-
       {/* Right */}
       <Box
         sx={{
