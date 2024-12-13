@@ -1,7 +1,8 @@
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Link } from '@mui/material';
 import React from 'react';
 import InputField from '../../Atoms/Input';
 import StyledButton from '../../Atoms/Button';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 interface DetailsComponentProps {
   formValues: {
@@ -25,13 +26,14 @@ function DetailsComponent({
   handleSubmit,
   handleFileChange,
 }: DetailsComponentProps) {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <Box
       sx={{
         padding: { xs: '1.5rem', md: '3rem' },
         marginTop: { xs: '2rem', md: '4rem' }, 
         borderRadius: '8px',
-      
       }}
     >
       <Typography variant="h4" align="center" sx={{ marginBottom: '2rem', color: '#333' }}>
@@ -123,7 +125,7 @@ function DetailsComponent({
         </Grid>
 
         {/*  Button */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem' }}>
           <StyledButton
             type="submit"
             variant="contained"
@@ -139,6 +141,18 @@ function DetailsComponent({
           >
             Submit
           </StyledButton>
+          {/* Link to Dashboard */}
+          <Typography variant="body2" sx={{ marginTop: '1rem', color: '#333' }}>
+            Already entered details?{' '}
+            <Link
+              component="button"
+              underline="none"
+              onClick={() => navigate('/dashboard')}
+              sx={{ color: '#e6852c', cursor: 'pointer', fontWeight: 'bold' }}
+            >
+              Go to Dashboard
+            </Link>
+          </Typography>
         </Box>
       </form>
     </Box>

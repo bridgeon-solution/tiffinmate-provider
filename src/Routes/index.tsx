@@ -1,14 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Signup from '../Pages/Signup'
-import Login from '../Pages/Login'
-import Dashboards from '../Pages/Dashboards'
-import Orderlist from '../Pages/Orderlist'
-import Details from '../Pages/Details'
-import Navbar from '../Atoms/Navbar'
+import React, { Suspense } from 'react';
+const Signup = React.lazy(() => import('../Pages/Signup'));
+const Login=React.lazy(()=>import('../Pages/Login'));
+const Dashboards=React.lazy(()=>import('../Pages/Dashboards'));
+const Orderlist=React.lazy(()=>import('../Pages/Orderlist'));
+const Details=React.lazy(()=>import('../Pages/Details'));
+const Navbar = React.lazy(() => import('../Atoms/Navbar'));
+
 
 function AppRouter() {
   return (
     <BrowserRouter>
+    <Suspense fallback={<div>Loading...</div>}>
     <Routes>
     <Route path="/" element={<Signup />} />
     <Route path='/login' element={<Login/>}/>
@@ -25,6 +28,7 @@ function AppRouter() {
           }
         />
       </Routes>
+      </Suspense>
     </BrowserRouter>
   )
 }
