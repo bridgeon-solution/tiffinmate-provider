@@ -45,7 +45,7 @@ function SignupContainer() {
           formData.append('certificateFile', values.file); 
         }
 
-        console.log('FormData contents before sending:', Array.from(formData.entries()));
+       
 
         await PostProviderSignup(formData);
 

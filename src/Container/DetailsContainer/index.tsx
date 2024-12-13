@@ -99,11 +99,9 @@ function DetailsContainer() {
         formData.append('image', values.file2);
       }
 
-        console.log(Array.from(formData.entries()));
+       
         await PostProviderDetails(formData);
     navigate('/Dashboard');
-      }catch(error:unknown){
-        console.log(error);
       } finally {
         helpers.resetForm();
       
