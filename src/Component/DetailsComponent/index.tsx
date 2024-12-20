@@ -2,7 +2,7 @@ import { Box, Typography, Grid, Link } from '@mui/material';
 import React from 'react';
 import InputField from '../../Atoms/Input';
 import StyledButton from '../../Atoms/Button';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 
 interface DetailsComponentProps {
   formValues: {
@@ -15,24 +15,29 @@ interface DetailsComponentProps {
     file2: File | null;
     accountnumber: number | null;
   };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  handleFileChange: (e: React.ChangeEvent<HTMLInputElement>, fieldName: string) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  handleFileChange: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldName: string
+  ) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-function DetailsComponent({
+const DetailsComponent: React.FC<DetailsComponentProps> = ({
   formValues,
   handleChange,
   handleSubmit,
   handleFileChange,
-}: DetailsComponentProps) {
-  const navigate = useNavigate(); // Initialize useNavigate
+}) => {
+  const navigate = useNavigate();
 
   return (
     <Box
       sx={{
         padding: { xs: '1.5rem', md: '3rem' },
-        marginTop: { xs: '2rem', md: '4rem' }, 
+        marginTop: { xs: '2rem', md: '4rem' },
         borderRadius: '8px',
       }}
     >
@@ -157,6 +162,6 @@ function DetailsComponent({
       </form>
     </Box>
   );
-}
+};
 
 export default DetailsComponent;

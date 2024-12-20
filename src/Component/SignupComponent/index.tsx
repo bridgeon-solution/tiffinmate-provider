@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material';
-
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
+
 interface SignupComponentProps {
   formValues: {
     username: string;
@@ -14,20 +14,18 @@ interface SignupComponentProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-function SignupComponent({
+const SignupComponent: React.FC<SignupComponentProps> = ({
   formValues,
   handleChange,
-  handleSubmit,
   handleFileChange,
-}: SignupComponentProps) {
+  handleSubmit,
+}) => {
   return (
     <Box 
       sx={{ 
         display: "flex", 
         flexDirection: { xs: "column", md: "row" }, 
         height: "100vh", 
-      
-       
       }}
     >
       {/* Left */}
@@ -61,11 +59,11 @@ function SignupComponent({
           <Typography 
             sx={{ 
               fontSize: { xs: "24px", md: "33px" }, 
-              fontWeight: 700 ,
-               textAlign:'center'
+              fontWeight: 700,
+              textAlign: 'center',
             }}
           >
-           SignUp
+            SignUp
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box 
@@ -105,40 +103,39 @@ function SignupComponent({
                 Submit
               </StyledButton>
               <Typography
-  sx={{
-    textAlign: "center",
-    marginTop: "1rem",
-    fontSize: "14px",
-    color: "text.primary",
-  }}
->
-  ALREADY HAVE AN ACCOUNT?{' '}
-  <Box
-    component="span"
-    sx={{
-      color: "#e6852c",
-      cursor: "pointer",
-      textDecoration: "underline",
-    }}
-  >
-    <Link
-      to="/login"
-      style={{
-        textDecoration: "none",
-        color: "#e6852c",
-      }}
-    >
-      Login
-    </Link>
-  </Box>
-</Typography>
-
+                sx={{
+                  textAlign: "center",
+                  marginTop: "1rem",
+                  fontSize: "14px",
+                  color: "text.primary",
+                }}
+              >
+                ALREADY HAVE AN ACCOUNT?{' '}
+                <Box
+                  component="span"
+                  sx={{
+                    color: "#e6852c",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
+                >
+                  <Link
+                    to="/login"
+                    style={{
+                      textDecoration: "none",
+                      color: "#e6852c",
+                    }}
+                  >
+                    Login
+                  </Link>
+                </Box>
+              </Typography>
             </Box>
           </form>
         </Box>
       </Box>
     </Box>
   );
-}
+};
 
 export default SignupComponent;
