@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React, { Suspense } from 'react';
+import Addmenu from '../Pages/AddMenu';
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login=React.lazy(()=>import('../Pages/Login'));
 const Dashboards=React.lazy(()=>import('../Pages/Dashboards'));
-const Orderlist=React.lazy(()=>import('../Pages/Orderlist'));
 const Details=React.lazy(()=>import('../Pages/Details'));
 const Navbar = React.lazy(() => import('../Atoms/Navbar'));
 
@@ -22,7 +22,7 @@ function AppRouter() {
                 <Navbar>
                 <Routes>
                 <Route path='/Dashboard' element={<Dashboards/>} />
-                <Route path='/Orderlist' element={<Orderlist/>} />
+                <Route path='/addmenu' element={<Addmenu/>} />
                 </Routes>
                 </Navbar>
           }

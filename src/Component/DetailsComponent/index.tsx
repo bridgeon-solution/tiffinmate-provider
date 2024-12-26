@@ -2,7 +2,7 @@ import { Box, Typography, Grid, Link } from '@mui/material';
 import React from 'react';
 import InputField from '../../Atoms/Input';
 import StyledButton from '../../Atoms/Button';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 
 interface DetailsComponentProps {
   formValues: {
@@ -26,7 +26,7 @@ function DetailsComponent({
   handleSubmit,
   handleFileChange,
 }: DetailsComponentProps) {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();     
 
   return (
     <Box
