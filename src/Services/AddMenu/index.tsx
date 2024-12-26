@@ -9,7 +9,6 @@ export const AddMenuItem = async (formData: FormData) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Error adding menu item:', error);
     throw error;
   }
 };
@@ -17,10 +16,8 @@ export const AddMenuItem = async (formData: FormData) => {
 export const Getcategory = async () => {
   try {
     const response = await api.get('/FoodItem/category');
-    console.log(response.data.result);
     return response.data.result; 
   } catch (error) {
-    console.error('Error getting categories:', error);
     throw error;
   }
 };
@@ -28,10 +25,8 @@ export const Getcategory = async () => {
 export const GetMenu = async (providerId : string) => {
   try {
     const response = await api.get(`/FoodItem/menu/${providerId}`); 
-    return response.data.result; 
-   
+    return response.data.result;  
   } catch (error) {
-    console.error('Error getting menu:', error);
     throw error;
   }
 };
@@ -42,7 +37,6 @@ export const Getfooditem = async (providerId : string) => {
     
     return response.data.result; 
   } catch (error) {
-    console.error('Error getting fooditem:', error);
     throw error;
   }
 };

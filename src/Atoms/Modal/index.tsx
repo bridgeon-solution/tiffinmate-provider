@@ -33,7 +33,7 @@ const BasicModal: React.FC<BasicModalProps> = ({
           width: "60%",
           height: "80%",
           overflow: "auto",
-          // position: "relative"
+         
         }}
       >
         <IconButton

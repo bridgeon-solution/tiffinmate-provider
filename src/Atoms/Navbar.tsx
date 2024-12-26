@@ -102,18 +102,12 @@ const menuItems = [
 ];
 
 export default function NavBar({ children }: { children: React.ReactNode }) {
-  // const theme = useTheme();
+  
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const navigate = useNavigate();
 
-  // const handleDrawerOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleDrawerClose = () => {
-  //   setOpen(false);
-  // };
+  
 
   const handleMenuItemClick = (index: number) => {
     setActiveIndex(index);
@@ -172,10 +166,10 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
                   backgroundColor:
                     activeIndex === index ? "#FF943126" : "inherit",
                   "&:hover": {
-                    backgroundColor: "#FF943126", // Red background on hover
+                    backgroundColor: "#FF943126", 
                   },
                   borderLeft:
-                    activeIndex === index ? "3px solid #e6852c" : "none", // Left border when active
+                    activeIndex === index ? "3px solid #e6852c" : "none", 
                 }}
               >
                 <ListItemIcon
@@ -225,7 +219,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         <AccountCircleIcon 
           sx={{ position: "absolute", top: 20, right: 30, fontSize: 25 }}
         />
-        {/* <DrawerHeader /> */}
+       
         {children}
       </Box>
     </Box>

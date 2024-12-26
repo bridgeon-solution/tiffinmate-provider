@@ -51,7 +51,7 @@ const AddMenuContainer: React.FC = () => {
           }))
         );
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        throw error;
       }
     };
     fetchCategories();
@@ -75,7 +75,7 @@ const AddMenuContainer: React.FC = () => {
         );
        
       } catch (error) {
-        console.error("Error fetching menu items:", error);
+        throw error;
       }
     };
   
