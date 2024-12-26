@@ -849,6 +849,8 @@
   version "18.3.5"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.3.5.tgz"
   integrity sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==
+<<<<<<< HEAD
+=======
 
 "@types/react-router-dom@^5.3.3":
   version "5.3.3"
@@ -866,6 +868,7 @@
   dependencies:
     "@types/history" "^4.7.11"
     "@types/react" "*"
+>>>>>>> 2bdc1e693e56216f3cdb8281ed6db4c1c115e39d
 
 "@types/react-transition-group@^4.4.11":
   version "4.4.11"

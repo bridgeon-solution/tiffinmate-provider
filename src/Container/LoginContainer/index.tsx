@@ -70,22 +70,13 @@ function LoginContainer() {
       }
     },
     
-  });
-
- 
+  }); 
   const { values, handleChange, handleSubmit} = formik;
-
- 
- 
-
   return (
     <LoginComponent
       formValues={values}
       handleChange={handleChange}
-      handleSubmit={handleSubmit}
-     
-     
-      
+      handleSubmit={handleSubmit}    
     />
   );
 }
