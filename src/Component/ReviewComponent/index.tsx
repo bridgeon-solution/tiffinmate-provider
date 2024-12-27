@@ -9,15 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import PaginationRounded from "../../Atoms/Pagination";
+import { Review } from "../../Container/ReviewContainer/types";
 
-// types.ts
-export interface Review {
-  id: string;
-  username: string;
-  review: string;
-  image?: string;
-  created_at?: string;
-}
 
 interface ReviewsComponentProps {
   reviews: Review[];
@@ -53,7 +46,7 @@ const ReviewsComponent: React.FC<ReviewsComponentProps> = ({
     return <Typography color="error">{error}</Typography>;
   }
 
-  console.log(reviews);
+  
 
   let totalPage = 0;
   if (totalPages % 6 === 0) {

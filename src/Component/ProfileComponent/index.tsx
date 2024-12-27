@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Grid, Avatar, CircularProgress, Stack, Button } from "@mui/material";
 import GetProfile from "../../Services/Profile";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface ProviderData {
   username: string;
@@ -26,7 +27,8 @@ const ProfileCard: React.FC = () => {
         const result = await GetProfile();
         setProviderData(result);
       } catch (error) {
-        console.error("Error fetching provider data", error);
+        toast.error("Error fetching provider data"+error)
+       
       } finally {
         setLoading(false);
       }

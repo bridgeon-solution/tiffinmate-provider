@@ -5,6 +5,7 @@ import SignupComponent from '../../Component/SignupComponent';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PostProviderSignup from '../../Services/SignUp';
+import { toast } from 'react-toastify';
 
 interface SignupFormValues {
   username: string;
@@ -54,11 +55,12 @@ function SignupContainer() {
         navigate('/login');
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Error response:', error.response?.data);
-          alert(`Error: ${error.response?.data?.title || 'Registration failed. Please try again.'}`);
+          toast.error('Error response:', error.response?.data);
+ 
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+         
+      
+          toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
         helpers.resetForm();

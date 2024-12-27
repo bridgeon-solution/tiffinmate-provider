@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ForgotContainer from '../Container/ForgotPasswordContainer'
 
 function ForgotMail() {

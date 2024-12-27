@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import GetAllReview from '../../Services/Reviews';
 import ReviewsComponent from '../../Component/ReviewComponent';
+import { Review } from './types';
 
 
-export interface Review {
-  id: string;
-  username: string;
-  review: string;
-  image?: string;
-  created_at?: string;
-}
+
 
 const ReviewsContainer: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -28,7 +23,7 @@ const ReviewsContainer: React.FC = () => {
       setLoading(true); // Reset loading state
       try {
         const data = await GetAllReview(page, filter, search);
-   console.log(data[0].totalCount);
+ 
    
        
         

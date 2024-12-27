@@ -1,4 +1,4 @@
-import React from 'react'
+
 import ResetPasswordContainer from '../Container/ResetPassword'
 
 function ResetingPassword() {

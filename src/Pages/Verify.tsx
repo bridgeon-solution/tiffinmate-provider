@@ -1,4 +1,4 @@
-import React from 'react'
+
 import OtpContainer from '../Container/VerifyContainer'
 
 function Verify() {

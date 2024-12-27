@@ -5,6 +5,7 @@ import LoginComponent from '../../Component/LoginComponent';
 import PostProviderLogin from '../../Services/Login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 interface LoginFormValues {
   email: string;
@@ -48,22 +49,26 @@ function LoginContainer() {
       localStorage.setItem("token", token);
       localStorage.setItem('id', id);
       localStorage.setItem('username', email);
-          alert('Login successful!');
+        
+          toast.success('Login successful!');
           navigate('/details');
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Axios error:', error.response?.data || error.message);
-    
+          
+    toast.error('Axios error:', error.response?.data || error.message)
           if (error.response?.status === 401) {
-            alert('Incorrect email or password. Please try again.');
+           
+            toast.error("Incorrect email or password. Please try again.")
           } 
           else {
-            alert(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`);
+            
+            toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
           }
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+      
+        
+          toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
         helpers.resetForm();

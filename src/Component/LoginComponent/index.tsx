@@ -108,7 +108,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                   }}
                 >
                   <Link
-                    to="/signup"
+                    to="/"
                     style={{
                       textDecoration: 'none',
                       color: '#e6852c',

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ResetPasswordComponent from '../../Component/ResetPasswprdComponent';
 import PostResetPassword from '../../Services/ResetPassword';
+import { toast } from 'react-toastify';
 
 interface ResetPasswordValues {
   email: string;
@@ -41,17 +42,20 @@ function ResetPasswordContainer() {
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Axios error:', error.response?.data || error.message);
-    
+     
+    toast.error('Axios error:', error.response?.data || error.message)
           if (error.response?.status === 401) {
-            alert('Incorrect email or password. Please try again.');
+            toast.error('Incorrect email or password. Please try again.')
+           
           } 
           else {
-            alert(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`);
+           
+            toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
           }
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+      
+       
+          toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
         helpers.resetForm();

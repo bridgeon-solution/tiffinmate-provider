@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ForgotPassword from '../../Services/ForgotPassword';
 import ForgotComponent from '../../Component/ForgotPassword';
+import { toast } from 'react-toastify';
 
 interface ForgotPasswordFormValues {
   email: string;
@@ -29,14 +30,12 @@ function ForgotContainer() {
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.error('Axios error:', error.response?.data || error.message);
-          alert(
-            error.response?.data?.message ||
-            'An error occurred. Please try again.'
-          );
+         
+          toast.error('Axios error:', error.response?.data || error.message)
+          
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+          toast.error('An unexpected error occurred. Please try again.')
+         
         }
       } finally {
         helpers.resetForm();

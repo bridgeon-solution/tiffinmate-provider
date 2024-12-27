@@ -3,6 +3,7 @@ import GetProfile from "../../Services/Profile";
 import PutProfile from "../../Services/EditProfile";
 import { Box, TextField, Typography, Avatar, FormControl, Input, FormHelperText } from "@mui/material";
 import StyledButton from "../../Atoms/Button";
+import { toast } from "react-toastify";
 
 interface ProviderData {
     username: string;
@@ -31,7 +32,8 @@ const EditProviderFormComponent: React.FC = () => {
                 const result = await GetProfile();
                 setProviderData(result);
             } catch (error) {
-                console.error("Error fetching provider data", error);
+                toast.error("Error fetching provider data"+ error);
+                
             }
         };
         fetchData();
@@ -63,7 +65,8 @@ const EditProviderFormComponent: React.FC = () => {
         if (providerId) {
             formData.append("provider_id", providerId);
         } else {
-            alert("Provider ID is missing. Please log in again.");
+           
+            toast.warning("Provider ID is missing. Please log in again.");
             setLoading(false);
             return;
         }
@@ -79,10 +82,11 @@ const EditProviderFormComponent: React.FC = () => {
     
         try {
             await PutProfile(formData);
-            alert("Profile updated successfully!");
+             toast.success("Profile updated successfully!");
         } catch (error) {
-            console.error("Error updating profile:", error);
-            alert("Error updating profile: " + error);
+          
+            toast.error("Error updating profile:"+error)
+          
         } finally {
             setLoading(false);
         }

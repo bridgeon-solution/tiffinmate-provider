@@ -12,6 +12,8 @@ const Login=React.lazy(()=>import('../Pages/Login'));
 const Dashboards=React.lazy(()=>import('../Pages/Dashboards'));
 const Details=React.lazy(()=>import('../Pages/Details'));
 const Navbar = React.lazy(() => import('../Atoms/Navbar'));
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 
 function AppRouter() {
@@ -41,6 +43,8 @@ function AppRouter() {
         />
       </Routes>
       </Suspense>
+      <ToastContainer/>
+
     </BrowserRouter>
   )
 }

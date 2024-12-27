@@ -9,8 +9,8 @@ const GetAllReview = async (page: number, filter: 'true' | 'false' = 'false',sea
   
     return response.data.result;
   } catch (error) {
-    console.error('Error fetching reviews:', error);
-    throw new Error('Failed to fetch reviews');
+   
+    throw new Error('Failed to fetch reviews'+error);
   }
 };
 
