@@ -98,10 +98,9 @@ function DetailsContainer() {
       if (values.file2) {
         formData.append('image', values.file2);
       }
-
-       
+ 
         await PostProviderDetails(formData);
-    navigate('/Dashboard');
+    navigate('/addmenu');
       } finally {
         helpers.resetForm();
       
@@ -114,9 +113,6 @@ function DetailsContainer() {
     setFieldValue(fieldName, file);
     
   }
-
-  
-
   return (
     <div>
     <DetailsComponent
