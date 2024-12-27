@@ -3,7 +3,7 @@ import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
 
-interface LoginComponentProps {
+interface ResetComponentProps {
   formValues: {
     email: string;
     password: string;
@@ -12,7 +12,7 @@ interface LoginComponentProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const LoginComponent: React.FC<LoginComponentProps> = ({
+const ResetPasswordComponent: React.FC<ResetComponentProps> = ({
   formValues,
   handleChange,
   handleSubmit,
@@ -61,7 +61,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
               textAlign: 'center',
             }}
           >
-            Login
+            Reset Password
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box
@@ -154,4 +154,4 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
   );
 };
 
-export default LoginComponent;
+export default ResetPasswordComponent;

@@ -17,7 +17,9 @@ function SignupContainer() {
 
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    email: Yup.string()
+    .required('Email is required')
+    .test('containsAt', 'Email must contain @', (value) => value?.includes('@')),
     file: Yup.mixed<File>()
       .nullable()
       .required('File is required')

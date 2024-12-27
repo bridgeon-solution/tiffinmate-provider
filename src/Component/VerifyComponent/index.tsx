@@ -1,18 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
-import InputField from '../../Atoms/Input';
-import { Link } from 'react-router-dom';
+import InputField from '../../Atoms/Input'
 
-interface LoginComponentProps {
+interface OtpComponentProps {
   formValues: {
     email: string;
-    password: string;
+    otp: string;
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const LoginComponent: React.FC<LoginComponentProps> = ({
+const OtpComponent: React.FC<OtpComponentProps> = ({
   formValues,
   handleChange,
   handleSubmit,
@@ -28,7 +27,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
       {/* Left Section */}
       <Box
         sx={{
-          display: { xs: 'none', md: 'block' },
+          display: { xs: "none", md: "block" },
           flex: 1.5,
         }}
       >
@@ -36,9 +35,9 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
           src="https://artandcreativity.com/wp-content/uploads/2019/03/food-photography-101.jpg"
           alt="auth-image"
           style={{
-            objectFit: 'cover',
-            width: '100%',
-            height: '100%',
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
           }}
         />
       </Box>
@@ -61,7 +60,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
               textAlign: 'center',
             }}
           >
-            Login
+            Enter OTP
           </Typography>
           <form onSubmit={handleSubmit}>
             <Box
@@ -72,6 +71,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                 marginTop: '2rem',
               }}
             >
+              {/* Email Field */}
               <InputField
                 label="Email"
                 variant="outlined"
@@ -79,16 +79,20 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                 name="email"
                 onChange={handleChange}
               />
+              {/* OTP Field */}
               <InputField
-                label="Password"
+                label="6-Digit OTP"
                 variant="outlined"
-                value={formValues.password}
-                name="password"
+                value={formValues.otp}
+                name="otp"
                 onChange={handleChange}
-                type="password"
+                inputProps={{
+                  maxLength: 6,
+                  inputMode: 'numeric',
+                }}
               />
               <StyledButton type="submit" variant="contained">
-                Submit
+                Verify
               </StyledButton>
               <Typography
                 sx={{
@@ -98,7 +102,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                   color: 'text.primary',
                 }}
               >
-                Don't have an account?{' '}
+                Didn't receive the OTP?{' '}
                 <Box
                   component="span"
                   sx={{
@@ -107,43 +111,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                     textDecoration: 'underline',
                   }}
                 >
-                  <Link
-                    to="/signup"
-                    style={{
-                      textDecoration: 'none',
-                      color: '#e6852c',
-                    }}
-                  >
-                    Register Now.
-                  </Link>
-                </Box>
-              </Typography>
-              <Typography
-                sx={{
-                  textAlign: 'center',
-                  marginTop: '1rem',
-                  fontSize: '14px',
-                  color: 'text.primary',
-                }}
-              >
-                Forgot Password?{' '}
-                <Box
-                  component="span"
-                  sx={{
-                    color: '#e6852c',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                  }}
-                >
-                  <Link
-                    to="/mail"
-                    style={{
-                      textDecoration: 'none',
-                      color: '#e6852c',
-                    }}
-                  >
-                    Reset.
-                  </Link>
+                  Resend.
                 </Box>
               </Typography>
             </Box>
@@ -154,4 +122,4 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
   );
 };
 
-export default LoginComponent;
+export default OtpComponent;
