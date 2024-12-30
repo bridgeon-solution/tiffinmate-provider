@@ -1,8 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Grid, Avatar, CircularProgress, Stack, Button } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Grid,
+  Avatar,
+  CircularProgress,
+  Stack,
+  Button,
+  Modal,
+} from "@mui/material";
 import GetProfile from "../../Services/Profile";
-import { useNavigate } from "react-router-dom";
+// import EditProviderFormComponent from "./EditProviderFormComponent";
+// import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import EditProviderFormComponent from "../EditProfileComponent";
 
 interface ProviderData {
   username: string;
@@ -18,23 +29,26 @@ interface ProviderData {
 const ProfileCard: React.FC = () => {
   const [providerData, setProviderData] = useState<ProviderData | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the data
     const fetchData = async () => {
       try {
         const result = await GetProfile();
         setProviderData(result);
       } catch (error) {
-        toast.error("Error fetching provider data"+error)
-       
+        toast.error("Error fetching provider data: " + error);
       } finally {
         setLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  const handleModalOpen = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
 
   if (loading) {
     return (
@@ -53,16 +67,16 @@ const ProfileCard: React.FC = () => {
 
   return (
     <Box
-    sx={{
-      maxWidth: 1200,
-      margin: "0 auto",
-      padding: 4,
-      typography: "body1",
-      backgroundColor: "#fff",
-      borderRadius: 2,
-      boxShadow: 3,
-      mt: 4,  // Adding margin-top with value 4 (you can adjust this value as needed)
-    }}
+      sx={{
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: 4,
+        typography: "body1",
+        backgroundColor: "#fff",
+        borderRadius: 2,
+        boxShadow: 3,
+        mt: 4,
+      }}
     >
       {/* Profile Header */}
       <Stack direction="row" spacing={3} alignItems="center" mb={4}>
@@ -72,7 +86,7 @@ const ProfileCard: React.FC = () => {
           sx={{
             width: 120,
             height: 120,
-            border: "3px solid #e6852c", 
+            border: "3px solid #e6852c",
           }}
         />
         <Box>
@@ -87,12 +101,12 @@ const ProfileCard: React.FC = () => {
             color="primary"
             sx={{
               textTransform: "none",
-              backgroundColor: "#e6852c", 
+              backgroundColor: "#e6852c",
               "&:hover": {
-                backgroundColor: "#b8621b", 
+                backgroundColor: "#b8621b",
               },
             }}
-            onClick={() => navigate("/edit")}
+            onClick={handleModalOpen}
           >
             Edit Profile
           </Button>
@@ -103,6 +117,7 @@ const ProfileCard: React.FC = () => {
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Personal Information
       </Typography>
+      {/* Grid for displaying information */}
       <Grid container spacing={3} mb={4}>
         <Grid item xs={12} sm={6}>
           <Typography variant="body2" fontWeight="bold" color="text.secondary">
@@ -129,7 +144,6 @@ const ProfileCard: React.FC = () => {
           <Typography variant="body1">{providerData?.address || "N/A"}</Typography>
         </Grid>
       </Grid>
-
       {/* Account Information */}
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Account Information
@@ -155,7 +169,6 @@ const ProfileCard: React.FC = () => {
           </Typography>
         </Grid>
       </Grid>
-
       {/* Certificates */}
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Certificates
@@ -185,6 +198,32 @@ const ProfileCard: React.FC = () => {
           No certificates available
         </Typography>
       )}
+    
+        {/* Add other personal details */}
+      
+
+      {/* Modal for Edit Profile */}
+      <Modal
+  open={isModalOpen}
+  onClose={handleModalClose}
+  sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+>
+  <Box
+    sx={{
+      backgroundColor: "white",
+      p: 4,
+      borderRadius: 2,
+      boxShadow: 24,
+      width: "90%",
+      maxWidth: 600,
+      mt: 4, // Add margin-top
+      mb: 4, // Add margin-bottom
+    }}
+  >
+    <EditProviderFormComponent />
+  </Box>
+</Modal>
+
     </Box>
   );
 };

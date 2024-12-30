@@ -51,7 +51,7 @@ function SignupContainer() {
        
 
         await PostProviderSignup(formData);
-
+        toast.success('success');
         navigate('/login');
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
