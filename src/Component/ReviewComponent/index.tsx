@@ -57,21 +57,21 @@ const ReviewsComponent: React.FC<ReviewsComponentProps> = ({
 
   return (
     <Box padding={3}>
-      {/* Customer Reviews Section */}
+      
       <Typography
         variant="h4"
         sx={{
           fontWeight: "bold",
           textAlign: "left",
           marginBottom: 1,
-          marginTop: 3, // Added mt
-          color: "#e6852c", // Updated color
+          marginTop: 3, 
+          color: "#e6852c", 
         }}
       >
         Customer Reviews
       </Typography>
 
-      {/* Grid container for search bar and sorting dropdown */}
+   
       <Grid container spacing={3} justifyContent="space-between" sx={{ marginBottom: 3 }}>
         {/* Search Bar */}
         <Grid item xs={12} sm={6} md={6}>
@@ -96,7 +96,7 @@ const ReviewsComponent: React.FC<ReviewsComponentProps> = ({
         <Grid item xs={12} sm={6} md={3}>
           <TextField
             select
-            label="Sort by created_at"
+            label="Sort"
             value={filter}
             onChange={handleFilterChange}
             SelectProps={{
@@ -122,12 +122,16 @@ const ReviewsComponent: React.FC<ReviewsComponentProps> = ({
           <Grid item xs={12} sm={6} md={4} key={review.id}>
             <Card
               sx={{
-                maxWidth: 350,
+                
+                 maxHeight: 400,
                 boxShadow: 3,
                 borderRadius: 2,
                 padding: 2,
+                width:"70",
+                height:150,
                 transition: "transform 0.2s",
                 "&:hover": { transform: "scale(1.05)", boxShadow: 6 },
+                overflow:"auto",
               }}
             >
               <Box sx={{ display: "flex", alignItems: "center" }}>
