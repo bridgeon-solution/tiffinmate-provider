@@ -20,18 +20,18 @@ const ReviewsContainer: React.FC = () => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      setLoading(true); // Reset loading state
+      setLoading(true);
       try {
         const data = await GetAllReview(page, filter, search);
- 
-   
-       
         
-          setReviews(data[0].reviews || []); 
-          setTotalPages(data[0].totalCount); // Calculate total pages
-       
-          
-         
+        if(data && data.length>0 && data[0]){
+              setReviews(data[0].reviews || []); 
+          setTotalPages(data[0].totalCount); 
+        }
+         else{
+          setReviews([]);
+          setTotalPages(0);
+         }
        
       } catch (err: unknown) {
         setError(err instanceof Error ? err.message : 'An unknown error occurred');
