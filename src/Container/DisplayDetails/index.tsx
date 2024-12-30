@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import {MenuDisplay} from '../../Component/DisplayMenu/index';
 import {Getcategory,Getfooditem} from '../../Services/AddMenu/index';
+import { toast } from 'react-toastify';
 
 interface Menu {
   id: string; 
@@ -44,8 +45,9 @@ const DisplayMenuDetails: React.FC = () => {
         setFoodList(foodData || []); 
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch menu or food items. Please try again later.');
+        setError('Failed to fetch menu or food items. Please try again later.'+err);
         setLoading(false);
+        toast.error('Failed to fetch menu or food items. Please try again later.')
       }
     };
     

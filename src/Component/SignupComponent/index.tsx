@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 interface SignupComponentProps {
   formValues: {
@@ -20,6 +21,16 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleFileChange,
   handleSubmit,
 }) => {
+  const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(e);
+
+    // Mock success response
+    setIsSignupSuccessful(true);
+  };
+
   return (
     <Box 
       sx={{ 
@@ -65,7 +76,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
           >
             SignUp
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={onSubmit}>
             <Box 
               sx={{ 
                 display: "flex", 
@@ -102,6 +113,20 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
               <StyledButton type="submit" variant="contained">
                 Submit
               </StyledButton>
+
+              {isSignupSuccessful && (
+                <Typography
+                  sx={{
+                    color: "red",
+                    fontSize: "14px",
+                    marginTop: "0.5rem",
+                    textAlign: "center",
+                  }}
+                >
+                  Signup successful! You will receive a password in your email after verification.
+                </Typography>
+              )}
+
               <Typography
                 sx={{
                   textAlign: "center",

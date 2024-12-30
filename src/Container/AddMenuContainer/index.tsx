@@ -4,6 +4,7 @@ import { AddMenuItem, Getcategory, GetMenu } from "../../Services/AddMenu";
 import { Button, SelectChangeEvent } from "@mui/material";
 import BasicModal from "../../Atoms/Modal";
 import { FormComponent } from "../../Component/AddMenu/index";
+import { toast } from "react-toastify";
 
 interface Category {
   id: string;
@@ -42,7 +43,7 @@ const AddMenuContainer: React.FC = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      try {
+      
         const data = await Getcategory();
         setCategories(
           data.map((category: { id: string; category_name: string }) => ({
@@ -50,19 +51,16 @@ const AddMenuContainer: React.FC = () => {
             category_name: category.category_name, 
           }))
         );
-      } catch (error) {
-        throw error;
-      }
     };
     fetchCategories();
   }, []);
 
   useEffect(() => {
     const fetchProviderMenu = async () => {
-      try {
+      
         const providerId = localStorage.getItem("id");
         if (!providerId) {
-          alert("Please login");
+          toast.warning("Please login")
           return;
         }
         const data = await GetMenu(providerId); 
@@ -74,9 +72,7 @@ const AddMenuContainer: React.FC = () => {
           }))
         );
        
-      } catch (error) {
-        throw error;
-      }
+      
     };
   
     fetchProviderMenu();
@@ -148,7 +144,8 @@ const AddMenuContainer: React.FC = () => {
     try {
       const providerId = localStorage.getItem("id");
       if (!providerId) {
-        alert("Please login");
+       
+        toast.warning("Please login")
         return;
       }
 
@@ -164,10 +161,10 @@ const AddMenuContainer: React.FC = () => {
         formData.append("image", formdata.Image);
       }
 
-      console.log([...formData.entries()]); 
+     
 
       await AddMenuItem(formData);
-      alert("Menu saved successfully!");
+      toast.success("Menu saved successfully!");
       setFormData({
         MenuName: "",
         Description: "",
@@ -178,9 +175,9 @@ const AddMenuContainer: React.FC = () => {
         Category: "",
       });
       setOpenModal(false);
-    } catch (error: any) {
-      console.error("Error saving menu:", error);
-      alert(error.response?.data?.message || "Failed to save menu");
+    } catch{
+      
+      toast.error( "Failed to save menu");
     } finally {
       setIsSubmitting(false);
     }

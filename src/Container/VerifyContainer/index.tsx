@@ -1,72 +1,60 @@
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
-import LoginComponent from '../../Component/LoginComponent';
-import PostProviderLogin from '../../Services/Login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import OtpComponent from '../../Component/VerifyComponent';
+import PostOTP from '../../Services/OTP';
 import { toast } from 'react-toastify';
 
-interface LoginFormValues {
+interface VerifyOTOValues {
   email: string;
-  password: string;
+  otp: string;
 
 }
 
-function LoginContainer() {
+function OtpContainer() {
  const navigate=useNavigate();
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    otp: Yup.string().required('Password is required'),
    
   });
 
  
-  const formik = useFormik<LoginFormValues>({
+  const formik = useFormik<VerifyOTOValues>({
     initialValues: {
       email: '',
-      password: '',
+      otp: '',
      
     },
     validationSchema,
-    onSubmit: async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+    onSubmit: async (values: VerifyOTOValues, helpers: FormikHelpers<VerifyOTOValues>) => {
       try {
         const formData = new FormData();
         formData.append("email", values.email);
-        formData.append("password", values.password);
+        formData.append("otp", values.otp);
         
-        const response = await PostProviderLogin(formData);
-        
-    
-
-       
-     
+        const response = await PostOTP(formData);
+ 
         if (response.status== "success") {
-       
-          const { id, email, token } = response.result;
-
-      
-      localStorage.setItem("token", token);
-      localStorage.setItem('id', id);
-      localStorage.setItem('username', email);
-        
-          toast.success('Login successful!');
-          navigate('/details');
+ 
+          navigate('/resetpassword');
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          
-    toast.error('Axios error:', error.response?.data || error.message)
+         
+           toast.error('Axios error:', error.response?.data || error.message)
           if (error.response?.status === 401) {
-           
-            toast.error("Incorrect email or password. Please try again.")
+          
+            toast.error('Incorrect email or password. Please try again.')
           } 
           else {
-            
+           
             toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
           }
         } else {
-      
+         
         
           toast.error('An unexpected error occurred. Please try again.')
         }
@@ -75,15 +63,24 @@ function LoginContainer() {
       }
     },
     
-  }); 
+  });
+
+ 
   const { values, handleChange, handleSubmit} = formik;
+
+ 
+ 
+
   return (
-    <LoginComponent
+    <OtpComponent
       formValues={values}
       handleChange={handleChange}
-      handleSubmit={handleSubmit}    
+      handleSubmit={handleSubmit}
+     
+     
+      
     />
   );
 }
 
-export default LoginContainer;
+export default OtpContainer;

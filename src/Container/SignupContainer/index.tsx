@@ -5,6 +5,7 @@ import SignupComponent from '../../Component/SignupComponent';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PostProviderSignup from '../../Services/SignUp';
+import { toast } from 'react-toastify';
 
 interface SignupFormValues {
   username: string;
@@ -17,7 +18,9 @@ function SignupContainer() {
 
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    email: Yup.string()
+    .required('Email is required')
+    .test('containsAt', 'Email must contain @', (value) => value?.includes('@')),
     file: Yup.mixed<File>()
       .nullable()
       .required('File is required')
@@ -52,11 +55,12 @@ function SignupContainer() {
         navigate('/login');
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Error response:', error.response?.data);
-          alert(`Error: ${error.response?.data?.title || 'Registration failed. Please try again.'}`);
+          toast.error('Error response:', error.response?.data);
+ 
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+         
+      
+          toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
         helpers.resetForm();

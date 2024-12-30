@@ -1,19 +1,18 @@
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-
-import LoginComponent from '../../Component/LoginComponent';
-import PostProviderLogin from '../../Services/Login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ResetPasswordComponent from '../../Component/ResetPasswprdComponent';
+import PostResetPassword from '../../Services/ResetPassword';
 import { toast } from 'react-toastify';
 
-interface LoginFormValues {
+interface ResetPasswordValues {
   email: string;
   password: string;
 
 }
 
-function LoginContainer() {
+function ResetPasswordContainer() {
  const navigate=useNavigate();
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
@@ -22,52 +21,40 @@ function LoginContainer() {
   });
 
  
-  const formik = useFormik<LoginFormValues>({
+  const formik = useFormik<ResetPasswordValues>({
     initialValues: {
       email: '',
       password: '',
      
     },
     validationSchema,
-    onSubmit: async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+    onSubmit: async (values: ResetPasswordValues, helpers: FormikHelpers<ResetPasswordValues>) => {
       try {
         const formData = new FormData();
         formData.append("email", values.email);
         formData.append("password", values.password);
         
-        const response = await PostProviderLogin(formData);
-        
-    
+        const response = await PostResetPassword(formData);
 
-       
-     
         if (response.status== "success") {
-       
-          const { id, email, token } = response.result;
 
-      
-      localStorage.setItem("token", token);
-      localStorage.setItem('id', id);
-      localStorage.setItem('username', email);
-        
-          toast.success('Login successful!');
-          navigate('/details');
+          navigate('/Login');
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          
+     
     toast.error('Axios error:', error.response?.data || error.message)
           if (error.response?.status === 401) {
+            toast.error('Incorrect email or password. Please try again.')
            
-            toast.error("Incorrect email or password. Please try again.")
           } 
           else {
-            
+           
             toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
           }
         } else {
       
-        
+       
           toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
@@ -75,15 +62,24 @@ function LoginContainer() {
       }
     },
     
-  }); 
+  });
+
+ 
   const { values, handleChange, handleSubmit} = formik;
+
+ 
+ 
+
   return (
-    <LoginComponent
+    <ResetPasswordComponent
       formValues={values}
       handleChange={handleChange}
-      handleSubmit={handleSubmit}    
+      handleSubmit={handleSubmit}
+     
+     
+      
     />
   );
 }
 
-export default LoginContainer;
+export default ResetPasswordContainer;
