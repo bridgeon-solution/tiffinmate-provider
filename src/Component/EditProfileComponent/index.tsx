@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GetProfile from "../../Services/Profile";
-import PutProfile from "../../Services/EditProfile";
+import UpdateProfile from "../../Services/EditProfile";
 import { Box, TextField, Typography, Avatar, FormControl, Input, FormHelperText, IconButton } from "@mui/material";
 import StyledButton from "../../Atoms/Button";
 import { toast } from "react-toastify";
@@ -92,7 +92,7 @@ interface EditProviderFormProps {
         }
     
         try {
-            await PutProfile(formData);
+            await UpdateProfile(formData);
              toast.success("Profile updated successfully!");
         } catch (error: unknown) {
             if (error instanceof AxiosError && error.response && error.response.data) {
