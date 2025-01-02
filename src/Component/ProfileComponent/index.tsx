@@ -15,6 +15,8 @@ import GetProfile from "../../Services/Profile";
 import { toast } from "react-toastify";
 import EditProviderFormComponent from "../EditProfileComponent";
 
+
+
 interface ProviderData {
   username: string;
   email: string;
@@ -198,9 +200,6 @@ const ProfileCard: React.FC = () => {
           No certificates available
         </Typography>
       )}
-    
-        {/* Add other personal details */}
-      
 
       {/* Modal for Edit Profile */}
       <Modal
@@ -216,11 +215,11 @@ const ProfileCard: React.FC = () => {
       boxShadow: 24,
       width: "90%",
       maxWidth: 600,
-      mt: 4, // Add margin-top
-      mb: 4, // Add margin-bottom
+      mt: 4, 
+      mb: 4, 
     }}
   >
-    <EditProviderFormComponent />
+    <EditProviderFormComponent handleModalClose={handleModalClose}  />
   </Box>
 </Modal>
 

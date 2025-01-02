@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TotalUsers from '../Pages/users';
 
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login = React.lazy(() => import('../Pages/Login'));
@@ -37,6 +38,7 @@ function AppRouter() {
                   <Route path="/Reviews" element={<ProviderReview />} />
                   <Route path="/profile" element={<ProfileCard />} />
                   <Route path="/edit" element={<EditProfile />} />
+                  <Route path="/users" element={<TotalUsers />} />
                 </Routes>
               </Navbar>
             }

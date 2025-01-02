@@ -2,7 +2,8 @@ import { Box, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+
+// import React, { useState } from 'react';
 
 interface SignupComponentProps {
   formValues: {
@@ -13,6 +14,7 @@ interface SignupComponentProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isSignupSuccessful: boolean;
 }
 
 const SignupComponent: React.FC<SignupComponentProps> = ({
@@ -20,15 +22,16 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleChange,
   handleFileChange,
   handleSubmit,
+  isSignupSuccessful
 }) => {
-  const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+ 
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     handleSubmit(e);
 
-    // Mock success response
-    setIsSignupSuccessful(true);
+   
+   
   };
 
   return (

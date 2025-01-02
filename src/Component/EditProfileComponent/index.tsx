@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import GetProfile from "../../Services/Profile";
 import PutProfile from "../../Services/EditProfile";
-import { Box, TextField, Typography, Avatar, FormControl, Input, FormHelperText } from "@mui/material";
+import { Box, TextField, Typography, Avatar, FormControl, Input, FormHelperText, IconButton } from "@mui/material";
 import StyledButton from "../../Atoms/Button";
 import { toast } from "react-toastify";
-
+import { AxiosError } from "axios";
+import CloseIcon from "@mui/icons-material/Close";
 interface ProviderData {
     username: string;
     email: string;
@@ -12,8 +13,10 @@ interface ProviderData {
     phone_no: number;
     logo: string;
 }
-
-const EditProviderFormComponent: React.FC = () => {
+interface EditProviderFormProps {
+    handleModalClose: () => void;
+  }
+  const EditProviderFormComponent: React.FC<EditProviderFormProps> = ({ handleModalClose }) => {
     const [providerData, setProviderData] = useState<ProviderData>({
         username: "",
         email: "",
@@ -54,11 +57,19 @@ const EditProviderFormComponent: React.FC = () => {
             setLogoPreview(URL.createObjectURL(file));
         }
     };
-
+    const validateEmail = (email: string) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-    
+          // Email validation check
+          if (!validateEmail(providerData.email)) {
+            toast.error("Please enter a valid email address with '@'.");
+            setLoading(false);
+            return;
+        }
         const formData = new FormData();
         const providerId = localStorage.getItem('id');
     
@@ -83,11 +94,15 @@ const EditProviderFormComponent: React.FC = () => {
         try {
             await PutProfile(formData);
              toast.success("Profile updated successfully!");
-        } catch (error) {
-          
-            toast.error("Error updating profile:"+error)
-          
-        } finally {
+        } catch (error: unknown) {
+            if (error instanceof AxiosError && error.response && error.response.data) {
+                const validationError = error.response.data.errors;
+                const errorMessages = Object.values(validationError).flat().join(", ");
+                toast.error(errorMessages);
+            } else {
+                toast.error("An unknown error occurred.");
+            }
+        }finally {
             setLoading(false);
         }
     };
@@ -103,8 +118,19 @@ const EditProviderFormComponent: React.FC = () => {
                 maxWidth: 500,
                 margin: "auto",
                 p: 3,
+                position: "relative", 
             }}
         >
+            <IconButton
+        onClick={handleModalClose}
+        sx={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
             <Typography variant="h6" fontWeight="bold" mb={2}>
                 Edit Provider Details
             </Typography>
