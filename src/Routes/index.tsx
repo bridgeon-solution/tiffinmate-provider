@@ -14,7 +14,7 @@ const ResetingPassword = React.lazy(() => import('../Pages/ResetingPassword'));
 const Addmenu = React.lazy(() => import('../Pages/AddMenu'));
 const ProviderReview = React.lazy(() => import('../Pages/ProviderReview'));
 const ProfileCard = React.lazy(() => import('../Component/ProfileComponent'));
-const EditProfile = React.lazy(() => import('../Pages/EditProfile'));
+
 const Navbar = React.lazy(() => import('../Atoms/Navbar'));
 
 function AppRouter() {
@@ -37,7 +37,7 @@ function AppRouter() {
                   <Route path="/addmenu" element={<Addmenu />} />
                   <Route path="/Reviews" element={<ProviderReview />} />
                   <Route path="/profile" element={<ProfileCard />} />
-                  <Route path="/edit" element={<EditProfile />} />
+                 
                   <Route path="/users" element={<TotalUsers />} />
                 </Routes>
               </Navbar>
