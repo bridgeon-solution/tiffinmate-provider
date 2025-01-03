@@ -33,7 +33,16 @@ interface EditProviderFormProps {
         const fetchData = async () => {
             try {
                 const result = await GetProfile();
-                setProviderData(result);
+                console.log(result);
+                if (result) {
+                    setProviderData({
+                        username: result.username || '',
+                        email: result.email || '',
+                        address: result.address || '',
+                        phone_no: result.phone_no || 0,
+                        logo: result.image || '',
+                    });
+                }
             } catch (error) {
                 toast.error("Error fetching provider data"+ error);
                 
@@ -46,17 +55,18 @@ interface EditProviderFormProps {
         const { name, value } = e.target;
         setProviderData((prevData) => ({
             ...prevData,
-            [name]: name === "phone_no" ? Number(value) : value,
+            [name]: name === "phone_no" ? value : value, 
         }));
     };
-
+    
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             setSelectedFile(file);
-            setLogoPreview(URL.createObjectURL(file));
+            setLogoPreview(URL.createObjectURL(file)); 
         }
     };
+    
     const validateEmail = (email: string) => {
         const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return regex.test(email);
@@ -64,7 +74,6 @@ interface EditProviderFormProps {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-          // Email validation check
           if (!validateEmail(providerData.email)) {
             toast.error("Please enter a valid email address with '@'.");
             setLoading(false);
@@ -136,10 +145,11 @@ interface EditProviderFormProps {
             </Typography>
 
             <Avatar
-                alt={providerData.username || "Profile"}
-                src={logoPreview || providerData.logo || "https://via.placeholder.com/80"}
-                sx={{ width: 80, height: 80, mb: 2, alignSelf: "center" }}
-            />
+        alt={providerData.username || "Profile"}
+        src={logoPreview || providerData.logo || "https://via.placeholder.com/80"}
+        sx={{ width: 80, height: 80, mb: 2, alignSelf: "center" }}
+      />
+
 
             <TextField
                 label="Username"
@@ -181,16 +191,15 @@ interface EditProviderFormProps {
                 fullWidth
                 sx={{ mb: 2 }}
             />
-
-            <FormControl fullWidth sx={{ mb: 2 }}>
-                <Input
-                    id="logo"
-                    type="file"
-                    name="logo"
-                    onChange={handleFileChange}
-                />
-                <FormHelperText>Upload logo (optional)</FormHelperText>
-            </FormControl>
+ <FormControl fullWidth sx={{ mb: 2 }}>
+        <Input
+          id="logo"
+          type="file"
+          name="logo"
+          onChange={handleFileChange}
+        />
+        <FormHelperText>Upload logo (optional)</FormHelperText>
+      </FormControl>
 
             <StyledButton type="submit" disabled={loading}>
                 {loading ? "Saving..." : "Save"}
