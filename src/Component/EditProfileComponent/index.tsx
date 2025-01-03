@@ -33,7 +33,7 @@ interface EditProviderFormProps {
         const fetchData = async () => {
             try {
                 const result = await GetProfile();
-                console.log(result);
+                
                 if (result) {
                     setProviderData({
                         username: result.username || '',

@@ -25,15 +25,12 @@ function LoginContainer() {
  const [loading,setLoading]=useState(false);
 
 const isTokenExpired=(token:string):boolean=>{
-  try{
+ 
     const decoded:DecodedToken=jwtDecode(token);
     const currentTime=Math.floor(Date.now()/1000);
     return decoded.exp<currentTime;
 
-  }catch(err){
-    return true;
-    console.log(err);
-  }
+ 
 }
 
 const refreshAccessToken=async()=>{
@@ -53,11 +50,11 @@ const refreshAccessToken=async()=>{
       throw new Error(response.data?.error_message || 'Failed to refresh token');
     }
   }catch(err){
-    toast.error('Failed to refresh session. Please log in again.');
+    toast.error(`Failed to refresh session. Please log in again.${err}`);
     localStorage.clear(); 
     navigate('/login'); 
     return null;
-    console.log(err);
+    
     
   }
 }

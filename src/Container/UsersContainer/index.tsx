@@ -22,7 +22,7 @@ const [orders,setOrders]=useState<Users[]>([]);
       setError(null);
       try {
         const data = await GetAllUsers(page, search || ""); 
-        console.log("Fetched Data:", data);
+       
 
         if (data && data.length > 0 && data[0]) {
           setOrders(data[0].allUsers || []);

@@ -19,8 +19,7 @@ const [orders,setOrders]=useState<Orders[]>([]);
       setError(null);
       try {
         const data = await GetAllOrders(page, search || ""); 
-        console.log("Fetched Data:", data);
-
+        
         if (data && data.length > 0 && data[0]) {
           setOrders(data[0].allorders || []);
           const totalCount = data[0].totalCount || 0;
