@@ -6,6 +6,7 @@ import PostProviderLogin from '../../Services/Login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 interface LoginFormValues {
   email: string;
@@ -15,6 +16,7 @@ interface LoginFormValues {
 
 function LoginContainer() {
  const navigate=useNavigate();
+ const [loading,setLoading]=useState(false);
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -30,17 +32,13 @@ function LoginContainer() {
     },
     validationSchema,
     onSubmit: async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append("email", values.email);
         formData.append("password", values.password);
         
-        const response = await PostProviderLogin(formData);
-        
-    
-
-       
-     
+        const response = await PostProviderLogin(formData)
         if (response.status== "success") {
        
           const { id, email, token } = response.result;
@@ -56,14 +54,14 @@ function LoginContainer() {
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           
-    toast.error('Axios error:', error.response?.data || error.message)
+    
           if (error.response?.status === 401) {
            
             toast.error("Incorrect email or password. Please try again.")
           } 
           else {
             
-            toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
+            toast.error(`Error: ${error.response?.data?.result || 'Login failed. Please try again.'}`)
           }
         } else {
       
@@ -81,7 +79,8 @@ function LoginContainer() {
     <LoginComponent
       formValues={values}
       handleChange={handleChange}
-      handleSubmit={handleSubmit}    
+      handleSubmit={handleSubmit} 
+      loading={loading}   
     />
   );
 }

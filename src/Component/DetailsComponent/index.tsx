@@ -37,7 +37,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
     <Box
       sx={{
         padding: { xs: '1.5rem', md: '3rem' },
-        
+        marginTop: { xs: '2rem', md: '4rem' },
         borderRadius: '8px',
       }}
     >
@@ -57,6 +57,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               fullWidth
               sx={{ marginBottom: '1rem' }}
             />
+
             <InputField
               label="Address"
               onChange={handleChange}

@@ -1,8 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography,CircularProgress  } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
-
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useState } from 'react';
 interface LoginComponentProps {
   formValues: {
     email: string;
@@ -10,13 +11,19 @@ interface LoginComponentProps {
   };
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  loading: boolean; 
 }
 
 const LoginComponent: React.FC<LoginComponentProps> = ({
   formValues,
   handleChange,
   handleSubmit,
+  loading,
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+   const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
   return (
     <Box
       sx={{
@@ -79,14 +86,50 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                 name="email"
                 onChange={handleChange}
               />
-              <InputField
-                label="Password"
-                variant="outlined"
-                value={formValues.password}
-                name="password"
-                onChange={handleChange}
-                type="password"
-              />
+              <Box
+                sx={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <InputField
+                  label="Password"
+                  variant="outlined"
+                  value={formValues.password}
+                  name="password"
+                  onChange={handleChange}
+                  type={showPassword ? 'text' : 'password'}
+                  sx={{ flex: 1 }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    right: '10px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </Box>
+              </Box>
+              {loading&&(
+                <Box
+                sx={
+                  {
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                    marginBottom:'1rem',
+                  }
+                }
+                >
+                  <CircularProgress size={18}/>
+                  </Box>
+              )}
+             
+
+
               <StyledButton type="submit" variant="contained">
                 Submit
               </StyledButton>

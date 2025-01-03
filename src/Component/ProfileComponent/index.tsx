@@ -15,6 +15,8 @@ import GetProfile from "../../Services/Profile";
 import { toast } from "react-toastify";
 import EditProviderFormComponent from "../EditProfileComponent";
 
+
+
 interface ProviderData {
   username: string;
   email: string;
@@ -46,7 +48,7 @@ const ProfileCard: React.FC = () => {
     };
     fetchData();
   }, []);
-
+  
   const handleModalOpen = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);
 
@@ -78,7 +80,7 @@ const ProfileCard: React.FC = () => {
         mt: 4,
       }}
     >
-      {/* Profile Header */}
+      
       <Stack direction="row" spacing={3} alignItems="center" mb={4}>
         <Avatar
           alt={providerData?.username || "Profile"}
@@ -112,12 +114,9 @@ const ProfileCard: React.FC = () => {
           </Button>
         </Box>
       </Stack>
-
-      {/* Personal Information */}
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Personal Information
       </Typography>
-      {/* Grid for displaying information */}
       <Grid container spacing={3} mb={4}>
         <Grid item xs={12} sm={6}>
           <Typography variant="body2" fontWeight="bold" color="text.secondary">
@@ -144,7 +143,6 @@ const ProfileCard: React.FC = () => {
           <Typography variant="body1">{providerData?.address || "N/A"}</Typography>
         </Grid>
       </Grid>
-      {/* Account Information */}
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Account Information
       </Typography>
@@ -198,9 +196,6 @@ const ProfileCard: React.FC = () => {
           No certificates available
         </Typography>
       )}
-    
-        {/* Add other personal details */}
-      
 
       {/* Modal for Edit Profile */}
       <Modal
@@ -216,11 +211,11 @@ const ProfileCard: React.FC = () => {
       boxShadow: 24,
       width: "90%",
       maxWidth: 600,
-      mt: 4, // Add margin-top
-      mb: 4, // Add margin-bottom
+      mt: 4, 
+      mb: 4, 
     }}
   >
-    <EditProviderFormComponent />
+    <EditProviderFormComponent handleModalClose={handleModalClose}  />
   </Box>
 </Modal>
 
