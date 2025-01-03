@@ -40,14 +40,12 @@ const [orders,setOrders]=useState<Users[]>([]);
     };
 
     fetchOrders();
-  }, [page, search]);
+  }, [page,search]);
 
- const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log("asdfghjkl"+orders);
-    
+    setPage(1); 
   };
-  
 
   return (
     <UsersComponent

@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const TotalOrders = React.lazy(() => import('../Pages/Orders'));
-const TotalUsers = React.lazy(() => import('../Pages/users'));
+const TotalUsers = React.lazy(() => import('../Pages/ProviderUsers'));
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login = React.lazy(() => import('../Pages/Login'));
 const Dashboards = React.lazy(() => import('../Pages/Dashboards'));

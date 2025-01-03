@@ -37,11 +37,12 @@ const [orders,setOrders]=useState<Orders[]>([]);
     };
 
     fetchOrders();
-  }, [page, search]);
+  }, [page,search]);
 
  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+ 
     setSearch(e.target.value);
-    console.log("asdfghjkl"+orders);
+   
     
   };
   
