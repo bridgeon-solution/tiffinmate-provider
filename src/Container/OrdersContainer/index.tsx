@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
+import SubscriptionsComponent from "../../Component/Orders";
+import { Orders } from "../ReviewContainer/types";
+import GetAllOrders from "../../Services/Orders";
 
 
 
-import GetAllUsers from "../../Services/Users";
-import { Users } from "../ReviewContainer/types";
-import UsersComponent from "../../Component/Users";
+const SubscriptionsContainer: React.FC = () => {
 
-
-
-const UsersContainer: React.FC = () => {
-
-const [orders,setOrders]=useState<Users[]>([]);
+const [orders,setOrders]=useState<Orders[]>([]);
   const [search, setSearch] = useState<string>("");
   const [page, setPage] = useState(1);
    const [error, setError] = useState<string | null>(null);
@@ -21,11 +18,10 @@ const [orders,setOrders]=useState<Users[]>([]);
       setLoading(true);
       setError(null);
       try {
-        const data = await GetAllUsers(page, search || ""); 
-       
-
+        const data = await GetAllOrders(page, search || ""); 
+        
         if (data && data.length > 0 && data[0]) {
-          setOrders(data[0].allUsers || []);
+          setOrders(data[0].allorders || []);
           const totalCount = data[0].totalCount || 0;
           setTotalPages(Math.ceil(totalCount / 6)); 
         } else {
@@ -42,14 +38,17 @@ const [orders,setOrders]=useState<Users[]>([]);
     fetchOrders();
   }, [page,search]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+ const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+ 
     setSearch(e.target.value);
-    setPage(1); 
+   
+    
   };
+  
 
   return (
-    <UsersComponent
-    users={orders}
+    <SubscriptionsComponent
+    orders={orders}
     loading={loading}
     error={error}
     totalPages={totalPages}
@@ -61,4 +60,4 @@ const [orders,setOrders]=useState<Users[]>([]);
   );
 };
 
-export default UsersContainer;
+export default SubscriptionsContainer;

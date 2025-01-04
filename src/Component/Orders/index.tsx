@@ -1,16 +1,15 @@
 import React from "react";
 import { Download as DownloadIcon } from "@mui/icons-material";
 import { TextField, Box, Tooltip, IconButton, CircularProgress, Typography } from "@mui/material";
-
+import TableAtom from "../../Container/OrdersContainer/TableAtom";
 import * as XLSX from "xlsx";
 import PaginationRounded from "../../Atoms/Pagination";
-import {  Users } from "../../Container/ReviewContainer/types";
-import UserTable from "../../Container/UsersContainer/UserTable";
+import {  Orders } from "../../Container/ReviewContainer/types";
 
 
 
 interface SubscriptionsComponentProps {
-    users: Users[];
+  orders: Orders[];
     loading: boolean;
     error: string | null;
    totalPages: number;
@@ -20,8 +19,8 @@ interface SubscriptionsComponentProps {
     search: string;
 }
 
-const UsersComponent: React.FC<SubscriptionsComponentProps> = ({
-  users,
+const SubscriptionsComponent: React.FC<SubscriptionsComponentProps> = ({
+  orders,
   loading,
   error,
   totalPages,
@@ -30,39 +29,40 @@ const UsersComponent: React.FC<SubscriptionsComponentProps> = ({
   handleSearchChange,
   search
 }) => {
-    if (loading) {
-        return <CircularProgress />;
-      }
-    
-      if (error) {
-        return <Typography color="error">{error}</Typography>;
-      }
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return <Typography color="error">{error}</Typography>;
+  }
   const exportToExcel = () => {
     
     const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(users);
+    const worksheet = XLSX.utils.json_to_sheet(orders);
     // Add the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
     // Export the workbook
     XLSX.writeFile(workbook, "Users.xlsx");
   };
+
   let totalPage = 0;
   if (totalPages % 6 === 0) {
     totalPage = totalPages / 6;
   } else {
     totalPage = Math.ceil(totalPages / 6);
   }
+  
   return (
-   
-         <Box
-                sx={{
-                    padding: "30px",
-                    backgroundColor: "#F9FAFB",
-                  borderRadius: 2,
-                  mt: 4,
-                }}
-              >
-      <h1 style={{ marginBottom: "16px" }}>Users</h1>
+  <Box
+                 sx={{
+                     padding: "30px",
+                     backgroundColor: "#F9FAFB",
+                   borderRadius: 2,
+                   mt: 4,
+                 }}
+               >
+      <h1 style={{ marginBottom: "16px" }}>Orders</h1>
 
 <Tooltip title="Download">
   <IconButton color="primary" onClick={exportToExcel}>
@@ -88,7 +88,7 @@ const UsersComponent: React.FC<SubscriptionsComponentProps> = ({
           padding: "16px",
         }}
       >
-        <UserTable data={users} />
+        <TableAtom data={orders} />
         
       </Box>
  {/* Pagination */}
@@ -101,4 +101,4 @@ const UsersComponent: React.FC<SubscriptionsComponentProps> = ({
   );
 };
 
-export default UsersComponent;
+export default SubscriptionsComponent;
