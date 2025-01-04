@@ -1,176 +1,79 @@
+import React from "react";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
-import {
-  TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
-  Button,
- 
-  
-} from "@mui/material";
-
-import { SelectChangeEvent } from "@mui/material";
-
-export interface MenuFormData {
-  MenuName: string;
-  Description: string;
-  Price: number;
-  Image: File | null;
-  type: string;
-  Day: string;
-  Category: string;
-}
-
-
-
-interface FormProps {
-  formdata: MenuFormData;
-  providertypes:{ id: string; name: string }[];  
-  handleInputChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  handleTypeChange: (e: SelectChangeEvent<string>) => void;
+interface MenuFormProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleSelectChange: (e: SelectChangeEvent<string>) => void;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  menuformdata: { menu_name: string; description: string; price: number; image: File | null };
   isSubmitting: boolean;
-  categories: { id: string; category_name: string }[]; 
-  days: string[]; 
-  errors: { [key: string]: string };
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClose: () => void;
-  openModal: boolean;
 }
 
-export const FormComponent: React.FC<FormProps> = ({
-  formdata,
-  handleInputChange,
-  handleTypeChange,
+const MenuForm: React.FC<MenuFormProps> = ({
   handleSubmit,
-  handleSelectChange,
-  handleImageChange,
+  handleInputChange,
+  menuformdata,
   isSubmitting,
-  categories,
-  providertypes,
-  days,
-  errors,
-
+  handleImageChange,
+  handleClose,
 }) => {
   return (
-    <form onSubmit={handleSubmit} >
-
-      <div style={{ marginBottom: "16px" }}>
+    <Box sx={{ padding: 4 }}>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Add Menu Item
+      </Typography>
+      <form onSubmit={handleSubmit}>
         <TextField
+          fullWidth
           label="Menu Name"
-          name="MenuName"
-          value={formdata.MenuName}
+          variant="outlined"
+          name="menu_name"
+          value={menuformdata.menu_name}
           onChange={handleInputChange}
-          error={!!errors.MenuName}
-          helperText={errors.MenuName}
-          fullWidth
+          sx={{ mb: 2 }}
         />
-      </div>
-      <div style={{ marginBottom: "16px" }}>
         <TextField
+          fullWidth
           label="Description"
-          name="Description"
-          value={formdata.Description}
+          variant="outlined"
+          name="description"
+          value={menuformdata.description}
           onChange={handleInputChange}
-          multiline
-          rows={4}
-          fullWidth
+          sx={{ mb: 2 }}
         />
-      </div>
-      <div style={{ marginBottom: "16px" }}>
         <TextField
-          label="Price"
-          name="Price"
-          type="text"
-          value={formdata.Price}
-          onChange={handleInputChange}
-          error={!!errors.Price}
-          helperText={errors.Price}
           fullWidth
+          label="Price"
+          variant="outlined"
+          name="price"
+          value={menuformdata.price}
+          onChange={handleInputChange}
+          sx={{ mb: 2 }}
         />
-      </div>
-      <div style={{ marginBottom: "16px" }}>
-        <FormControl fullWidth>
-          <InputLabel id="category-label">Category</InputLabel>
-          <Select
-            name="Category"
-            value={formdata.Category}
-            onChange={handleSelectChange}
-            error={!!errors.Category}
-          >
-          {categories.map((category) => (
-              <MenuItem key={category.id} value={category.id}>
-                {category.category_name} 
-              </MenuItem>
-            ))} 
-           
-          </Select>
-        </FormControl>
-      </div>
-      <div style={{ marginBottom: "16px" }}>
-        <FormControl fullWidth>
-          <InputLabel id="day-label">Day</InputLabel>
-          <Select
-            name="Day"
-            value={formdata.Day}
-            onChange={handleSelectChange}
-            error={!!errors.Day}
-          >
-            {days.map((day) => (
-              <MenuItem key={day} value={day}>
-                {day}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-      <div style={{ marginBottom: "16px" }}>
-      
-  
-      <FormControl fullWidth>
-  <InputLabel id="type-label">Type</InputLabel>
-  <Select
-    value={formdata.type}
-    onChange={handleTypeChange}
-    name="type"
-    labelId="type-label" 
-    error={!!errors.type} 
-  >
-    {providertypes.map((type) => (
-      <MenuItem key={type.id} value={type.id}> 
-        {type.name} 
-      </MenuItem>
-    ))}
-  </Select>
-</FormControl>
-      </div>
-      <div style={{ marginBottom: "16px" }}>
-        <Button variant="contained" component="label" fullWidth sx={{ backgroundColor: "#e6852c" }}>
-          Upload Image
-          <input
-            type="file"
-            hidden
-            name="image"
-            id="imageInput"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
-        </Button>
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <input
+          type="file"
+          accept="image/*"
+          name="image"
+          onChange={handleImageChange}
+          style={{ marginBottom: 16 }}
+        />
         <Button
           type="submit"
           variant="contained"
-          sx={{ backgroundColor: "#e6852c" }}
+          color="primary"
+          fullWidth
           disabled={isSubmitting}
+          sx={{ mb: 2 }}
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
-      </div>
-    </form>
+        <Button fullWidth onClick={handleClose} variant="outlined" color="secondary">
+          Cancel
+        </Button>
+      </form>
+    </Box>
   );
 };
+
+export default MenuForm;

@@ -1,29 +1,17 @@
 import React, { useEffect, useState } from 'react'; 
-import {MenuDisplay} from '../../Component/DisplayMenu/index';
-import {Getcategory,Getfooditem} from '../../Services/AddMenu/index';
+import {GetMenu} from '../../Services/AddMenu/index';
+import Displaymenu from '../../Component/DisplayMenu';
 
 interface Menu {
   id: string; 
-  category_name: string; 
-  created_at: string;
-  updated_at: string;
-  food_items: null; 
-}
-
-interface FoodItem {
-  category_id: string;
-  provider_id: string;
-  menu_id: string;
-  food_name: string;
-  price: number;
+  name: string; 
+  image:File | null;
   description: string;
-  day: string;
-  image?: string;
+  monthly_plan_amount: number;
 }
 
 const DisplayMenuDetails: React.FC = () => {
   const [MenuList, setMenuList] = useState<Menu[]>([]);
-  const [FoodList, setFoodList] = useState<FoodItem[]>([]);
   const [Error, setError] = useState<string | null>(null);
   const [Loading, setLoading] = useState(true);
 
@@ -37,26 +25,23 @@ const DisplayMenuDetails: React.FC = () => {
           setLoading(false);
           return;
         }
-        const menuData = await Getcategory();
-        const foodData = await Getfooditem(providerId);
+        const menuData = await GetMenu(providerId);
+        
        
         setMenuList(menuData|| []);
-        setFoodList(foodData || []); 
+       
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch menu or food items. Please try again later.');
         setLoading(false);
       }
     };
-    
-
     fetchMenuData();
   }, []);
 
   return (
-    <MenuDisplay
+    <Displaymenu
       menuList={MenuList}
-      foodItems={FoodList} 
       loading={Loading}
       error={Error}
     />

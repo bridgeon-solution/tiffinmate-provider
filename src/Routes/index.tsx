@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import React, { Suspense } from 'react';
-import Addmenu from '../Pages/AddMenu';
+import MenuForm from '../Component/AddMenu';
+import AddmenuPage from '../Pages/AddMenupage';
+import MenuDisplayContainer from '../Container/displayFooditem';
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login=React.lazy(()=>import('../Pages/Login'));
 const Dashboards=React.lazy(()=>import('../Pages/Dashboards'));
@@ -22,7 +24,8 @@ function AppRouter() {
                 <Navbar>
                 <Routes>
                 <Route path='/Dashboard' element={<Dashboards/>} />
-                <Route path='/addmenu' element={<Addmenu/>} />
+                <Route path='/addmenu' element={<AddmenuPage/>} />
+                <Route path='/displayfoods' element={<MenuDisplayContainer/>} />
                 </Routes>
                 </Navbar>
           }
