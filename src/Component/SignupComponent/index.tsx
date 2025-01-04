@@ -3,6 +3,8 @@ import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
 
+// import React, { useState } from 'react';
+
 interface SignupComponentProps {
   formValues: {
     username: string;
@@ -12,6 +14,7 @@ interface SignupComponentProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  isSignupSuccessful: boolean;
 }
 
 const SignupComponent: React.FC<SignupComponentProps> = ({
@@ -19,7 +22,18 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleChange,
   handleFileChange,
   handleSubmit,
+  isSignupSuccessful
 }) => {
+ 
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(e);
+
+   
+   
+  };
+
   return (
     <Box 
       sx={{ 
@@ -65,7 +79,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
           >
             SignUp
           </Typography>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={onSubmit}>
             <Box 
               sx={{ 
                 display: "flex", 
@@ -102,6 +116,20 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
               <StyledButton type="submit" variant="contained">
                 Submit
               </StyledButton>
+
+              {isSignupSuccessful && (
+                <Typography
+                  sx={{
+                    color: "red",
+                    fontSize: "14px",
+                    marginTop: "0.5rem",
+                    textAlign: "center",
+                  }}
+                >
+                  Signup successful! You will receive a password in your email after verification.
+                </Typography>
+              )}
+
               <Typography
                 sx={{
                   textAlign: "center",

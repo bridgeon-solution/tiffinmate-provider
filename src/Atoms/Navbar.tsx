@@ -202,7 +202,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         }}
       >
         <Box sx={{ position: "absolute", top: 20, right: 80 }}>
-          <MarkChatUnreadOutlinedIcon sx={{ fontSize: 25 }} />
+          <MarkChatUnreadOutlinedIcon sx={{ fontSize: 25 }}  onClick={()=>navigate('/Reviews')}/>
           <Box
             sx={{
               position: "absolute",
@@ -217,6 +217,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         </Box>
 
         <AccountCircleIcon 
+        onClick={()=>navigate('/profile')}
           sx={{ position: "absolute", top: 20, right: 30, fontSize: 25 }}
         />
        

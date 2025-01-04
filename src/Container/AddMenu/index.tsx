@@ -3,6 +3,7 @@ import {  PostMenu } from "../../Services/AddMenu";
 import { Button, Card, CardContent, Typography, } from "@mui/material";
 import BasicModal from "../../Atoms/Modal";
 import MenuForm from "../../Component/AddMenu";
+import { toast } from "react-toastify";
 
 interface MenuFormProps {
   menu_name: string;
@@ -27,7 +28,7 @@ const AddMenuContainer: React.FC = () => {
       try {
         const providerId = localStorage.getItem("id");
         if (!providerId) {
-          alert("Please login");
+          toast.warning("Please login");
           return;
         }
       } catch (error) {
@@ -37,13 +38,6 @@ const AddMenuContainer: React.FC = () => {
 
     AddProviderMenu();
   }, []);
-
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
-    if (!menuData.menu_name) newErrors.menu_name = "Menu Name is required";
-    if (menuData.price <= 0 || isNaN(menuData.price)) newErrors.price = "Price must be a valid number greater than zero";
-    
-  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -65,12 +59,11 @@ const AddMenuContainer: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const validationErrors = validateForm();
     setIsSubmitting(true);
     try {
       const providerId = localStorage.getItem("id");
       if (!providerId) {
-        alert("Please login");
+        toast.warning("Please login");
         return;
       }
 
@@ -84,7 +77,7 @@ const AddMenuContainer: React.FC = () => {
       }
 
       await PostMenu(formData);
-      alert("Menu saved successfully!");
+      toast.success("Menu saved successfully!");
       setMenuData({
         menu_name: "",
         description: "",
@@ -93,8 +86,8 @@ const AddMenuContainer: React.FC = () => {
       });
       setOpenModal(false);
     } catch (error: any) {
-      console.error("Error saving menu:", error);
-      alert(error.response?.data?.message || "Failed to save menu");
+      
+      toast.error(error.response?.data?.message || "Failed to save menu");
     } finally {
       setIsSubmitting(false);
     }

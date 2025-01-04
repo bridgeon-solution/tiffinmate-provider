@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import SignupComponent from '../../Component/SignupComponent';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+
 import PostProviderSignup from '../../Services/SignUp';
+import { toast } from 'react-toastify';
 
 interface SignupFormValues {
   username: string;
@@ -13,11 +14,13 @@ interface SignupFormValues {
 }
 
 function SignupContainer() {
-  const navigate = useNavigate();
 
+  const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    email: Yup.string()
+    .required('Email is required')
+    .test('containsAt', 'Email must contain @', (value) => value?.includes('@')),
     file: Yup.mixed<File>()
       .nullable()
       .required('File is required')
@@ -39,7 +42,7 @@ function SignupContainer() {
     onSubmit: async (values: SignupFormValues, helpers: FormikHelpers<SignupFormValues>) => {
       try {
         const formData = new FormData();
-        formData.append('username', values.username);
+        formData.append('user_name', values.username);
         formData.append('email', values.email);
         if (values.file) {
           formData.append('certificateFile', values.file); 
@@ -47,16 +50,19 @@ function SignupContainer() {
 
        
 
-        await PostProviderSignup(formData);
 
-        navigate('/login');
+        await PostProviderSignup(formData);
+        toast.success('success');
+        setIsSignupSuccessful(true); 
+       
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          console.error('Error response:', error.response?.data);
-          alert(`Error: ${error.response?.data?.title || 'Registration failed. Please try again.'}`);
+          toast.error('Error response:', error.response?.data);
+ 
         } else {
-          console.error('Unexpected error:', error);
-          alert('An unexpected error occurred. Please try again.');
+         
+      
+          toast.error('An unexpected error occurred. Please try again.')
         }
       } finally {
         helpers.resetForm();
@@ -78,6 +84,7 @@ function SignupContainer() {
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       handleFileChange={handleFileChange}
+      isSignupSuccessful={isSignupSuccessful}
     />
   );
 }

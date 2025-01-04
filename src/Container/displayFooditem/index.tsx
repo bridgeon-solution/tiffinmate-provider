@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Getcategory, Getfooditem } from '../../Services/AddMenu';
 import MenuDisplay from '../../Component/displayfood';
 
@@ -43,7 +43,7 @@ const MenuDisplayContainer: React.FC = () => {
         setFoodItems(foodResponse);
       } catch (err:any) {
         setError(err.message || 'An error occurred while fetching data.');
-        console.error('Fetch Error:', err); 
+        
       } finally {
         setLoading(false);
       }

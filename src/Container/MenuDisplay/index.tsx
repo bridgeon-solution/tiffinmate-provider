@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { AddMenuItem, GetMenu } from "../../Services/AddMenu/index";
 import Displaymenu from "../../Component/DisplayMenu";
 import FoodItemForm from "../../Component/AddFoodItem";
-import { Modal, Button, SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import BasicModal from "../../Atoms/Modal";
+import { toast } from "react-toastify";
 
 interface Menu {
   id: string;
@@ -11,15 +12,6 @@ interface Menu {
   image: File | null;
   description: string;
   monthly_plan_amount: number;
-}
-
-interface MenuFormData {
-  MenuName: string;
-  Description: string;
-  Price: number;
-  Image: File | null;
-  Day: string;
-  Category: string;
 }
 
 interface DayMenu {
@@ -77,7 +69,7 @@ const DisplayMenu: React.FC = () => {
     try {
       const providerId = localStorage.getItem("id");
       if (!providerId) {
-        alert("Please login");
+        toast.warning("Please login");
         return;
       }
 
@@ -96,7 +88,7 @@ const DisplayMenu: React.FC = () => {
         await AddMenuItem(formData);
       }
 
-      alert("Food items added successfully!");
+      toast.success("Food items added successfully!");
       setFoodformdata(foodformdata.map(item => ({
         ...item,
         MenuName: '',
@@ -105,11 +97,9 @@ const DisplayMenu: React.FC = () => {
         Category: '',
         Description: '',
       })));
-      console.log(foodformdata)
       setOpenModal(false);
     } catch (error) {
-      console.error("Error adding item:", error);
-      alert("Failed to add item");
+      toast.error("Failed to add item");
     } finally {
       setIsSubmitting(false);
     }

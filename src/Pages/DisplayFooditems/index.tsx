@@ -1,7 +1,7 @@
-import React from 'react'
+
 import MenuDisplayContainer from '../../Container/displayFooditem'
 
-const index = () => {
+const Menudisplay = () => {
   return (
     <div>
     <MenuDisplayContainer/>
@@ -9,6 +9,6 @@ const index = () => {
   )
 }
 
-export default index
+export default Menudisplay
 
 

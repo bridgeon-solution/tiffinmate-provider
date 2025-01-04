@@ -57,6 +57,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               fullWidth
               sx={{ marginBottom: '1rem' }}
             />
+
             <InputField
               label="Address"
               onChange={handleChange}
