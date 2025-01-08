@@ -14,6 +14,10 @@ export interface Orders {
   city?: string;
   ph_no?: string;
   fooditem_name?: string;
+  category_name?: string;
+  menu_name?: string;
+  total_price?:number;
+  start_date?: string;
 }
 export interface Users {
   
@@ -23,4 +27,18 @@ export interface Users {
   ph_no?: string;
   email?: string;
   image?: string;
+}
+
+export interface Subscriptions {
+  
+  user_name: string;
+  address: string;
+  city?: string;
+  ph_no?: string;
+  fooditem_name?: string;
+  category_name?: string;
+  menu_name?: string;
+  total_price?:number;
+  start_date?: string;
+  is_active?:boolean
 }

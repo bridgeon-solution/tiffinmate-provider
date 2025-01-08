@@ -1,15 +1,17 @@
 import React from "react";
 import { StyledTable } from "../../Atoms/Table";
 import {  Users } from "../ReviewContainer/types";
+import { CircularProgress } from "@mui/material";
 
 
 
 
 interface TableAtomProps {
   data: Users[];
+  loading:boolean
 }
 
-const UserTable: React.FC<TableAtomProps> = ({ data }) => {
+const UserTable: React.FC<TableAtomProps> = ({ data,loading }) => {
   return (
     <StyledTable>
       <thead>
@@ -23,7 +25,7 @@ const UserTable: React.FC<TableAtomProps> = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
+        {loading ? <CircularProgress /> :data.map((item, index) => (
           <tr key={index}>
             <td>{item.user_name}</td>
             <td>{item.address}</td>

@@ -1,17 +1,18 @@
 import React from "react";
 import { StyledTable } from "../../Atoms/Table";
-import { Orders } from "../ReviewContainer/types";
+import {  Subscriptions } from "../ReviewContainer/types";
 import { CircularProgress } from "@mui/material";
 
 
 
 
+
 interface TableAtomProps {
-  data: Orders[];
-  loading:boolean;
+  data: Subscriptions[];
+  loading:boolean
 }
 
-const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
+const SubscriptionTable: React.FC<TableAtomProps> = ({ data,loading }) => {
   return (
     <StyledTable>
       <thead>
@@ -20,19 +21,16 @@ const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
           <th>Address</th>
           <th>City</th>
           <th>Phone number</th>
-          <th>Fooditem_Name</th>
-          <th>Category_Name</th> 
-          <th>Menu_Name</th> 
+          <th>Fooditem</th>
+          <th>Category</th> 
+          <th>Menu</th> 
           <th>Total_Price</th> 
           <th>Date</th> 
+          <th>is_Active</th> 
         </tr>
       </thead>
       <tbody>
-
-
-        {
-         loading ? <CircularProgress /> :
-        data.map((item, index) => (
+        {loading?<CircularProgress/>: data.map((item, index) => (
           <tr key={index}>
             <td>{item.user_name}</td>
             <td>{item.address}</td>
@@ -43,6 +41,9 @@ const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
             <td>{item.menu_name}</td>
             <td>{item.total_price}</td>
             <td>{item.start_date?.slice(0,10)}</td>
+            <td style={{ color: item.is_active ? 'blue' : 'red' }}>
+  {item.is_active ? 'Active' : 'Inactive'}
+</td>
           </tr>
         ))}
       </tbody>
@@ -50,4 +51,4 @@ const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
   );
 };
 
-export default TableAtom;
+export default SubscriptionTable;
