@@ -98,7 +98,7 @@ const menuItems = [
   { name: "Users", path: "/users" },
   { name: "Add fooditems", path: "/addmenu" },
   { name: "Subscriptions", path: "/subscriptions" },
-  { name: "Vendor Verification", path: "/vendor-verification" },
+  { name: "Display Foods", path: "/displayfoods" },
 ];
 
 export default function NavBar({ children }: { children: React.ReactNode }) {

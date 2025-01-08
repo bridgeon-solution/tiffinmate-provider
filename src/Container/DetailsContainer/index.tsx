@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import PostProviderDetails from '../../Services/ProviderDetails';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 // import axios from 'axios';
 
 interface DetailsFormValues {
@@ -68,7 +70,7 @@ function DetailsContainer() {
       .positive("Account number must be positive")
       .integer("Account number must be an integer"),
   });
-  
+  // validation issue an 
 
   const formik = useFormik<DetailsFormValues>({
     initialValues: {
@@ -84,8 +86,9 @@ function DetailsContainer() {
     validationSchema,
     onSubmit:async(values:DetailsFormValues,helpers:FormikHelpers<DetailsFormValues>)=>{
       try {
+       
         const formData = new FormData();
-      formData.append('ProviderId', id || '');
+      formData.append('provider_id', id || '');
       formData.append('resturent_name', values.resturentname);
       formData.append('address', values.address);
       formData.append('phone_no', values.phone?.toString() || '');
@@ -100,8 +103,28 @@ function DetailsContainer() {
       }
  
         await PostProviderDetails(formData);
-    navigate('/addmenu');
-      } finally {
+        toast.success("Details Saved successfully")
+    navigate('/dashboard');
+      }
+      catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          
+    
+          if (error.response?.status === 401) {
+           
+            toast.error("Please try again.")
+          } 
+          else {
+            
+            toast.error(`Error: ${error.response?.data?.error_message || ' failed. Please try again.'}`)
+          }
+        } else {
+      
+        
+          toast.error('An unexpected error occurred. Please try again.')
+        }
+      }
+      finally {
         helpers.resetForm();
       
       }
@@ -113,6 +136,8 @@ function DetailsContainer() {
     setFieldValue(fieldName, file);
     
   }
+ 
+  
   return (
     <div>
     <DetailsComponent

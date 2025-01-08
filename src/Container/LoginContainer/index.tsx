@@ -1,20 +1,85 @@
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-
+import { jwtDecode } from 'jwt-decode';
 import LoginComponent from '../../Component/LoginComponent';
 import PostProviderLogin from '../../Services/Login';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+import api from '../../Services/api';
 
 interface LoginFormValues {
   email: string;
   password: string;
 
 }
+interface DecodedToken{
+  exp:number;
+}
+
+
 
 function LoginContainer() {
  const navigate=useNavigate();
+ const [loading,setLoading]=useState(false);
+
+const isTokenExpired=(token:string):boolean=>{
+ 
+    const decoded:DecodedToken=jwtDecode(token);
+    const currentTime=Math.floor(Date.now()/1000);
+    return decoded.exp<currentTime;
+
+ 
+}
+
+const refreshAccessToken=async()=>{
+  try{
+    const refreshToken=localStorage.getItem('refresh_token');
+    if(!refreshToken){
+      throw new Error('No refresh_token found');
+      
+    }
+    const response=await api.post('/Refresh',refreshToken);
+    if(response.data?.status==='success'){
+        const {token,refresh_token}=response.data.result;
+        localStorage.setItem('token',token);
+        localStorage.setItem('refresh_token',refresh_token);
+        return true;
+    }else{
+      throw new Error(response.data?.error_message || 'Failed to refresh token');
+    }
+  }catch(err){
+    toast.error(`Failed to refresh session. Please log in again.${err}`);
+    localStorage.clear(); 
+    navigate('/login'); 
+    return null;
+    
+    
+  }
+}
+
+axios.interceptors.request.use(
+  async(config)=>{
+    const token =localStorage.getItem('token');
+    if(token && isTokenExpired(token)){
+      const success=await refreshAccessToken();
+      if(success){
+        const newToken=localStorage.getItem('token');
+        if(newToken){
+          config.headers['Authorization']=`Bearer ${newToken}`;
+        }
+      }
+    }else if(token){
+       config.headers['Authorization']=`Bearer ${token}`
+    }
+    return config;
+  },
+  (error=>{
+    return Promise.reject(error);
+  })
+)
+
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -30,25 +95,22 @@ function LoginContainer() {
     },
     validationSchema,
     onSubmit: async (values: LoginFormValues, helpers: FormikHelpers<LoginFormValues>) => {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append("email", values.email);
         formData.append("password", values.password);
         
-        const response = await PostProviderLogin(formData);
-        
-    
-
-       
-     
+        const response = await PostProviderLogin(formData)
         if (response.status== "success") {
        
-          const { id, email, token } = response.result;
+          const { id, email, token,refresh_token } = response.result;
 
       
       localStorage.setItem("token", token);
       localStorage.setItem('id', id);
       localStorage.setItem('username', email);
+      localStorage.setItem('refresh_token',refresh_token)
         
           toast.success('Login successful!');
           navigate('/details');
@@ -56,14 +118,14 @@ function LoginContainer() {
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           
-    toast.error('Axios error:', error.response?.data || error.message)
+    
           if (error.response?.status === 401) {
            
             toast.error("Incorrect email or password. Please try again.")
           } 
           else {
             
-            toast.error(`Error: ${error.response?.data?.message || 'Login failed. Please try again.'}`)
+            toast.error(`Error: ${error.response?.data?.result || 'Login failed. Please try again.'}`)
           }
         } else {
       
@@ -81,7 +143,8 @@ function LoginContainer() {
     <LoginComponent
       formValues={values}
       handleChange={handleChange}
-      handleSubmit={handleSubmit}    
+      handleSubmit={handleSubmit} 
+      loading={loading}   
     />
   );
 }

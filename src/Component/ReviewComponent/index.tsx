@@ -169,7 +169,7 @@ const ReviewsComponent: React.FC<ReviewsComponentProps> = ({
       </Grid>
 
       {/* Pagination Section */}
-      <Box mt={3}> {/* Added mt */}
+      <Box mt={3}> 
         <PaginationRounded totalPages={totalPage} onPageChange={setPage} />
       </Box>
     </Box>
