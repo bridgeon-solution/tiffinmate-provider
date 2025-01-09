@@ -26,7 +26,7 @@ const refreshToken = async () => {
 
     return token; 
   } catch (error) {
-    console.error("Failed to refresh token:", error);
+   
     localStorage.clear();
     
     throw error;

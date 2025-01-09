@@ -14,7 +14,7 @@ const GetAllSubscription = async (page: number, search: string, filter: string, 
       
       return response.data.result;
   } catch (error) {
-    console.error("Error fetching subscriptions:", error);
+    
     throw new Error("Failed to fetch orders: " + error);
   }
 };

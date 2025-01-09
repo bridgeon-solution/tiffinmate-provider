@@ -32,7 +32,7 @@ const [orders,setOrders]=useState<Users[]>([]);
           const totalCount = data[0]?.totalCount || 0;
           setTotalOrder(totalCount);
           setTotalPages(Math.ceil(totalCount / 6)); 
-          console.log("shamnaaaaa"+totalCount);
+         
           
         } else {
           setOrders([]);

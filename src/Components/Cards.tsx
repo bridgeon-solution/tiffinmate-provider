@@ -16,7 +16,7 @@ const Cards: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
+     
         const response = await api.get(
           `/Order/${localStorage.getItem('id')}/orders/list?page=1&pageSize=2`
         );
@@ -27,9 +27,7 @@ const Cards: React.FC = () => {
           totalDelivered: 250, 
           totalRevenue: '$5000', 
         });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      
     };
 
     fetchData();

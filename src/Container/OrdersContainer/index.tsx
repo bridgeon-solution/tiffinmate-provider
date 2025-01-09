@@ -34,12 +34,7 @@ const OrderContainer: React.FC = () => {
           setTotalPages(0);
         }
       } catch (err: unknown) {
-        console.error("Failed to fetch orders:", {
-          error: err,
-          page,
-          search,
-          pageSize,
-        });
+       
         setError(err instanceof Error ? err.message : "An unknown error occurred");
       } finally {
         setLoading(false);
@@ -59,7 +54,7 @@ const OrderContainer: React.FC = () => {
     setPageSize(Number(event.target.value));
   };
   const handleFilterChange = (newFilter: string | null) => {
-    console.log("Setting filter: ", newFilter); 
+   
     setFilter(newFilter); 
   
   };

@@ -44,12 +44,11 @@ const [pageSize, setPageSize] = useState<number>(6);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log("Search query: ", e.target.value);
-    console.log("Current filter: ", filter); 
+    
   };
 
   const handleFilterChange = (newFilter: string | null) => {
-    console.log("Setting filter: ", newFilter); 
+
     setFilter(newFilter); 
   
   };

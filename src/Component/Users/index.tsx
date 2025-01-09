@@ -47,7 +47,7 @@ const UsersComponent: React.FC<SubscriptionsComponentProps> = ({
   };
 
 
-console.log("Users Array:", users); 
+
 
 
 const pageSizeNumber = pageSize || 6; 
