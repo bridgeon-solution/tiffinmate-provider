@@ -8,7 +8,7 @@ const GetAllSubscription = async (page: number, search: string, filter: string, 
       throw new Error("Token not found. Please log in again.");
     }
       const response = await api.get(
-          `/Subscription/provider/${ localStorage.getItem('id')}?page=${page}&pageSize=${pageSize}&search=${search}&filter=${filter}&toggle=${toggle}`
+          `/Subscription/provider/${localStorage.getItem('id')}?page=${page}&pageSize=${pageSize}&search=${search}&filter=${filter}&toggle=${toggle}`
       );
      
       

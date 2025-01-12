@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -11,24 +12,14 @@ const refreshToken = async () => {
     if (!refresh_token) {
       throw new Error("Refresh token not found. Please log in again.");
     }
-
     const response = await axios.post("https://localhost:7009/api/v1/Refresh", {
       refresh_token,
     });
-
     const { token } = response.data.result;
-    
-    
-   
     localStorage.setItem("token", token);
-   
-    
-
     return token; 
   } catch (error) {
-   
     localStorage.clear();
-    
     throw error;
   }
 };
@@ -36,6 +27,19 @@ const refreshToken = async () => {
 api.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem("token");
+    const refresh_Token = localStorage.getItem("refresh_token");
+    if(refresh_Token){
+      const RefreshpayloadBase64 = refresh_Token.split(".")[1];
+      const Refreshpayload = JSON.parse(atob(RefreshpayloadBase64));
+      const currentTime = Math.floor(Date.now() / 1000);
+      if(Refreshpayload.exp && currentTime > Refreshpayload.exp){
+        localStorage.removeItem("token");
+        localStorage.removeItem("refresh_token");
+        toast.error("Session expired. Please login again.");
+      }
+
+    }
+
     if (token) {
    
       const payloadBase64 = token.split(".")[1];
@@ -71,6 +75,7 @@ api.interceptors.response.use(
           break;
         case 401:
           console.error("Unauthorized: Please log in to continue.");
+          toast.error("Unauthorized: Please log in to continue.");
           window.location.replace("/login");
           break;
         case 500:
