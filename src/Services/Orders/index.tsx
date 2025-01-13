@@ -8,7 +8,7 @@ const GetAllOrders = async (page: number, search: string,filter:string,pageSize:
             }
         
     const response = await api.get(
-      `/Order/${ localStorage.getItem('id')}/orders?page=${page}&pageSize=${pageSize}&search=${search}&filter=${filter}`
+      `/Order/provider/${ localStorage.getItem('id')}?page=${page}&pageSize=${pageSize}&search=${search}&filter=${filter}`
     );
 
   

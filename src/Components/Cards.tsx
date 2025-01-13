@@ -17,16 +17,26 @@ const Cards: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
      
+      try{
         const response = await api.get(
           `/Order/${localStorage.getItem('id')}/orders/list?page=1&pageSize=2`
         );
         
-        const result = response.data.result[0];
-        setData({
-          totalOrders: result.totalCount,
-          totalDelivered: 250, 
-          totalRevenue: '$5000', 
-        });
+        if(response?.data?.result && response?.data?.result?.length>0){
+          const result = response.data.result[0];
+          setData({
+            totalOrders: result.totalCount,
+            totalDelivered: 250, 
+            totalRevenue: '$5000', 
+          });
+        }else{
+          throw Error("No data found in the result array.");
+        }
+       
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      }catch(err:any){
+        throw Error(err);
+      }
       
     };
 

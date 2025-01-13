@@ -15,14 +15,24 @@ export const AddMenuItem = async (formData: FormData) => {
 export const Getcategory = async () => {
   
     const response = await api.get('/FoodItem/category');
-    return response.data.result; 
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
  
 };
 
 export const GetMenu = async (providerId : string) => {
  
     const response = await api.get(`/FoodItem/menu/${providerId}`); 
-    return response.data.result;  
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
   
     
  
@@ -31,7 +41,12 @@ export const GetMenu = async (providerId : string) => {
 export const Getfooditem = async (providerId : string) => {
 
     const response = await api.get(`/FoodItem/providerid/${providerId}`);
-    return response.data.result; 
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
   
 };
 

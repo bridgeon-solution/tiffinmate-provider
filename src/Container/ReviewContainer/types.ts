@@ -20,7 +20,7 @@ export interface Orders {
   start_date?: string;
 }
 export interface Users {
-  
+  user_id:string;
   user_name: string;
   address: string;
   city?: string;

@@ -10,7 +10,7 @@ const GetAllUsers = async (page: number, search: string, pageSize: number | "") 
     }
 
     const response = await api.get(
-      `/Order/${ localStorage.getItem('id')}/users?page=${page}&pageSize=${pageSize}&search=${search}`
+      `/User/${ localStorage.getItem('id')}?page=${page}&pageSize=${pageSize}&search=${search}`
     );
 
     return response.data.result;

@@ -17,19 +17,12 @@ interface LoginFormValues {
 }
 
 
-
-
-
 function LoginContainer() {
  const navigate=useNavigate();
  const [loading,setLoading]=useState(false);
 
 
-
-
-
-
-  const validationSchema = Yup.object({
+ const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required'),
    
@@ -67,20 +60,17 @@ function LoginContainer() {
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          
+          const status = error.response?.status;
+          const errorMessage = error.response?.data?.result;
     
-          if (error.response?.status === 401) {
-           
-            toast.error("Incorrect email or password. Please try again.")
-          } 
-          else {
-            
-            toast.error(`Error: ${error.response?.data?.result || 'Login failed. Please try again.'}`)
+       if (status === 500) {
+            toast.error(`Server error: ${errorMessage}`);
+          } else {
+            toast.error(`Error: ${errorMessage}`);
           }
         } else {
-      
-        
-          toast.error('An unexpected error occurred. Please try again.')
+          console.error("Unexpected error:", error);
+          toast.error('An unexpected error occurred. Please try again.');
         }
       } finally {
         helpers.resetForm();
