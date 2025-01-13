@@ -170,6 +170,18 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
+"@date-io/core@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@date-io/core/-/core-3.2.0.tgz"
+  integrity sha512-hqwXvY8/YBsT9RwQITG868ZNb1MVFFkF7W1Ecv4P472j/ZWa7EFcgSmxy8PUElNVZfvhdvfv+a8j6NWJqOX5mA==
+
+"@date-io/date-fns@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/@date-io/date-fns/-/date-fns-3.2.0.tgz"
+  integrity sha512-qkWB6E8lTwlwWq1xodXsY7On3gUoLsibdRu5cSAL1+oklrMOqpKmTzoZ9UFdvTs4Z0RYAi1D9ZelfqOCjT2quQ==
+  dependencies:
+    "@date-io/core" "^3.2.0"
+
 "@emotion/babel-plugin@^11.13.5":
   version "11.13.5"
   resolved "https://registry.npmjs.org/@emotion/babel-plugin/-/babel-plugin-11.13.5.tgz"
@@ -622,6 +634,19 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
 
+"@mui/x-date-pickers@^7.23.3":
+  version "7.23.3"
+  resolved "https://registry.npmjs.org/@mui/x-date-pickers/-/x-date-pickers-7.23.3.tgz"
+  integrity sha512-bjTYX/QzD5ZhVZNNnastMUS3j2Hy4p4IXmJgPJ0vKvQBvUdfEO+ZF42r3PJNNde0FVT1MmTzkmdTlz0JZ6ukdw==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-internals" "7.23.0"
+    "@types/react-transition-group" "^4.4.11"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    react-transition-group "^4.4.5"
+
 "@mui/x-internals@7.23.0":
   version "7.23.0"
   resolved "https://registry.npmjs.org/@mui/x-internals/-/x-internals-7.23.0.tgz"
@@ -812,6 +837,13 @@
   resolved "https://registry.npmjs.org/@types/d3-time/-/d3-time-3.0.4.tgz"
   integrity sha512-yuzZug1nkAAaBlBBikKZTgzCeA+k1uy4ZFwWANOfKw5z5LRhV0gNA7gNkKm7HoK+HRN0wX3EkxGk0fpbWhmB7g==
 
+"@types/date-fns@^2.6.3":
+  version "2.6.3"
+  resolved "https://registry.npmjs.org/@types/date-fns/-/date-fns-2.6.3.tgz"
+  integrity sha512-Ke1lw2Ni1t/wMUoLtKFmSNCLozcTBd6vmMqFP4hRzXn6qzkNt97bPAX0x5Y/c15DP43kKvwW1ycStD5+43jVQA==
+  dependencies:
+    date-fns "*"
+
 "@types/estree@^1.0.6", "@types/estree@1.0.6":
   version "1.0.6"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz"
@@ -829,6 +861,11 @@
   dependencies:
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
+
+"@types/js-cookie@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.npmjs.org/@types/js-cookie/-/js-cookie-3.0.6.tgz"
+  integrity sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==
 
 "@types/json-schema@^7.0.15":
   version "7.0.15"
@@ -1216,6 +1253,11 @@ d3-time@^3.1.0, "d3-time@1 - 3", "d3-time@2.1.1 - 3":
   version "3.1.0"
   dependencies:
     d3-array "2 - 3"
+
+date-fns@*, "date-fns@^2.25.0 || ^3.2.0 || ^4.0.0", date-fns@^2.29.3, date-fns@^3.2.0:
+  version "2.29.3"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
+  integrity sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==
 
 debug@^4.1.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
   version "4.4.0"
@@ -1629,6 +1671,11 @@ locate-path@^6.0.0:
 
 lodash-es@^4.17.21:
   version "4.17.21"
+
+lodash.debounce@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
+  integrity sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==
 
 lodash.merge@^4.6.2:
   version "4.6.2"

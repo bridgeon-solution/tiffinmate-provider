@@ -1,7 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import React, { Suspense } from 'react';
+
+
+import 'react-toastify/dist/ReactToastify.css';
+import Subscription from '../Pages/Subscription';
+
+const TotalOrders = React.lazy(() => import('../Pages/Orders'));
+const TotalUsers = React.lazy(() => import('../Pages/ProviderUsers'));
+
 import AddmenuPage from '../Pages/AddMenupage';
 import Menudisplay from '../Pages/DisplayFooditems';
+
+
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login = React.lazy(() => import('../Pages/Login'));
 const Dashboards = React.lazy(() => import('../Pages/Dashboards'));
@@ -13,8 +23,7 @@ const ProviderReview = React.lazy(() => import('../Pages/ProviderReview'));
 const ProfileCard = React.lazy(() => import('../Component/ProfileComponent'));
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TotalOrders from '../Pages/Orders';
-import TotalUsers from '../Pages/ProviderUsers';
+
 import { Box, CircularProgress } from '@mui/material';
 
 const Navbar = React.lazy(() => import('../Atoms/Navbar'));
@@ -30,8 +39,8 @@ function AppRouter() {
           height: "100vh",
         }}
       >
-        <CircularProgress />
-      </Box>}>
+        <CircularProgress/>
+</Box>}>
         <Routes>
           <Route path="/" element={<Signup />} />
           <Route path="/login" element={<Login />} />
@@ -49,8 +58,12 @@ function AppRouter() {
                   <Route path="/profile" element={<ProfileCard />} />
                   <Route path="/orderlist" element={<TotalOrders />} />
                   <Route path="/users" element={<TotalUsers/>} />
+
+                  <Route path="/subscriptions" element={<Subscription/>} />
+
                 <Route path='/addmenu' element={<AddmenuPage/>} />
                 <Route path='/displayfoods' element={<Menudisplay/>} />
+
                 </Routes>
               </Navbar>
             }

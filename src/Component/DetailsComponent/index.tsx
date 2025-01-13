@@ -37,7 +37,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
     <Box
       sx={{
         padding: { xs: '1.5rem', md: '3rem' },
-        marginTop: { xs: '2rem', md: '4rem' },
+        
         borderRadius: '8px',
       }}
     >

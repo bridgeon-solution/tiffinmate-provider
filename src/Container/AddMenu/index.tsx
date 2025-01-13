@@ -25,15 +25,13 @@ const AddMenuContainer: React.FC = () => {
 
   useEffect(() => {
     const AddProviderMenu = async () => {
-      try {
+    
         const providerId = localStorage.getItem("id");
         if (!providerId) {
           toast.warning("Please login");
           return;
         }
-      } catch (error) {
-        throw error;
-      }
+   
     };
 
     AddProviderMenu();
@@ -85,6 +83,7 @@ const AddMenuContainer: React.FC = () => {
         image: null,
       });
       setOpenModal(false);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       
       toast.error(error.response?.data?.message || "Failed to save menu");

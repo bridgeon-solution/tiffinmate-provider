@@ -1,15 +1,22 @@
 import React from "react";
 import { StyledTable } from "../../Atoms/Table";
 import {  Users } from "../ReviewContainer/types";
-
-
-
+import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface TableAtomProps {
   data: Users[];
+  loading:boolean
 }
 
-const UserTable: React.FC<TableAtomProps> = ({ data }) => {
+
+const UserTable: React.FC<TableAtomProps> = ({ data,loading }) => {
+  const navigate=useNavigate();
+  
+const handleClick=(userId:string)=>{
+  navigate(`/userdetails/${userId}`);
+}
+
   return (
     <StyledTable>
       <thead>
@@ -23,7 +30,7 @@ const UserTable: React.FC<TableAtomProps> = ({ data }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
+        {loading ? <CircularProgress /> :data.map((item, index) => (
           <tr key={index}>
             <td>{item.user_name}</td>
             <td>{item.address}</td>
@@ -37,6 +44,7 @@ const UserTable: React.FC<TableAtomProps> = ({ data }) => {
               borderRadius: "50%", 
               objectFit: "cover", 
             }}
+            onClick={()=>handleClick(item.user_id)}
             /></td>
           </tr>
         ))}
