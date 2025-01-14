@@ -69,7 +69,7 @@ function LoginContainer() {
             toast.error(`Error: ${errorMessage}`);
           }
         } else {
-          console.error("Unexpected error:", error);
+          
           toast.error('An unexpected error occurred. Please try again.');
         }
       } finally {
