@@ -2,7 +2,7 @@
 import api from "../api";
 
 
-const GetAllUsers = async (page: number, search: string, pageSize: number | "") => {
+const GetUserDetails = async (page: number, search: string, pageSize: number | "",userId:string) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -10,7 +10,7 @@ const GetAllUsers = async (page: number, search: string, pageSize: number | "") 
     }
 
     const response = await api.get(
-      `/User/${ localStorage.getItem('id')}?page=${page}&pageSize=${pageSize}&search=${search}`
+      `/Order/users/${ localStorage.getItem('id')}?UserId=${userId}&page=${page}&pageSize=${pageSize}&search=${search}`
     );
 
     return response.data.result;
@@ -19,4 +19,4 @@ const GetAllUsers = async (page: number, search: string, pageSize: number | "") 
   }
 };
 
-export default GetAllUsers;
+export default GetUserDetails;

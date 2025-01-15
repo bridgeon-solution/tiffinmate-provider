@@ -1,38 +1,36 @@
 import React from "react";
-
-import { Orders } from "../ReviewContainer/types";
-import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-
-
-
+import { CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Subscriptions } from "../ReviewContainer/types";
 
 interface TableAtomProps {
-  data: Orders[];
-  loading:boolean;
+  data: Subscriptions[];
+  loading: boolean;
 }
 
-const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
-  return (
+const SubscriptionTable: React.FC<TableAtomProps> = ({ data, loading }) => {
   
-       <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
-       <Table sx={{ minWidth: 650 }}>
-       <TableHead>
+
+  return (
+    <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+      <Table sx={{ minWidth: 650 }}>
+        <TableHead>
           <TableRow>
             <TableCell>User Name</TableCell>
             <TableCell>Address</TableCell>
             <TableCell>City</TableCell>
             <TableCell>Phone number</TableCell>
-            <TableCell>Fooditem Name</TableCell>
-            <TableCell>Category Name</TableCell>
-            <TableCell>Menu Name</TableCell>
-            <TableCell>Total Price</TableCell>
+            <TableCell>Fooditem</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Menu</TableCell>
+            <TableCell>Total_Price</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>is_Active</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={9} align="center">
+              <TableCell colSpan={10} align="center">
                 <CircularProgress />
               </TableCell>
             </TableRow>
@@ -48,16 +46,16 @@ const TableAtom: React.FC<TableAtomProps> = ({ data,loading }) => {
                 <TableCell>{item.menu_name}</TableCell>
                 <TableCell>{item.total_price}</TableCell>
                 <TableCell>{item.start_date?.slice(0, 10)}</TableCell>
+                <TableCell style={{ color: item.is_active ? "blue" : "red" }}>
+                  {item.is_active ? "Active" : "Inactive"}
+                </TableCell>
               </TableRow>
             ))
           )}
         </TableBody>
- </Table>
- </TableContainer>
-      
-
-      
+      </Table>
+    </TableContainer>
   );
 };
 
-export default TableAtom;
+export default SubscriptionTable;

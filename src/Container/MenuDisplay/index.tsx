@@ -107,7 +107,6 @@ const DisplayMenu: React.FC = () => {
     }
   };
   
-   
     const fetchMenuData = async () => {
       try {
         setLoading(true);

@@ -1,59 +1,66 @@
 import api from "../api";
 
 export const AddMenuItem = async (formData: FormData) => {
-  try {
+ 
     const response = await api.post('/FoodItem/foodItem', formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
     });
-    console.log(response);
+    ;
     return response.data;
-  } catch (error) {
-    throw error;
-  }
+  
 };
 
 export const Getcategory = async () => {
-  try {
+  
     const response = await api.get('/FoodItem/category');
-    return response.data.result; 
-  } catch (error) {
-    throw error;
-  }
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
+ 
 };
 
 export const GetMenu = async (providerId : string) => {
-  try {
+ 
     const response = await api.get(`/FoodItem/menu/${providerId}`); 
-    return response.data.result;  
-  } catch (error) {
-    throw error;
-  }
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
+  
+    
+ 
 };
 
 export const Getfooditem = async (providerId : string) => {
-  try {
+
     const response = await api.get(`/FoodItem/providerid/${providerId}`);
-    return response.data.result; 
-  } catch (error) {
-    throw error;
-  }
+    if (response?.data?.result && response.data.result.length > 0) {
+      return response.data.result; 
+    }
+   else{
+    throw Error ("Error occcured");
+   }
+  
 };
 
 
 export const PostMenu  = async (formData: FormData) => {
-  try {
+ 
     const response = await api.post(`/FoodItem/menu/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
     });
-    console.log(response);
+    
     return response.data;
-  } catch (error) {
-    throw error;
-  }
+ 
 };
 
 
