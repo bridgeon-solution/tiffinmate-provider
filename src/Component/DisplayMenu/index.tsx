@@ -85,8 +85,8 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
-                      '-webkit-line-clamp': 3,
-                      '-webkit-box-orient': 'vertical',
+                      'WebkitLineClamp': 3,
+                      'WebkitBoxOrient': 'vertical',
                       mb: 2,
                     }}
                   >

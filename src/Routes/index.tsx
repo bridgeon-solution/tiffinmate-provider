@@ -62,7 +62,11 @@ function AppRouter() {
                   <Route path="/subscriptions" element={<Subscription/>} />
 
                 <Route path='/addmenu' element={<AddmenuPage/>} />
+
                 <Route path='/menu/:menuid' element={<Menudisplay/>} />
+
+                
+
                 </Routes>
               </Navbar>
             }
