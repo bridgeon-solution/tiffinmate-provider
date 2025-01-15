@@ -50,7 +50,7 @@ function AppRouter() {
                   <Route path="/orderlist" element={<TotalOrders />} />
                   <Route path="/users" element={<TotalUsers/>} />
                 <Route path='/addmenu' element={<AddmenuPage/>} />
-                <Route path='/displayfoods' element={<Menudisplay/>} />
+                <Route path='/menu/:menuid' element={<Menudisplay/>} />
                 </Routes>
               </Navbar>
             }

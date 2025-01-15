@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {  PostMenu } from "../../Services/AddMenu";
-import { Button, Card, CardContent, Typography, } from "@mui/material";
+import { PostMenu } from "../../Services/AddMenu";
+import { Button } from "@mui/material";
 import BasicModal from "../../Atoms/Modal";
 import MenuForm from "../../Component/AddMenu";
 import { toast } from "react-toastify";
@@ -11,14 +11,18 @@ interface MenuFormProps {
   price: number;
   image: File | null;
 }
+interface AddMenuContainerProps {
+  onMenuAdded: () => void;
+}
 
-const AddMenuContainer: React.FC = () => {
+const AddMenuContainer: React.FC<AddMenuContainerProps>= ({onMenuAdded}) => {
   const [menuData, setMenuData] = useState<MenuFormProps>({
     menu_name: "",
     description: "",
     price: 0,
     image: null,
   });
+  
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -71,13 +75,15 @@ const AddMenuContainer: React.FC = () => {
       formData.append("provider_id", providerId);
       formData.append("name", menuData.menu_name);
       formData.append("description", menuData.description);
-      formData.append("price", menuData.price.toString());
+      formData.append("monthly_plan_amount", menuData.price.toString());
       if (menuData.image) {
         formData.append("image", menuData.image);
       }
 
       await PostMenu(formData);
+      
       toast.success("Menu saved successfully!");
+      
       setMenuData({
         menu_name: "",
         description: "",
@@ -85,8 +91,8 @@ const AddMenuContainer: React.FC = () => {
         image: null,
       });
       setOpenModal(false);
+      onMenuAdded();
     } catch (error: any) {
-      
       toast.error(error.response?.data?.message || "Failed to save menu");
     } finally {
       setIsSubmitting(false);
@@ -97,16 +103,24 @@ const AddMenuContainer: React.FC = () => {
   const handleClose = () => setOpenModal(false);
 
   return (
-    <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-start", flexWrap: "wrap", gap: "20px" }}>
-      <Card sx={{width:400,p:2,textAlign: "center" ,margin:10,height:200}}>
-        <CardContent>
-          <Typography>Add menu</Typography>
-        </CardContent>
-        <CardContent>
-        <Button onClick={handleOpenModal} variant="contained" sx={{ backgroundColor: "#e6852c", color: "white",borderRadius:80 }}>+</Button> 
-        </CardContent>
-      </Card>
-      
+    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "20px" }}>
+    <Button
+      onClick={handleOpenModal}
+      variant="contained"
+      sx={{
+        backgroundColor: "#e6852c",
+        color: "white",
+        width: 100,
+        height: 40,
+        fontSize: "2rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+     
+    >
+      +
+    </Button>
       {openModal && (
          <BasicModal openModal={openModal} handleClose={handleClose}>
           <MenuForm
@@ -115,10 +129,10 @@ const AddMenuContainer: React.FC = () => {
             handleSubmit={handleSubmit}
             handleImageChange={handleImageChange}
             isSubmitting={isSubmitting}
-            handleClose={handleClose}
-            
+            handleClose={handleClose} 
           />
         </BasicModal>
+
       )}
     </div>
   );
