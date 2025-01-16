@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, Box, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 interface FoodItem {
   category_id: string;
@@ -28,6 +29,7 @@ interface MenuDisplayProps {
 }
 
 const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading, error }) => {
+  const { menuid} = useParams();
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -51,7 +53,7 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading,
       {menuList.length === 0 && <Typography variant="body1">No categories available</Typography>}
 
       {menuList.map((menu) => {
-        const filteredFoodItems = foodItems.filter((item) => item.category_id === menu.id);
+        const filteredFoodItems = foodItems.filter((item) => item.menu_id === menuid && item.category_id === menu.id);
 
         return (
           <Box key={menu.id} sx={{ mt: 4 }}>
