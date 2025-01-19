@@ -16,11 +16,10 @@ const MenuForm: React.FC<MenuFormProps> = ({
   menuformdata,
   isSubmitting,
   handleImageChange,
-  handleClose,
 }) => {
   return (
     <Box sx={{ padding: 4 }}>
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
+      <Typography variant="h6" fontWeight="bold" gutterBottom textAlign={"center"}>
         Add Menu Item
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -64,13 +63,11 @@ const MenuForm: React.FC<MenuFormProps> = ({
           color="primary"
           fullWidth
           disabled={isSubmitting}
-          sx={{ mb: 2 }}
+          sx={{ mb: 2 ,backgroundColor:"#e6852c"}}
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
-        <Button fullWidth onClick={handleClose} variant="outlined" color="secondary">
-          Cancel
-        </Button>
+        
       </form>
     </Box>
   );

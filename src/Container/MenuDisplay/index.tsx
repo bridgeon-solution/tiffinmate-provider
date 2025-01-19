@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { AddMenuItem, GetMenu } from "../../Services/AddMenu/index";
+import React, { useEffect, useState } from "react";
+import { AddMenuItem, GetMenu  } from "../../Services/AddMenu/index";
 import Displaymenu from "../../Component/DisplayMenu";
 import FoodItemForm from "../../Component/AddFoodItem";
 import { SelectChangeEvent } from "@mui/material";
 import BasicModal from "../../Atoms/Modal";
 import { toast } from "react-toastify";
+import AddMenuContainer from "../AddMenu";
 
 interface Menu {
   id: string;
@@ -23,6 +24,7 @@ interface DayMenu {
   Description: string;
 }
 
+
 const DisplayMenu: React.FC = () => {
   const [MenuList, setMenuList] = useState<Menu[]>([]);
   const [selectedMenuId, setSelectedMenuId] = useState<string | null>(null);
@@ -37,8 +39,8 @@ const DisplayMenu: React.FC = () => {
   ]);
   const [openModal, setOpenModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [Error, setError] = useState<string | null>(null);
-  const [Loading, setLoading] = useState(true);
+   const [Error, setError] = useState<string | null>(null);
+   const [Loading, setLoading] = useState(true);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
     const { name, value } = e.target;
@@ -46,8 +48,6 @@ const DisplayMenu: React.FC = () => {
     updatedData[index] = { ...updatedData[index], [name]: value };
     setFoodformdata(updatedData);
   };
-
-  
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files ? e.target.files[0] : null;
@@ -72,7 +72,7 @@ const DisplayMenu: React.FC = () => {
         toast.warning("Please login");
         return;
       }
-
+      
       for (const menuItem of foodformdata) {
         const formData = new FormData();
         formData.append("provider_id", providerId);
@@ -85,7 +85,8 @@ const DisplayMenu: React.FC = () => {
         if (menuItem.Image) {
           formData.append("image", menuItem.Image);
         }
-        await AddMenuItem(formData);
+         await AddMenuItem(formData);  
+         
       }
 
       toast.success("Food items added successfully!");
@@ -97,6 +98,7 @@ const DisplayMenu: React.FC = () => {
         Category: '',
         Description: '',
       })));
+      
       setOpenModal(false);
     } catch (error) {
       toast.error("Failed to add item");
@@ -104,8 +106,7 @@ const DisplayMenu: React.FC = () => {
       setIsSubmitting(false);
     }
   };
-
-  useEffect(() => {
+  
     const fetchMenuData = async () => {
       try {
         setLoading(true);
@@ -116,6 +117,7 @@ const DisplayMenu: React.FC = () => {
           return;
         }
         const menuData = await GetMenu(providerId);
+        
         setMenuList(menuData || []);
         setLoading(false);
       } catch (err) {
@@ -124,8 +126,10 @@ const DisplayMenu: React.FC = () => {
       }
     };
 
-    fetchMenuData();
-  }, []);
+    useEffect(() => {
+      fetchMenuData();
+    }, []);
+ 
 
   const addfooditem = (menuId: string) => {
     setSelectedMenuId(menuId); 
@@ -147,7 +151,7 @@ const DisplayMenu: React.FC = () => {
  
         />
       </BasicModal>
-
+      <AddMenuContainer onMenuAdded={fetchMenuData} />
       <Displaymenu
         menuList={MenuList}
         loading={Loading}

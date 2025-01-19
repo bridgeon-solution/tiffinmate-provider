@@ -1,5 +1,6 @@
 import React from 'react';
 import { CircularProgress, Box, Typography, Card, CardContent, CardMedia, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 interface Menu {
   id: string;
@@ -39,18 +40,21 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
   return (
     <Box sx={{ padding: 4 }}>
       <Grid container spacing={4} justifyContent="center" alignItems="center">
-        {menuList.length === 0 ? (
+        {menuList.length === 0 && !loading  ? (
           <Typography variant="body1">No menus available.</Typography>
         ) : (
           menuList.map((menu) => (
-            <Grid item key={menu.id} xs={12} sm={6} md={4} lg={3}>
+            <Grid item key={menu.id} xs={12} sm={6} md={4} lg={3} sx={{ display: 'flex', justifyContent: 'center' }}>
               <Card
                 sx={{
                   borderRadius: 4,
                   textAlign: 'center',
                   height: 400,
+                  width:300,
                   display: 'flex',
                   flexDirection: 'column',
+                  margin: 'auto',
+                  overflow:'hidden',
                 }}
               >
                 {menu.image && (
@@ -61,8 +65,8 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                     alt={menu.name}
                     sx={{
                       borderRadius: '50%',
-                      width: 150,
-                      height: 150,
+                      width: 120,
+                      height: 120,
                       margin: 'auto',
                       mt: 2,
                     }}
@@ -81,8 +85,8 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       display: '-webkit-box',
-                      '-webkit-line-clamp': 3,
-                      '-webkit-box-orient': 'vertical',
+                      'WebkitLineClamp': 3,
+                      'WebkitBoxOrient': 'vertical',
                       mb: 2,
                     }}
                   >
@@ -102,6 +106,7 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                   </Typography>
 
                   <Box
+                    
                     sx={{
                       cursor: 'pointer',
                     }}
@@ -114,10 +119,31 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                         cursor: 'pointer',
                         '&:hover': { textDecoration: 'underline' },
                       }}
-                      onClick={() => addfooditem(menu.id)} // Call the addfooditem function with menuId
+                      onClick={() => addfooditem(menu.id)} 
                     >
                       Add Food
                     </Typography>
+                    <Link
+                      to={`/menu/${menu.id}`}
+                      style={{
+                        fontWeight: 'bold',
+                        color: '#e6852c',
+                        cursor: 'pointer',
+                        textDecoration: 'none',
+                        marginTop: '8px',
+                      }}
+                    >
+                      <Typography
+                        variant="subtitle2"
+                        sx={{
+                          cursor: 'pointer',
+                          '&:hover': { textDecoration: 'underline' },
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        View
+                      </Typography>
+                    </Link>
                   </Box>
                 </CardContent>
               </Card>
