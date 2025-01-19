@@ -1,10 +1,10 @@
 
-import SubscriptionsContainer from '../Container/OrdersContainer'
+import OrderContainer from '../Container/OrdersContainer'
 
 function TotalOrders() {
   return (
     <div>
-      <SubscriptionsContainer/>
+      <OrderContainer/>
     </div>
   )
 }
