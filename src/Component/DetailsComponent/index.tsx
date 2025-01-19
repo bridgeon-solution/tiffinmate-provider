@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Link } from '@mui/material';
+import { Box, Typography, Grid, Link, CircularProgress } from '@mui/material';
 import React from 'react';
 import InputField from '../../Atoms/Input';
 import StyledButton from '../../Atoms/Button';
@@ -23,6 +23,7 @@ interface DetailsComponentProps {
     fieldName: string
   ) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  loading: boolean; 
 }
 
 const DetailsComponent: React.FC<DetailsComponentProps> = ({
@@ -30,6 +31,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
   handleChange,
   handleSubmit,
   handleFileChange,
+  loading
 }) => {
   const navigate = useNavigate();
 
@@ -129,7 +131,20 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
             </Box>
           </Grid>
         </Grid>
-
+{loading&&(
+                <Box
+                sx={
+                  {
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                    marginBottom:'1rem',
+                  }
+                }
+                >
+                  <CircularProgress size={18}/>
+                  </Box>
+              )}
         {/*  Button */}
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem' }}>
           <StyledButton
@@ -147,7 +162,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
           >
             Submit
           </StyledButton>
-          {/* Link to Dashboard */}
+         {/* link to dashboard */}
           <Typography variant="body2" sx={{ marginTop: '1rem', color: '#333' }}>
             Already entered details?{' '}
             <Link
@@ -161,6 +176,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
           </Typography>
         </Box>
       </form>
+     
     </Box>
   );
 };

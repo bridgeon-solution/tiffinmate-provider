@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
 import { Link } from 'react-router-dom';
@@ -15,6 +15,7 @@ interface SignupComponentProps {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isSignupSuccessful: boolean;
+  loading: boolean; 
 }
 
 const SignupComponent: React.FC<SignupComponentProps> = ({
@@ -22,7 +23,8 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleChange,
   handleFileChange,
   handleSubmit,
-  isSignupSuccessful
+  isSignupSuccessful,
+  loading
 }) => {
  
 
@@ -112,10 +114,24 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   variant="outlined"
                 />
               </Box>
-
-              <StyledButton type="submit" variant="contained">
-                Submit
-              </StyledButton>
+{loading?(
+                <Box
+                sx={
+                  {
+                    display:'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                    marginBottom:'1rem',
+                  }
+                }
+                >
+                  <CircularProgress size={18}/>
+                  </Box>
+              ):<StyledButton type="submit" variant="contained">
+                
+              Submit
+            </StyledButton>}
+              
 
               {isSignupSuccessful && (
                 <Typography

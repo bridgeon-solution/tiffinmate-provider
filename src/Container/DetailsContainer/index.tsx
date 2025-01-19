@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import DetailsComponent from '../../Component/DetailsComponent'
 import { useNavigate } from 'react-router-dom'
 import { useFormik, FormikHelpers } from 'formik';
@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import PostProviderDetails from '../../Services/ProviderDetails';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-// import axios from 'axios';
+
 
 interface DetailsFormValues {
   resturentname: string;
@@ -21,9 +21,11 @@ interface DetailsFormValues {
 
 const id=localStorage.getItem('id');
 function DetailsContainer() {
+   const [loading, setLoading] = useState<boolean>(false);
   const navigate=useNavigate();
 
   const validationSchema = Yup.object({
+    
     resturentname: Yup.string()
       .required("Restaurant name is required"),
     address: Yup.string()
@@ -70,7 +72,7 @@ function DetailsContainer() {
       .positive("Account number must be positive")
       .integer("Account number must be an integer"),
   });
-  // validation issue an 
+
 
   const formik = useFormik<DetailsFormValues>({
     initialValues: {
@@ -85,6 +87,7 @@ function DetailsContainer() {
     },
     validationSchema,
     onSubmit:async(values:DetailsFormValues,helpers:FormikHelpers<DetailsFormValues>)=>{
+      setLoading(true);
       try {
        
         const formData = new FormData();
@@ -145,6 +148,7 @@ function DetailsContainer() {
     handleChange={handleChange}
     handleSubmit={handleSubmit}
     handleFileChange={handleFileChange}
+    loading={loading}  
     />
     </div>
   )
