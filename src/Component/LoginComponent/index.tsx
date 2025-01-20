@@ -190,6 +190,8 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                 </Box>
               </Typography>
             </Box>
+           
+
           </form>
         </Box>
       </Box>

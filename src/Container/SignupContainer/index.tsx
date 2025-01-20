@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFormik, FormikHelpers } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SignupComponent from '../../Component/SignupComponent';
 import axios from 'axios';
@@ -14,7 +14,7 @@ interface SignupFormValues {
 }
 
 function SignupContainer() {
-
+ const [loading, setLoading] = useState<boolean>(false);
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required'),
@@ -39,7 +39,8 @@ function SignupContainer() {
       file: null,
     },
     validationSchema,
-    onSubmit: async (values: SignupFormValues, helpers: FormikHelpers<SignupFormValues>) => {
+    onSubmit: async (values: SignupFormValues) => {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append('user_name', values.username);
@@ -56,7 +57,13 @@ function SignupContainer() {
         setIsSignupSuccessful(true); 
        
       } catch (error: unknown) {
+       
         if (axios.isAxiosError(error)) {
+          const errorResponse = error.response?.data;
+          if(errorResponse?.error){
+            const errorMessages = Object.values(errorResponse.errors).flat().join(", "); 
+            toast.error(`Error: ${errorMessages}`);
+          }
           toast.error('Error response:', error.response?.data);
  
         } else {
@@ -64,15 +71,11 @@ function SignupContainer() {
       
           toast.error('An unexpected error occurred. Please try again.')
         }
-      } finally {
-        helpers.resetForm();
-      }
+      } 
     }, 
   });
 
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
-
-  // File handler to update `file` field in Formik
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] || null;
     setFieldValue('file', file);
@@ -85,6 +88,7 @@ function SignupContainer() {
       handleSubmit={handleSubmit}
       handleFileChange={handleFileChange}
       isSignupSuccessful={isSignupSuccessful}
+      loading={loading}  
     />
   );
 }
