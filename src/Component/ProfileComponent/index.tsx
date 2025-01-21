@@ -49,6 +49,8 @@ const handleLogin=()=>{
     const fetchData = async () => {
       try {
         const result = await GetProfile();
+        console.log(result);
+        
         setProviderData(result);
       } catch (error) {
         toast.error("Error fetching provider data: " + error);

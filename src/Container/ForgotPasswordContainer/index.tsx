@@ -26,7 +26,7 @@ function ForgotContainer() {
       try {
         const response = await ForgotPassword({ email: values.email });
         if (response.status === 'success') {
-          navigate('/verification');
+          navigate('/verification',{ state: { email: values.email } });
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {

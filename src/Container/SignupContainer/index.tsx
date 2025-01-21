@@ -17,13 +17,13 @@ function SignupContainer() {
  const [loading, setLoading] = useState<boolean>(false);
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
+    username: Yup.string(),
     email: Yup.string()
-    .required('Email is required')
+   
     .test('containsAt', 'Email must contain @', (value) => value?.includes('@')),
     file: Yup.mixed<File>()
       .nullable()
-      .required('File is required')
+    
       .test('fileSize', 'File size is too large', (file) =>
         file ? file.size <= 5 * 1024 * 1024 : true // Max 5MB
       )
@@ -57,21 +57,20 @@ function SignupContainer() {
         setIsSignupSuccessful(true); 
        
       } catch (error: unknown) {
-       
         if (axios.isAxiosError(error)) {
           const errorResponse = error.response?.data;
-          if(errorResponse?.error){
+          if (errorResponse?.errors) {
             const errorMessages = Object.values(errorResponse.errors).flat().join(", "); 
             toast.error(`Error: ${errorMessages}`);
+          } else {
+            toast.error(`Error response: ${JSON.stringify(errorResponse)}`);
           }
-          toast.error('Error response:', error.response?.data);
- 
         } else {
-         
-      
-          toast.error('An unexpected error occurred. Please try again.')
+          toast.error('An unexpected error occurred. Please try again.');
         }
-      } 
+      } finally {
+        setLoading(false);
+      }
     }, 
   });
 
