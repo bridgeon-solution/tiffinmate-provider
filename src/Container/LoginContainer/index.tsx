@@ -55,19 +55,23 @@ function LoginContainer() {
       localStorage.setItem('id', id);
       localStorage.setItem('username', email);
       localStorage.setItem('refresh_token',refresh_token)
-        const check=api.get(`/Provider/CheckDetail?providerId=${id}`);
-        if((await check).data.result){
-          toast.success('Login successful!');
-          navigate('/details');
-        }
-          toast.success('Login successful!');
-          navigate('/dashboard');
+      const check = await api.get(`/Provider/CheckDetail?providerId=${id}`);
+const result = check.data.result;
+
+if (result) {
+  toast.success('Login successful!');
+  navigate('/dashboard');
+} else {
+  toast.success('Login successful!');
+  navigate('/details');
+}
+
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           const status = error.response?.status;
           const errorMessage = error.response?.data?.result;
-    
+        
        if (status === 500) {
             toast.error(`Server error: ${errorMessage}`);
           } else {

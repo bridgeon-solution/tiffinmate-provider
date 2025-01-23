@@ -4,45 +4,58 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
+import api from '../Services/api';
 
 
 
 const Cards: React.FC = () => {
-
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
+const [order,setOrder]=useState<number>(0);
+const [subscription,setSubscription]=useState<number>(0);
+const [orderSum,setOrderSum]=useState<number>(0);
+const [subscriptionSum,setSubscriptionSum]=useState<number>(0);
+const [revenue,setRevenue]=useState<number>(0);
+const [delivered,setDelivered]=useState<number>(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get(
+        `/Order/provider/${ localStorage.getItem('id')}?page=1&pageSize=${order}`
+      );
+       const totalOrder=response.data.result[0].totalCount;
      
-  //     try{
-  //       const response = await api.get(
-  //         `/Order/${localStorage.getItem('id')}/orders/list?page=1&pageSize=2`
-  //       );
-        
-  //       if(response?.data?.result && response?.data?.result?.length>0){
-  //         const result = response.data.result[0];
-  //         setData({
-  //           totalOrders: result.totalCount,
-  //           totalDelivered: 250, 
-  //           totalRevenue: '$5000', 
-  //         });
-  //       }else{
-  //         throw Error("No data found in the result array.");
-  //       }
-       
-  //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //     }catch(err:any){
-  //       throw Error(err);
-  //     }
-      
-  //   };
+      setOrder(totalOrder);
+      const orders=response.data.result[0].allorders;
+      const totalOrderPriceSum=orders.reduce((sum: number,order: { total_price: number; })=>sum+order.total_price,0);
+     setOrderSum(totalOrderPriceSum);
+     const delivered=orders.filter((o: { order_status: number; })=>o.order_status===2).length
+    
+     setDelivered(delivered);
 
-  //   fetchData();
-  // }, []);
+     const Subresponse = await api.get(
+      `/Subscription/all/${localStorage.getItem('id')}?page=1&pageSize=${subscription}`
+      
+  );
+  const totalCount  = Subresponse.data.result[0].totalCount;
+
+  
+  setSubscription(totalCount);
+  const allSub=Subresponse.data.result[0].allsubscription;
+  const totalSubPriceSum = allSub.reduce((sum: number, subscription: { total_price: number }) => sum + subscription.total_price, 0);
+
+  setSubscriptionSum(totalSubPriceSum);
+  const a=orderSum+subscriptionSum;
+  
+setRevenue(a);
+
+    };
+   
+    fetchData();
+  }, [order,orderSum,subscription,subscriptionSum]);
 
   const cardDetails = [
-    { title: 'Total Orders', count: 60, icon: '📦' },
-    { title: 'Total Delivered', count: 55, icon: '✅' },
-    { title: 'Total Revenue', count: 90, icon: '💰' },
+    { title: 'Total Orders', count: order, icon: '📦' },
+    { title: 'Total Delivered', count: delivered, icon: '✅' },
+    { title: 'Total Revenue', count: revenue, icon: '💰' },
   ];
 
   return (
