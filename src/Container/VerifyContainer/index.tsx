@@ -2,7 +2,7 @@ import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import OtpComponent from '../../Component/VerifyComponent';
 import PostOTP from '../../Services/OTP';
 import { toast } from 'react-toastify';
@@ -14,6 +14,8 @@ interface VerifyOTOValues {
 }
 
 function OtpContainer() {
+  const location = useLocation();
+  const email = location.state?.email || '';
  const navigate=useNavigate();
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
@@ -32,14 +34,14 @@ function OtpContainer() {
     onSubmit: async (values: VerifyOTOValues, helpers: FormikHelpers<VerifyOTOValues>) => {
       try {
         const formData = new FormData();
-        formData.append("email", values.email);
+        formData.append("email", email);
         formData.append("otp", values.otp);
         
         const response = await PostOTP(formData);
  
         if (response.status== "success") {
  
-          navigate('/resetpassword');
+          navigate('/resetpassword',{ state: { email: email } });
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
