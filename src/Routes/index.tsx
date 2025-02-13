@@ -7,13 +7,12 @@ import { Box, CircularProgress } from '@mui/material';
 
 import 'react-toastify/dist/ReactToastify.css';
 import Subscription from '../Pages/Subscription';
+import NotificationPage from '../Pages/NotificationPage';
 
 const TotalOrders = React.lazy(() => import('../Pages/Orders'));
 const TotalUsers = React.lazy(() => import('../Pages/ProviderUsers'));
 const AddmenuPage = React.lazy(() => import('../Pages/AddMenupage'));
 const Menudisplay = React.lazy(() => import('../Pages/DisplayFooditems'));
-
-
 const Signup = React.lazy(() => import('../Pages/Signup'));
 const Login = React.lazy(() => import('../Pages/Login'));
 const Dashboards = React.lazy(() => import('../Pages/Dashboards'));
@@ -60,13 +59,9 @@ function AppRouter() {
                   <Route path="/users" element={<TotalUsers/>} />
                   <Route path="users/:userId" element={<UserOrders />} />
                   <Route path="/subscriptions" element={<Subscription/>} />
-
-                <Route path='/addmenu' element={<AddmenuPage/>} />
-
-                <Route path='/menu/:menuid' element={<Menudisplay/>} />
-
-                
-
+                  <Route path="/notification" element={<NotificationPage />} />
+                  <Route path='/addmenu' element={<AddmenuPage/>} />
+                  <Route path='/menu/:menuid' element={<Menudisplay/>} />
                 </Routes>
               </Navbar>
             }
