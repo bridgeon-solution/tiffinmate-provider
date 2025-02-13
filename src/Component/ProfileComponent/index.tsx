@@ -14,6 +14,7 @@ import GetProfile from "../../Services/Profile";
 // import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import EditProviderFormComponent from "../EditProfileComponent";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -33,12 +34,23 @@ const ProfileCard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    window.confirm("Are you Sure");
+    navigate('/login');
+   localStorage.clear();
+    toast.success("Logged out successfully!");
+  };
+const handleLogin=()=>{
+  navigate('/login')
+}
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await GetProfile();
+        console.log(result);
+        
         setProviderData(result);
       } catch (error) {
         toast.error("Error fetching provider data: " + error);
@@ -66,7 +78,7 @@ const ProfileCard: React.FC = () => {
       </Box>
     );
   }
-
+const id=localStorage.getItem('id');
   return (
     <Box
       sx={{
@@ -81,7 +93,8 @@ const ProfileCard: React.FC = () => {
       }}
     >
       
-      <Stack direction="row" spacing={3} alignItems="center" mb={4}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
+      <Stack direction="row" spacing={3} alignItems="center">
         <Avatar
           alt={providerData?.username || "Profile"}
           src={providerData?.image || "https://via.placeholder.com/100"}
@@ -113,6 +126,34 @@ const ProfileCard: React.FC = () => {
             Edit Profile
           </Button>
         </Box>
+        </Stack>
+        {id?( <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogout}
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d32f2f",
+            "&:hover": {
+              backgroundColor: "#9a0007",
+            },
+          }}
+        >
+          Logout
+        </Button>):( <Button
+          variant="contained"
+          color="error"
+          onClick={handleLogin}
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#d32f2f",
+            "&:hover": {
+              backgroundColor: "#9a0007",
+            },
+          }}
+        >
+          LogIn
+        </Button>)}
       </Stack>
       <Typography variant="h5" fontWeight="bold" color="text.primary" mb={2}>
         Personal Information

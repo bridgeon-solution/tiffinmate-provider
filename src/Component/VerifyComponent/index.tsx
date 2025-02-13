@@ -71,14 +71,7 @@ const OtpComponent: React.FC<OtpComponentProps> = ({
                 marginTop: '2rem',
               }}
             >
-              {/* Email Field */}
-              <InputField
-                label="Email"
-                variant="outlined"
-                value={formValues.email}
-                name="email"
-                onChange={handleChange}
-              />
+            
               {/* OTP Field */}
               <InputField
                 label="6-Digit OTP"

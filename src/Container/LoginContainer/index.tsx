@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import api from '../../Services/api';
 
 
 interface LoginFormValues {
@@ -54,15 +55,23 @@ function LoginContainer() {
       localStorage.setItem('id', id);
       localStorage.setItem('username', email);
       localStorage.setItem('refresh_token',refresh_token)
-        
-          toast.success('Login successful!');
-          navigate('/details');
+      const check = await api.get(`/Provider/CheckDetail?providerId=${id}`);
+const result = check.data.result;
+
+if (result) {
+  toast.success('Login successful!');
+  navigate('/dashboard');
+} else {
+  toast.success('Login successful!');
+  navigate('/details');
+}
+
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
           const status = error.response?.status;
           const errorMessage = error.response?.data?.result;
-    
+        
        if (status === 500) {
             toast.error(`Server error: ${errorMessage}`);
           } else {

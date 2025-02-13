@@ -1,7 +1,7 @@
 import { useFormik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ResetPasswordComponent from '../../Component/ResetPasswprdComponent';
 import PostResetPassword from '../../Services/ResetPassword';
 import { toast } from 'react-toastify';
@@ -14,6 +14,8 @@ interface ResetPasswordValues {
 
 function ResetPasswordContainer() {
  const navigate=useNavigate();
+ const location = useLocation();
+   const email = location.state?.email || '';
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -31,7 +33,7 @@ function ResetPasswordContainer() {
     onSubmit: async (values: ResetPasswordValues, helpers: FormikHelpers<ResetPasswordValues>) => {
       try {
         const formData = new FormData();
-        formData.append("email", values.email);
+        formData.append("email", email);
         formData.append("password", values.password);
         
         const response = await PostResetPassword(formData);

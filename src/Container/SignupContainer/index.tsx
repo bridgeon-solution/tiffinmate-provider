@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFormik, FormikHelpers } from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import SignupComponent from '../../Component/SignupComponent';
 import axios from 'axios';
@@ -14,16 +14,16 @@ interface SignupFormValues {
 }
 
 function SignupContainer() {
-
+ const [loading, setLoading] = useState<boolean>(false);
   const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
   const validationSchema = Yup.object({
-    username: Yup.string().required('Username is required'),
+    username: Yup.string(),
     email: Yup.string()
-    .required('Email is required')
+   
     .test('containsAt', 'Email must contain @', (value) => value?.includes('@')),
     file: Yup.mixed<File>()
       .nullable()
-      .required('File is required')
+    
       .test('fileSize', 'File size is too large', (file) =>
         file ? file.size <= 5 * 1024 * 1024 : true // Max 5MB
       )
@@ -39,7 +39,8 @@ function SignupContainer() {
       file: null,
     },
     validationSchema,
-    onSubmit: async (values: SignupFormValues, helpers: FormikHelpers<SignupFormValues>) => {
+    onSubmit: async (values: SignupFormValues) => {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append('user_name', values.username);
@@ -57,22 +58,23 @@ function SignupContainer() {
        
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          toast.error('Error response:', error.response?.data);
- 
+          const errorResponse = error.response?.data;
+          if (errorResponse?.errors) {
+            const errorMessages = Object.values(errorResponse.errors).flat().join(", "); 
+            toast.error(`Error: ${errorMessages}`);
+          } else {
+            toast.error(`Error response: ${JSON.stringify(errorResponse)}`);
+          }
         } else {
-         
-      
-          toast.error('An unexpected error occurred. Please try again.')
+          toast.error('An unexpected error occurred. Please try again.');
         }
       } finally {
-        helpers.resetForm();
+        setLoading(false);
       }
     }, 
   });
 
   const { values, handleChange, handleSubmit, setFieldValue } = formik;
-
-  // File handler to update `file` field in Formik
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] || null;
     setFieldValue('file', file);
@@ -85,6 +87,7 @@ function SignupContainer() {
       handleSubmit={handleSubmit}
       handleFileChange={handleFileChange}
       isSignupSuccessful={isSignupSuccessful}
+      loading={loading}  
     />
   );
 }

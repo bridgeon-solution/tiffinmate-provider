@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import StyledButton from '../../Atoms/Button';
 import InputField from '../../Atoms/Input';
-import { Link } from 'react-router-dom';
+
 
 interface ResetComponentProps {
   formValues: {
@@ -72,13 +72,7 @@ const ResetPasswordComponent: React.FC<ResetComponentProps> = ({
                 marginTop: '2rem',
               }}
             >
-              <InputField
-                label="Email"
-                variant="outlined"
-                value={formValues.email}
-                name="email"
-                onChange={handleChange}
-              />
+             
               <InputField
                 label="Password"
                 variant="outlined"
@@ -90,62 +84,8 @@ const ResetPasswordComponent: React.FC<ResetComponentProps> = ({
               <StyledButton type="submit" variant="contained">
                 Submit
               </StyledButton>
-              <Typography
-                sx={{
-                  textAlign: 'center',
-                  marginTop: '1rem',
-                  fontSize: '14px',
-                  color: 'text.primary',
-                }}
-              >
-                Don't have an account?{' '}
-                <Box
-                  component="span"
-                  sx={{
-                    color: '#e6852c',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                  }}
-                >
-                  <Link
-                    to="/signup"
-                    style={{
-                      textDecoration: 'none',
-                      color: '#e6852c',
-                    }}
-                  >
-                    Register Now.
-                  </Link>
-                </Box>
-              </Typography>
-              <Typography
-                sx={{
-                  textAlign: 'center',
-                  marginTop: '1rem',
-                  fontSize: '14px',
-                  color: 'text.primary',
-                }}
-              >
-                Forgot Password?{' '}
-                <Box
-                  component="span"
-                  sx={{
-                    color: '#e6852c',
-                    cursor: 'pointer',
-                    textDecoration: 'underline',
-                  }}
-                >
-                  <Link
-                    to="/mail"
-                    style={{
-                      textDecoration: 'none',
-                      color: '#e6852c',
-                    }}
-                  >
-                    Reset.
-                  </Link>
-                </Box>
-              </Typography>
+              
+            
             </Box>
           </form>
         </Box>
