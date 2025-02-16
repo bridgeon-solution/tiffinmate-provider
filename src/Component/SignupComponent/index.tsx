@@ -1,9 +1,7 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
-import StyledButton from '../../Atoms/Button';
-import InputField from '../../Atoms/Input';
-import { Link } from 'react-router-dom';
-
-// import React, { useState } from 'react';
+import { Box, Typography } from "@mui/material";
+import StyledButton from "../../Atoms/Button";
+import InputField from "../../Atoms/Input";
+import { Link } from "react-router-dom";
 
 interface SignupComponentProps {
   formValues: {
@@ -15,7 +13,8 @@ interface SignupComponentProps {
   handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isSignupSuccessful: boolean;
-  loading: boolean; 
+  setIsSignupSuccessful:(value:boolean)=>void;
+  loading: boolean;
 }
 
 const SignupComponent: React.FC<SignupComponentProps> = ({
@@ -24,24 +23,21 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleFileChange,
   handleSubmit,
   isSignupSuccessful,
-  loading
+  setIsSignupSuccessful,
+  loading,
 }) => {
- 
-
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSignupSuccessful(false);
     handleSubmit(e);
-
-   
-   
   };
 
   return (
-    <Box 
-      sx={{ 
-        display: "flex", 
-        flexDirection: { xs: "column", md: "row" }, 
-        height: "100vh", 
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        height: "100vh",
       }}
     >
       {/* Left */}
@@ -72,22 +68,22 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
         }}
       >
         <Box sx={{ width: "100%", maxWidth: { xs: "100%", md: "400px" } }}>
-          <Typography 
-            sx={{ 
-              fontSize: { xs: "24px", md: "33px" }, 
+          <Typography
+            sx={{
+              fontSize: { xs: "24px", md: "33px" },
               fontWeight: 700,
-              textAlign: 'center',
+              textAlign: "center",
             }}
           >
             SignUp
           </Typography>
           <form onSubmit={onSubmit}>
-            <Box 
-              sx={{ 
-                display: "flex", 
-                flexDirection: "column", 
-                gap: "1rem", 
-                marginTop: "2rem" 
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1rem",
+                marginTop: "2rem",
               }}
             >
               <InputField
@@ -96,6 +92,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                 value={formValues.username}
                 name="username"
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Email"
@@ -103,35 +100,30 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                 value={formValues.email}
                 name="email"
                 onChange={handleChange}
+                required
               />
 
-              <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              >
                 <Typography>Upload Certificate</Typography>
                 <InputField
                   type="file"
-                  inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }} 
+                  inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }}
                   onChange={handleFileChange}
                   variant="outlined"
+                  required
                 />
               </Box>
-{loading?(
-                <Box
-                sx={
-                  {
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    marginBottom:'1rem',
-                  }
-                }
-                >
-                  <CircularProgress size={18}/>
-                  </Box>
-              ):<StyledButton type="submit" variant="contained">
-                
-              Submit
-            </StyledButton>}
-              
+              {loading ? (
+                <StyledButton type="submit" variant="contained" disabled>
+                  Submitting
+                </StyledButton>
+              ) : (
+                <StyledButton type="submit" variant="contained">
+                  Submit
+                </StyledButton>
+              )}
 
               {isSignupSuccessful && (
                 <Typography
@@ -142,7 +134,8 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                     textAlign: "center",
                   }}
                 >
-                  Signup successful! You will receive a password in your email after verification.
+                  Signup successful! You will receive a password in your email
+                  after verification.
                 </Typography>
               )}
 
@@ -154,7 +147,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   color: "text.primary",
                 }}
               >
-                ALREADY HAVE AN ACCOUNT?{' '}
+                Already have an account?{" "}
                 <Box
                   component="span"
                   sx={{

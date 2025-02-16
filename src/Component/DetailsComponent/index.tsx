@@ -1,8 +1,8 @@
-import { Box, Typography, Grid, Link, CircularProgress } from '@mui/material';
-import React from 'react';
-import InputField from '../../Atoms/Input';
-import StyledButton from '../../Atoms/Button';
-import { useNavigate } from 'react-router-dom';
+import { Box, Typography, Grid, Link, CircularProgress } from "@mui/material";
+import React from "react";
+import InputField from "../../Atoms/Input";
+import StyledButton from "../../Atoms/Button";
+import { useNavigate } from "react-router-dom";
 
 interface DetailsComponentProps {
   formValues: {
@@ -23,7 +23,7 @@ interface DetailsComponentProps {
     fieldName: string
   ) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  loading: boolean; 
+  loading: boolean;
 }
 
 const DetailsComponent: React.FC<DetailsComponentProps> = ({
@@ -31,19 +31,23 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
   handleChange,
   handleSubmit,
   handleFileChange,
-  loading
+  loading,
 }) => {
   const navigate = useNavigate();
 
   return (
     <Box
       sx={{
-        padding: { xs: '1.5rem', md: '3rem' },
-        
-        borderRadius: '8px',
+        padding: { xs: "1.5rem", md: "3rem" },
+
+        borderRadius: "8px",
       }}
     >
-      <Typography variant="h4" align="center" sx={{ marginBottom: '2rem', color: '#333' }}>
+      <Typography
+        variant="h4"
+        align="center"
+        sx={{ marginBottom: "2rem", color: "#333" }}
+      >
         Enter Details
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -57,7 +61,8 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               variant="outlined"
               name="resturentname"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
 
             <InputField
@@ -67,25 +72,36 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               variant="outlined"
               name="address"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
             <InputField
               label="Phone"
               onChange={handleChange}
-              value={formValues.phone || ''}
+              value={formValues.phone || ""}
               variant="outlined"
               name="phone"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
-            <Box sx={{ marginBottom: '1rem' }}>
-              <Typography variant="body1" sx={{ marginBottom: '0.5rem', color: '#555' }}>
+            <Box sx={{ marginBottom: "1rem" }}>
+              <Typography
+                variant="body1"
+                sx={{ marginBottom: "0.5rem", color: "#555" }}
+              >
                 Upload Logo
               </Typography>
               <InputField
                 type="file"
-                inputProps={{ accept: '.jpg,.jpeg,.png,.pdf' }}
-                onChange={(e) => handleFileChange(e as React.ChangeEvent<HTMLInputElement>, 'file1')}
+                inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }}
+                onChange={(e) =>
+                  handleFileChange(
+                    e as React.ChangeEvent<HTMLInputElement>,
+                    "file1"
+                  )
+                }
+                required
               />
             </Box>
           </Grid>
@@ -99,7 +115,8 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               variant="outlined"
               name="about"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
             <InputField
               label="Location"
@@ -108,75 +125,90 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
               variant="outlined"
               name="location"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
             <InputField
               label="Account Number"
               onChange={handleChange}
-              value={formValues.accountnumber || ''}
+              value={formValues.accountnumber || ""}
               variant="outlined"
               name="accountnumber"
               fullWidth
-              sx={{ marginBottom: '1rem' }}
+              sx={{ marginBottom: "1rem" }}
+              required
             />
             <Box>
-              <Typography variant="body1" sx={{ marginBottom: '0.5rem', color: '#555' }}>
+              <Typography
+                variant="body1"
+                sx={{ marginBottom: "0.5rem", color: "#555" }}
+              >
                 Upload Image
               </Typography>
               <InputField
                 type="file"
-                inputProps={{ accept: '.jpg,.jpeg,.png,.pdf' }}
-                onChange={(e) => handleFileChange(e as React.ChangeEvent<HTMLInputElement>, 'file2')}
+                inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }}
+                onChange={(e) =>
+                  handleFileChange(
+                    e as React.ChangeEvent<HTMLInputElement>,
+                    "file2"
+                  )
+                }
+                required
               />
             </Box>
           </Grid>
         </Grid>
-{loading&&(
-                <Box
-                sx={
-                  {
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    marginBottom:'1rem',
-                  }
-                }
-                >
-                  <CircularProgress size={18}/>
-                  </Box>
-              )}
+        {loading && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <CircularProgress size={18} />
+          </Box>
+        )}
         {/*  Button */}
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '2rem' }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "2rem",
+          }}
+        >
           <StyledButton
             type="submit"
             variant="contained"
             sx={{
-              minWidth: '200px',
-              padding: '0.75rem 1rem',
-              backgroundColor: '#1976d2',
-              color: '#fff',
-              '&:hover': {
-                backgroundColor: '#1565c0',
+              minWidth: "200px",
+              padding: "0.75rem 1rem",
+              backgroundColor: "#1976d2",
+              color: "#fff",
+              "&:hover": {
+                backgroundColor: "#1565c0",
               },
             }}
           >
             Submit
           </StyledButton>
-         {/* link to dashboard */}
-          <Typography variant="body2" sx={{ marginTop: '1rem', color: '#333' }}>
-            Already entered details?{' '}
+          {/* link to dashboard */}
+          <Typography variant="body2" sx={{ marginTop: "1rem", color: "#333" }}>
+            Already entered details?{" "}
             <Link
               component="button"
               underline="none"
-              onClick={() => navigate('/dashboard')}
-              sx={{ color: '#e6852c', cursor: 'pointer', fontWeight: 'bold' }}
+              onClick={() => navigate("/dashboard")}
+              sx={{ color: "#e6852c", cursor: "pointer", fontWeight: "bold" }}
             >
               Go to Dashboard
             </Link>
           </Typography>
         </Box>
       </form>
-     
     </Box>
   );
 };

@@ -68,25 +68,25 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      const status = error.response.status;
-      switch (status) {
-        case 400:
+      // const status = error.response.status;
+      // switch (status) {
+      //   case 400:
           
-          toast.error("Bad Request");
-          break;
-        case 401:
+      //     toast.error("Bad Request");
+      //     break;
+      //   case 401:
        
-          toast.error("Unauthorized: Please log in to continue.");
-          window.location.replace("/login");
-          break;
-        case 500:
-          toast.error("Internal Server Error.");
+      //     toast.error("Unauthorized: Please log in to continue.");
+      //     window.location.replace("/login");
+      //     break;
+      //   case 500:
+      //     toast.error("Internal Server Error.");
        
-          break;
-        default:
-          toast.error(`Error: ${status}`);
+      //     break;
+      //   default:
+      //     toast.error(`Error: ${status}`);
          
-      }
+      // }
     }
     return Promise.reject(error);
   }

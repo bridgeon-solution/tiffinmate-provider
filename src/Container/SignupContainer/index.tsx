@@ -48,10 +48,6 @@ function SignupContainer() {
         if (values.file) {
           formData.append('certificateFile', values.file); 
         }
-
-       
-
-
         await PostProviderSignup(formData);
         toast.success('success');
         setIsSignupSuccessful(true); 
@@ -62,8 +58,10 @@ function SignupContainer() {
           if (errorResponse?.errors) {
             const errorMessages = Object.values(errorResponse.errors).flat().join(", "); 
             toast.error(`Error: ${errorMessages}`);
-          } else {
-            toast.error(`Error response: ${JSON.stringify(errorResponse)}`);
+          } else if(errorResponse.result=="Email already exist") {
+            toast.warn(errorResponse.result);
+          }else{
+            toast.error(errorResponse.result);
           }
         } else {
           toast.error('An unexpected error occurred. Please try again.');
@@ -87,6 +85,7 @@ function SignupContainer() {
       handleSubmit={handleSubmit}
       handleFileChange={handleFileChange}
       isSignupSuccessful={isSignupSuccessful}
+      setIsSignupSuccessful={setIsSignupSuccessful}
       loading={loading}  
     />
   );

@@ -85,6 +85,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                 value={formValues.email}
                 name="email"
                 onChange={handleChange}
+                required
               />
               <Box
                 sx={{
@@ -101,6 +102,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                   onChange={handleChange}
                   type={showPassword ? 'text' : 'password'}
                   sx={{ flex: 1 }}
+                  required
                 />
                 <Box
                   sx={{
@@ -113,26 +115,15 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </Box>
               </Box>
-              {loading&&(
-                <Box
-                sx={
-                  {
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    marginBottom:'1rem',
-                  }
-                }
-                >
-                  <CircularProgress size={18}/>
-                  </Box>
+              {loading ? (
+                <StyledButton type="submit" variant="contained" disabled>
+                  Submitting
+                </StyledButton>
+              ) : (
+                <StyledButton type="submit" variant="contained">
+                  Submit
+                </StyledButton>
               )}
-             
-
-
-              <StyledButton type="submit" variant="contained">
-                Submit
-              </StyledButton>
               <Typography
                 sx={{
                   textAlign: 'center',
