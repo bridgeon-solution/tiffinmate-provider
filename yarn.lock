@@ -642,18 +642,9 @@
     prop-types "^15.8.1"
 
 "@mui/x-date-pickers@^7.23.3":
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> cc700e11c14b95f68a0e1fcbed9850f345c61c1a
-  version "7.23.6"
-  resolved "https://registry.npmjs.org/@mui/x-date-pickers/-/x-date-pickers-7.23.6.tgz"
-  integrity sha512-jt6rEAYLju3NZe3y2S+I5KcTiSHV79FW0jeNUEUTceg1qsPzseHbND66k3zVF0hO3N2oZtLtPywof6vN5Doe+Q==
-=======
   version "7.26.0"
   resolved "https://registry.npmjs.org/@mui/x-date-pickers/-/x-date-pickers-7.26.0.tgz"
   integrity sha512-bhSDce1b5MBYYlCdHQJBThe10LGTE3D/u53TDQ41+IRj+iiNCun8jivw3DxKhmoBxlB+hVdkcltpTtIGlPjQZQ==
->>>>>>> c61adc34e52049bd02231b1e7cc30506facf81fc
   dependencies:
     "@babel/runtime" "^7.25.7"
     "@mui/utils" "^5.16.6 || ^6.0.0"
@@ -2661,9 +2652,6 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-<<<<<<< HEAD
-vite@^6.0.1:
-=======
 url-parse@^1.5.3:
   version "1.5.10"
   resolved "https://registry.npmjs.org/url-parse/-/url-parse-1.5.10.tgz"
@@ -2672,8 +2660,7 @@ url-parse@^1.5.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-"vite@^4.2.0 || ^5.0.0 || ^6.0.0", vite@^6.0.1:
->>>>>>> cc700e11c14b95f68a0e1fcbed9850f345c61c1a
+vite@^6.0.1:
   version "6.0.7"
   resolved "https://registry.npmjs.org/vite/-/vite-6.0.7.tgz"
   integrity sha512-RDt8r/7qx9940f8FcOIAH9PTViRrghKaK2K1jY3RaAURrEUbm9Du1mJ72G+jlhtG3WwodnfzY8ORQZbBavZEAQ==
@@ -2681,19 +2668,6 @@ url-parse@^1.5.3:
     esbuild "^0.24.2"
     postcss "^8.4.49"
     rollup "^4.23.0"
-  optionalDependencies:
-    fsevents "~2.3.3"
-
-<<<<<<< HEAD
-=======
-"vite@^4.2.0 || ^5.0.0":
-  version "5.4.11"
-  resolved "https://registry.npmjs.org/vite/-/vite-5.4.11.tgz"
-  integrity sha512-c7jFQRklXua0mTzneGW9QVyxFjUgwcihC4bXEtujIo2ouWCe1Ajt/amn2PCxYnhYfd5k09JX3SB7OYWFKYqj8Q==
-  dependencies:
-    esbuild "^0.21.3"
-    postcss "^8.4.43"
-    rollup "^4.20.0"
   optionalDependencies:
     fsevents "~2.3.3"
 
@@ -2710,7 +2684,6 @@ whatwg-url@^5.0.0:
     tr46 "~0.0.3"
     webidl-conversions "^3.0.0"
 
->>>>>>> cc700e11c14b95f68a0e1fcbed9850f345c61c1a
 which@^1.2.9:
   version "1.3.1"
   resolved "https://registry.npmjs.org/which/-/which-1.3.1.tgz"

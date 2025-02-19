@@ -64,7 +64,8 @@ const ProviderNotificationContainer: React.FC = () => {
 
     return () => {
       if (connection) {
-        connection.stop().catch((error) => console.error('Error stopping connection:', error));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        connection.stop().catch((error: any) => console.error('Error stopping connection:', error));
       }
     };
   }, [providerId]);
