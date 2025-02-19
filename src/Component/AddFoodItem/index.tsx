@@ -33,9 +33,9 @@ export const FoodItemForm: React.FC<FoodItemFormProps> = ({
   
 }) => {
   const categories = [
-    { id: "0193ce2c-ab58-7b6f-8470-7462704e8638", category_name: "Breakfast" },
-    { id: "0193ce2d-5a2b-7a4c-b75a-aeaa23f3e6b2", category_name: "Lunch" },
-    { id: "0193ce2d-862c-7c4f-b3c2-7ee4c8e7113e", category_name: "Dinner" },
+    { id: "019519b1-4f76-7623-8b8f-56b49517c05d", category_name: "Breakfast" },
+    { id: "019519b2-2460-7451-9304-a6f261ebd022", category_name: "Lunch" },
+    { id: "019519b0-cd5b-75a6-bb9e-54515feff582", category_name: "Dinner" },
   ];
   const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 

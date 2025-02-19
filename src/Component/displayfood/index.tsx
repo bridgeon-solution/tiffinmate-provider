@@ -52,7 +52,12 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading,
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       {menuList.length === 0 && <Typography variant="body1">No categories available</Typography>}
 
-      {menuList.map((menu) => {
+      {[...menuList]
+       .sort((a, b) => {
+       const order = ["Breakfast", "Lunch", "Dinner"];
+       return order.indexOf(a.category_name) - order.indexOf(b.category_name);
+  })
+  .map((menu) => {
         const filteredFoodItems = foodItems.filter((item) => item.menu_id === menuid && item.category_id === menu.id);
 
         return (
