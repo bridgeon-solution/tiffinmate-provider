@@ -60,8 +60,9 @@ const DisplayMenu: React.FC = () => {
     const updatedData = [...foodformdata];
     updatedData[index] = { ...updatedData[index], Category: e.target.value as string };
     setFoodformdata(updatedData);
+    
   };
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -84,11 +85,12 @@ const DisplayMenu: React.FC = () => {
         formData.append("menu_id", selectedMenuId || "");
         if (menuItem.Image) {
           formData.append("image", menuItem.Image);
-        }
+        } 
          await AddMenuItem(formData);  
          
+         
       }
-
+     
       toast.success("Food items added successfully!");
       setFoodformdata(foodformdata.map(item => ({
         ...item,
@@ -101,6 +103,7 @@ const DisplayMenu: React.FC = () => {
       
       setOpenModal(false);
     } catch (error) {
+      
       toast.error("Failed to add item");
     } finally {
       setIsSubmitting(false);
