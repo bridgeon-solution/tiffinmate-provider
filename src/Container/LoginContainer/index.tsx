@@ -13,16 +13,11 @@ import api from '../../Services/api';
 interface LoginFormValues {
   email: string;
   password: string;
-  
-
 }
-
 
 function LoginContainer() {
  const navigate=useNavigate();
  const [loading,setLoading]=useState(false);
-
-
  const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email format').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -73,7 +68,7 @@ if (result) {
           const errorMessage = error.response?.data?.result;
         
        if (status === 500) {
-            toast.error(`Server error: ${errorMessage}`);
+            toast.warn(errorMessage);
           } else {
             toast.error(`Error: ${errorMessage}`);
           }
@@ -83,6 +78,7 @@ if (result) {
         }
       } finally {
         helpers.resetForm();
+        setLoading(false)
       }
     },
     

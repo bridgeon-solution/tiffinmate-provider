@@ -7,6 +7,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import List from "@mui/material/List";
 import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import MarkChatUnreadOutlinedIcon from "@mui/icons-material/MarkChatUnreadOutlined";
 import SpaceDashboardOutlinedIcon from "@mui/icons-material/SpaceDashboardOutlined";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -18,7 +19,6 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 import PeopleIcon from "@mui/icons-material/People";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import DrawerHeader from "./DrawerHeader";
 
 const drawerWidth = 240;
@@ -89,7 +89,7 @@ const icons = [
   <PeopleIcon />,
   <FastfoodIcon />,
   <SubscriptionsIcon />,
-  <VerifiedIcon />,
+  <MarkChatUnreadOutlinedIcon />,
 ];
 
 const menuItems = [
@@ -98,7 +98,7 @@ const menuItems = [
   { name: "Users", path: "/users" },
   { name: "Add fooditems", path: "/addmenu" },
   { name: "Subscriptions", path: "/subscriptions" },
-  { name: "Display Foods", path: "/displayfoods" },
+  { name: "Reviews", path: "/Reviews" },
 ];
 
 export default function NavBar({ children }: { children: React.ReactNode }) {
@@ -143,7 +143,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
             >
               TiffinMate
               <Typography color="#B9BBBD" fontSize="10px">
-                Modern Admin Dashboard
+                Modern provider Dashboard
               </Typography>
             </Typography>
           )}
@@ -202,7 +202,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
         }}
       >
         <Box sx={{ position: "absolute", top: 20, right: 80 }}>
-          <MarkChatUnreadOutlinedIcon sx={{ fontSize: 25 }}  onClick={()=>navigate('/Reviews')}/>
+          <NotificationsActiveIcon sx={{ fontSize: 25 }}  onClick={()=>navigate('/Reviews')}/>
           <Box
             sx={{
               position: "absolute",
