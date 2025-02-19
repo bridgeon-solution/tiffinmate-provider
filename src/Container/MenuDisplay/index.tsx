@@ -85,10 +85,8 @@ const DisplayMenu: React.FC = () => {
         formData.append("menu_id", selectedMenuId || "");
         if (menuItem.Image) {
           formData.append("image", menuItem.Image);
-        }
-        
-        await new Promise(resolve => setTimeout(resolve, 1000)); 
-         const responce=await AddMenuItem(formData);  
+        } 
+         await AddMenuItem(formData);  
          
          
       }
