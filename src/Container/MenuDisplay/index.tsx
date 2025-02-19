@@ -75,7 +75,6 @@ const DisplayMenu: React.FC = () => {
       }
       
       for (const menuItem of foodformdata) {
-        console.log(`Submitting category_id for ${menuItem.day}:`, menuItem.Category);
         const formData = new FormData();
         formData.append("provider_id", providerId);
         formData.append("food_name", menuItem.MenuName);
@@ -87,10 +86,10 @@ const DisplayMenu: React.FC = () => {
         if (menuItem.Image) {
           formData.append("image", menuItem.Image);
         }
-        console.log("Submitting form data:", Object.fromEntries(formData));
+        
         await new Promise(resolve => setTimeout(resolve, 1000)); 
          const responce=await AddMenuItem(formData);  
-         console.log("API Response:", responce);
+         
          
       }
      
@@ -106,7 +105,7 @@ const DisplayMenu: React.FC = () => {
       
       setOpenModal(false);
     } catch (error) {
-      console.log("Failed to add item")
+      
       toast.error("Failed to add item");
     } finally {
       setIsSubmitting(false);
