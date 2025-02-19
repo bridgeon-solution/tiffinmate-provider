@@ -120,6 +120,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                 value={formValues.username}
                 name="username"
                 onChange={handleChange}
+                required
               />
               <InputField
                 label="Email"
@@ -127,6 +128,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                 value={formValues.email}
                 name="email"
                 onChange={handleChange}
+                required
               />
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -136,25 +138,18 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }} 
                   onChange={handleFileChange}
                   variant="outlined"
+                  required
                 />
               </Box>
-{loading?(
-                <Box
-                sx={
-                  {
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center',
-                    marginBottom:'1rem',
-                  }
-                }
-                >
-                  <CircularProgress size={18}/>
-                  </Box>
-              ):<StyledButton type="submit" variant="contained">
-                
-              Submit
-            </StyledButton>}
+              {loading ? (
+                <StyledButton type="submit" variant="contained" disabled>
+                  Submitting
+                </StyledButton>
+              ) : (
+                <StyledButton type="submit" variant="contained">
+                  Submit
+                </StyledButton>
+              )}
               
 
               {isSignupSuccessful && (
@@ -169,7 +164,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   Signup successful! You will receive a password in your email after verification.
                 </Typography>
               )}
-               {/* Google Login Button */}
+               
                <GoogleLogin onSuccess={onGoogleSuccess} onError={onGoogleFailure} />
 
                
@@ -182,7 +177,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   color: "text.primary",
                 }}
               >
-                ALREADY HAVE AN ACCOUNT?{' '}
+                Already have an account?{" "}
                 <Box
                   component="span"
                   sx={{
