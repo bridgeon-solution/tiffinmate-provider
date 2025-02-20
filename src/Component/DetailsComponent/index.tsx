@@ -159,18 +159,7 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
             </Box>
           </Grid>
         </Grid>
-        {loading && (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
-            <CircularProgress size={18} />
-          </Box>
-        )}
+
         {/*  Button */}
         <Box
           sx={{
@@ -183,17 +172,18 @@ const DetailsComponent: React.FC<DetailsComponentProps> = ({
           <StyledButton
             type="submit"
             variant="contained"
+            disabled={loading}
             sx={{
               minWidth: "200px",
               padding: "0.75rem 1rem",
-              backgroundColor: "#1976d2",
+              backgroundColor: loading ? "#a5a5a5" : "#1976d2",
               color: "#fff",
               "&:hover": {
-                backgroundColor: "#1565c0",
+                backgroundColor: loading ? "#a5a5a5" : "#1565c0",
               },
             }}
           >
-            Submit
+            {loading ? "Submitting..." : "Submit"}
           </StyledButton>
           {/* link to dashboard */}
           <Typography variant="body2" sx={{ marginTop: "1rem", color: "#333" }}>

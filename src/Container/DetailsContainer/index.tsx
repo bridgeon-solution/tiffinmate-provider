@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
-import DetailsComponent from '../../Component/DetailsComponent'
-import { useNavigate } from 'react-router-dom'
-import { useFormik, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-import PostProviderDetails from '../../Services/ProviderDetails';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-
+import React, { useState } from "react";
+import DetailsComponent from "../../Component/DetailsComponent";
+import { useNavigate } from "react-router-dom";
+import { useFormik, FormikHelpers } from "formik";
+import * as Yup from "yup";
+import PostProviderDetails from "../../Services/ProviderDetails";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 interface DetailsFormValues {
   resturentname: string;
@@ -19,17 +18,14 @@ interface DetailsFormValues {
   accountnumber: number | null;
 }
 
-const id=localStorage.getItem('id');
+const id = localStorage.getItem("id");
 function DetailsContainer() {
-   const [loading, setLoading] = useState<boolean>(false);
-  const navigate=useNavigate();
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
-    
-    resturentname: Yup.string()
-      .required("Restaurant name is required"),
-    address: Yup.string()
-      .required("Address is required"),
+    resturentname: Yup.string().required("Restaurant name is required"),
+    address: Yup.string().required("Address is required"),
     phone: Yup.number()
       .typeError("Phone number must be a valid number")
       .required("Phone number is required")
@@ -39,32 +35,33 @@ function DetailsContainer() {
       .nullable()
       .required("Logo file is required")
       .test(
-        'fileFormat',
-        'Unsupported file format. Allowed formats: jpg, jpeg, png, pdf',
-        (file) => file ? ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type) : true
+        "fileFormat",
+        "Unsupported file format. Allowed formats: jpg, jpeg, png, pdf",
+        (file) =>
+          file
+            ? ["image/jpeg", "image/png", "application/pdf"].includes(file.type)
+            : true
       )
-      .test(
-        'fileSize',
-        'File size must not exceed 2MB',
-        (file) => file ? file.size <= 2 * 1024 * 1024 : true
+      .test("fileSize", "File size must not exceed 2MB", (file) =>
+        file ? file.size <= 2 * 1024 * 1024 : true
       ),
     about: Yup.string()
       .required("About field is required")
       .min(10, "About field must be at least 10 characters long"),
-    location: Yup.string()
-      .required("Location is required"),
+    location: Yup.string().required("Location is required"),
     file2: Yup.mixed<File>()
       .nullable()
       .required("Certificate file is required")
       .test(
-        'fileFormat',
-        'Unsupported file format. Allowed formats: jpg, jpeg, png, pdf',
-        (file) => file ? ['image/jpeg', 'image/png', 'application/pdf'].includes(file.type) : true
+        "fileFormat",
+        "Unsupported file format. Allowed formats: jpg, jpeg, png, pdf",
+        (file) =>
+          file
+            ? ["image/jpeg", "image/png", "application/pdf"].includes(file.type)
+            : true
       )
-      .test(
-        'fileSize',
-        'File size must not exceed 2MB',
-        (file) => file ? file.size <= 2 * 1024 * 1024 : true
+      .test("fileSize", "File size must not exceed 2MB", (file) =>
+        file ? file.size <= 2 * 1024 * 1024 : true
       ),
     accountnumber: Yup.number()
       .typeError("Account number must be a valid number")
@@ -73,85 +70,80 @@ function DetailsContainer() {
       .integer("Account number must be an integer"),
   });
 
-
   const formik = useFormik<DetailsFormValues>({
     initialValues: {
-      resturentname: '',
-      address: '',
+      resturentname: "",
+      address: "",
       phone: null,
       file1: null,
-      about: '',
-      location: '',
+      about: "",
+      location: "",
       file2: null,
       accountnumber: null,
     },
     validationSchema,
-    onSubmit:async(values:DetailsFormValues,helpers:FormikHelpers<DetailsFormValues>)=>{
+    onSubmit: async (
+      values: DetailsFormValues,
+      helpers: FormikHelpers<DetailsFormValues>
+    ) => {
       setLoading(true);
       try {
-       
         const formData = new FormData();
-      formData.append('provider_id', id || '');
-      formData.append('resturent_name', values.resturentname);
-      formData.append('address', values.address);
-      formData.append('phone_no', values.phone?.toString() || '');
-      if (values.file1) {
-        formData.append('logo', values.file1);
-      }
-      formData.append('about', values.about); 
-      formData.append('location', values.location);
-      formData.append('account_no', values.accountnumber?.toString() || '');
-      if (values.file2) {
-        formData.append('image', values.file2);
-      }
- 
+        formData.append("provider_id", id || "");
+        formData.append("resturent_name", values.resturentname);
+        formData.append("address", values.address);
+        formData.append("phone_no", values.phone?.toString() || "");
+        if (values.file1) {
+          formData.append("logo", values.file1);
+        }
+        formData.append("about", values.about);
+        formData.append("location", values.location);
+        formData.append("account_no", values.accountnumber?.toString() || "");
+        if (values.file2) {
+          formData.append("image", values.file2);
+        }
+
         await PostProviderDetails(formData);
-        toast.success("Details Saved successfully")
-    navigate('/dashboard');
-      }
-      catch (error: unknown) {
+        toast.success("Details Saved successfully");
+        navigate("/dashboard");
+      } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          
-    
           if (error.response?.status === 401) {
-           
-            toast.error("Please try again.")
-          } 
-          else {
-            
-            toast.error(`Error: ${error.response?.data?.error_message || ' failed. Please try again.'}`)
+            toast.error("Please try again.");
+          } else {
+            toast.error(
+              `Error: ${error.response?.data?.error_message || " failed. Please try again."}`
+            );
           }
         } else {
-      
-        
-          toast.error('An unexpected error occurred. Please try again.')
+          toast.error("An unexpected error occurred. Please try again.");
         }
-      }
-      finally {
+      } finally {
+        setLoading(false);
         helpers.resetForm();
-      
       }
-    }
+    },
   });
-  const {values,handleChange,handleSubmit,setFieldValue}=formik;
-  function handleFileChange(e:React.ChangeEvent<HTMLInputElement>, fieldName: string) {
-    const file=e.target.files?.[0]||null;
+  const { values, handleChange, handleSubmit, setFieldValue } = formik;
+  function handleFileChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    fieldName: string
+  ) {
+    const file = e.target.files?.[0] || null;
     setFieldValue(fieldName, file);
-    
   }
- 
-  
+
   return (
     <div>
-    <DetailsComponent
-    formValues={values}
-    handleChange={handleChange}
-    handleSubmit={handleSubmit}
-    handleFileChange={handleFileChange}
-    loading={loading}  
-    />
+      <DetailsComponent
+        formValues={values}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleFileChange={handleFileChange}
+        loading={loading}
+      />
     </div>
-  )
+  );
 }
 
-export default DetailsContainer
+export default DetailsContainer;
