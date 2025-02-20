@@ -26,7 +26,7 @@ function OtpContainer() {
  
   const formik = useFormik<VerifyOTOValues>({
     initialValues: {
-      email: '',
+      email: email,
       otp: '',
      
     },
