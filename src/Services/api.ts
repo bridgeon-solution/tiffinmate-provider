@@ -12,7 +12,7 @@ const refreshToken = async () => {
     if (!refresh_token) {
       throw new Error("Refresh token not found. Please log in again.");
     }
-    const response = await axios.post("https://localhost:7009/api/v1/Refresh", {
+    const response = await api.post(`/Refresh`, {
       refresh_token,
     });
     const { token } = response.data.result;
