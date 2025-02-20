@@ -2,6 +2,8 @@ import { Box, Typography } from "@mui/material";
 import StyledButton from "../../Atoms/Button";
 import InputField from "../../Atoms/Input";
 import { Link } from "react-router-dom";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 interface SignupComponentProps {
   formValues: {
@@ -14,8 +16,10 @@ interface SignupComponentProps {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   isSignupSuccessful: boolean;
   setIsSignupSuccessful:(value:boolean)=>void;
-  loading: boolean;
+  loading: boolean; 
 }
+
+const clientId = "559629451871-bljindknsj2iupf6lv5shmc2c3g7mu7m.apps.googleusercontent.com"; 
 
 const SignupComponent: React.FC<SignupComponentProps> = ({
   formValues,
@@ -24,20 +28,44 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
   handleSubmit,
   isSignupSuccessful,
   setIsSignupSuccessful,
-  loading,
+  loading
 }) => {
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ const onGoogleSuccess = async (credentialResponse: any) => {
+  console.log("Google Token:", credentialResponse.credential);
+  try {
+    const response = await axios.post("https://localhost:7009/api/Auth/google", {
+      token: credentialResponse.credential,
+    });
+    console.log("Google Auth Response:", response.data);
+      alert("Login successful!");
+    } catch (error) {
+      console.error("Google Login Error:", error);
+      alert("Login failed!");
+    }
+  }
+  const onGoogleFailure = () => {
+    console.log("Google Login Failed");
+    alert("Google login failed!");
+  };
+
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSignupSuccessful(false);
     handleSubmit(e);
+
+   
+   
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: { xs: "column", md: "row" },
-        height: "100vh",
+    <GoogleOAuthProvider clientId={clientId}>
+    <Box 
+      sx={{ 
+        display: "flex", 
+        flexDirection: { xs: "column", md: "row" }, 
+        height: "100vh", 
       }}
     >
       {/* Left */}
@@ -68,22 +96,22 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
         }}
       >
         <Box sx={{ width: "100%", maxWidth: { xs: "100%", md: "400px" } }}>
-          <Typography
-            sx={{
-              fontSize: { xs: "24px", md: "33px" },
+          <Typography 
+            sx={{ 
+              fontSize: { xs: "24px", md: "33px" }, 
               fontWeight: 700,
-              textAlign: "center",
+              textAlign: 'center',
             }}
           >
             SignUp
           </Typography>
           <form onSubmit={onSubmit}>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                marginTop: "2rem",
+            <Box 
+              sx={{ 
+                display: "flex", 
+                flexDirection: "column", 
+                gap: "1rem", 
+                marginTop: "2rem" 
               }}
             >
               <InputField
@@ -103,13 +131,11 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                 required
               />
 
-              <Box
-                sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-              >
+              <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 <Typography>Upload Certificate</Typography>
                 <InputField
                   type="file"
-                  inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }}
+                  inputProps={{ accept: ".jpg,.jpeg,.png,.pdf" }} 
                   onChange={handleFileChange}
                   variant="outlined"
                   required
@@ -124,6 +150,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                   Submit
                 </StyledButton>
               )}
+              
 
               {isSignupSuccessful && (
                 <Typography
@@ -134,10 +161,13 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
                     textAlign: "center",
                   }}
                 >
-                  Signup successful! You will receive a password in your email
-                  after verification.
+                  Signup successful! You will receive a password in your email after verification.
                 </Typography>
               )}
+               
+               <GoogleLogin onSuccess={onGoogleSuccess} onError={onGoogleFailure} />
+
+               
 
               <Typography
                 sx={{
@@ -172,6 +202,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
         </Box>
       </Box>
     </Box>
+    </GoogleOAuthProvider>
   );
 };
 

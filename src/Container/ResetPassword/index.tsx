@@ -25,7 +25,7 @@ function ResetPasswordContainer() {
  
   const formik = useFormik<ResetPasswordValues>({
     initialValues: {
-      email: '',
+      email: email,
       password: '',
      
     },
