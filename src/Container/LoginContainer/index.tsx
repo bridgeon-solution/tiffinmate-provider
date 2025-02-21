@@ -64,17 +64,17 @@ if (result) {
         }
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
-          const status = error.response?.status;
-          const errorMessage = error.response?.data?.result;
-        
-       if (status === 500) {
+          const errorMessage = error.response?.data?.result;      
+          if (errorMessage === "Invalid email" ||
+            errorMessage === "Your account is pending approval Please wait for admin verification" ||
+            errorMessage === "Invalid password") {
             toast.warn(errorMessage);
-          } else {
-            toast.error(`Error: ${errorMessage}`);
+          }
+          else {
+            toast.error(errorMessage);
           }
         } else {
-          
-          toast.error('An unexpected error occurred. Please try again.');
+          toast.error("An unexpected error occurred. Please try again.");
         }
       } finally {
         helpers.resetForm();
