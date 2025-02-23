@@ -7,6 +7,7 @@ import { Box, CircularProgress } from '@mui/material';
 
 import 'react-toastify/dist/ReactToastify.css';
 import Subscription from '../Pages/Subscription';
+import Payment from '../Pages/Payment';
 
 
 const TotalOrders = React.lazy(() => import('../Pages/Orders'));
@@ -62,6 +63,7 @@ function AppRouter() {
 
                   <Route path='/addmenu' element={<AddmenuPage/>} />
                   <Route path='/menu/:menuid' element={<Menudisplay/>} />
+                  <Route path='/payment' element={<Payment/>} />
                 </Routes>
               </Navbar>
             }

@@ -19,6 +19,13 @@ export interface Orders {
   total_price?:number;
   start_date?: string;
 }
+export interface amount {
+  
+  user_name: string;
+  amount: string;
+  payment_date?: string;
+  is_paid?: string;
+}
 export interface Users {
   user_id:string;
   user_name: string;
@@ -28,8 +35,16 @@ export interface Users {
   email?: string;
   image?: string;
 }
-
+export interface Payment {
+  
+  user_name: string;
+  amount: string;
+  payment_date?: string;
+  is_paid?: string;
+}
 export interface Subscriptions {
+  
+  food_Item: string;
   
   user_name: string;
   address: string;
