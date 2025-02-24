@@ -32,7 +32,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
 }) => {
  // eslint-disable-next-line @typescript-eslint/no-explicit-any
  const onGoogleSuccess = async (credentialResponse: any) => {
-  console.log("Google Token:", credentialResponse.credential);
+ 
   try {
     const response = await axios.post("https://localhost:7009/api/Auth/google", {
       token: credentialResponse.credential,
