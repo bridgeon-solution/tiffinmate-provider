@@ -34,6 +34,8 @@ export interface Users {
   ph_no?: string;
   email?: string;
   image?: string;
+  payment_history?:Payment[];
+  order?:Orders[]
 }
 export interface Payment {
   
@@ -42,27 +44,13 @@ export interface Payment {
   payment_date?: string;
   is_paid?: string;
 }
-// export interface Subscriptions {
-//   food_Item: string;
-//   user_name: string;
-//   address: string;
-//   city: string | null;
-//   ph_no: string;
-//   fooditem_name?: string;
-//   category_name?: string;
-//   menu_name?: string;
-//   total_price?: number;
-//   start_date?: string;
-//   is_active?: boolean;
-//   category?: Category[]; // Change from string to Category[]
-// }
 
 export interface Subscriptions {
   user_name: string;
   address: string | null;
   city: string | null;
   ph_no: string;
-  category?: Category[]; // Made optional to match possible undefined values
+  category?: Category[]; 
   menu_name: string;
   total_price: number;
   start_date: string;
