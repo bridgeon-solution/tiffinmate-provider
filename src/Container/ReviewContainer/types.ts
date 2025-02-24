@@ -42,18 +42,43 @@ export interface Payment {
   payment_date?: string;
   is_paid?: string;
 }
+// export interface Subscriptions {
+//   food_Item: string;
+//   user_name: string;
+//   address: string;
+//   city: string | null;
+//   ph_no: string;
+//   fooditem_name?: string;
+//   category_name?: string;
+//   menu_name?: string;
+//   total_price?: number;
+//   start_date?: string;
+//   is_active?: boolean;
+//   category?: Category[]; // Change from string to Category[]
+// }
+
 export interface Subscriptions {
-  
-  food_Item: string;
-  
   user_name: string;
-  address: string;
-  city?: string;
-  ph_no?: string;
-  fooditem_name?: string;
-  category_name?: string;
-  menu_name?: string;
-  total_price?:number;
-  start_date?: string;
-  is_active?:boolean
+  address: string | null;
+  city: string | null;
+  ph_no: string;
+  category?: Category[]; // Made optional to match possible undefined values
+  menu_name: string;
+  total_price: number;
+  start_date: string;
+  is_active: boolean;
 }
+interface FoodItem {
+  food_name: string;
+  price: number;
+  description: string;
+  day: string;
+  image: string;
+}
+
+interface Category {
+  category_name: string;
+  food_Items: FoodItem[];
+}
+
+

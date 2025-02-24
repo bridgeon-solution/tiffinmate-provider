@@ -1,4 +1,4 @@
-import React from 'react'
+
 import PaymentContainer from '../Container/PaymentContainer'
 
 function Payment() {

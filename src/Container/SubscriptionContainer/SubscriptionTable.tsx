@@ -33,12 +33,13 @@ interface Subscription {
   address: string | null;
   city: string | null;
   ph_no: string;
-  category: Category[];
+  category?: Category[]; 
   menu_name: string;
   total_price: number;
   start_date: string;
   is_active: boolean;
 }
+
 
 interface TableProps {
   data: Subscription[];
@@ -49,8 +50,8 @@ const SubscriptionTable: React.FC<TableProps> = ({ data, loading }) => {
   const [open, setOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
-  const handleOpenModal = (categories: Category[]) => {
-    setSelectedCategories(categories);
+  const handleOpenModal = (categories: Category[] | undefined) => {
+    setSelectedCategories(categories ?? []); // Ensure it's always an array
     setOpen(true);
   };
 
@@ -91,7 +92,7 @@ const SubscriptionTable: React.FC<TableProps> = ({ data, loading }) => {
                   <TableCell>{item.city || "N/A"}</TableCell>
                   <TableCell>{item.ph_no}</TableCell>
                   <TableCell>{item.menu_name}</TableCell>
-                  <TableCell>{item.total_price}</TableCell>
+                  <TableCell>${item.total_price.toFixed(2)}</TableCell>
                   <TableCell>{item.start_date?.slice(0, 10)}</TableCell>
                   <TableCell style={{ color: item.is_active ? "blue" : "red" }}>
                     {item.is_active ? "Active" : "Inactive"}
@@ -132,24 +133,24 @@ const SubscriptionTable: React.FC<TableProps> = ({ data, loading }) => {
                 </Typography>
                 <TableContainer component={Paper} sx={{ maxHeight: "400px", overflowY: "auto" }}>
                   <Table>
-                  <TableHead sx={{ bgcolor: "lightgray" }}>
-  <TableRow>
-    <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Day</TableCell>
-    <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Food Name</TableCell>
-    <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Price</TableCell>
-    <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Description</TableCell>
-<TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Image</TableCell>
-  </TableRow>
-</TableHead>
+                    <TableHead sx={{ bgcolor: "lightgray" }}>
+                      <TableRow>
+                        <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Day</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Food Name</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Price</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Description</TableCell>
+                        <TableCell sx={{ fontWeight: "bold", textAlign: "center", p: 2 }}>Image</TableCell>
+                      </TableRow>
+                    </TableHead>
 
                     <TableBody>
                       {category.food_Items.map((food, foodIdx) => (
                         <TableRow key={foodIdx}>
                           <TableCell>{food.day}</TableCell>
                           <TableCell>{food.food_name}</TableCell>
-                          <TableCell>${food.price}</TableCell>
+                          <TableCell>${food.price.toFixed(2)}</TableCell>
                           <TableCell>{food.description}</TableCell>
-<TableCell>
+                          <TableCell>
                             <img src={food.image} alt={food.food_name} width="50" height="50" style={{ borderRadius: "5px" }} />
                           </TableCell>
                         </TableRow>
