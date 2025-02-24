@@ -62,7 +62,7 @@ const PaymentComponent: React.FC<SubscriptionsComponentProps> = ({
       mt: 4,
     }}
   >
-    <h1 style={{ marginBottom: "16px", color: "#e6852c" }}>Orders</h1>
+    <h1 style={{ marginBottom: "16px", color: "#e6852c" }}>Payments</h1>
   
     
   
