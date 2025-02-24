@@ -20,3 +20,13 @@ const GetAllUsers = async (page: number, search: string, pageSize: number | "") 
 };
 
 export default GetAllUsers;
+
+
+
+
+
+
+
+
+
+
