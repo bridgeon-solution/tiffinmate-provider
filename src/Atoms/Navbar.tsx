@@ -20,7 +20,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import DrawerHeader from "./DrawerHeader";
-
+import PaymentsIcon from "@mui/icons-material/Payments";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -90,6 +90,7 @@ const icons = [
   <FastfoodIcon />,
   <SubscriptionsIcon />,
   <MarkChatUnreadOutlinedIcon />,
+  <PaymentsIcon />
 ];
 
 const menuItems = [
@@ -99,6 +100,7 @@ const menuItems = [
   { name: "Add fooditems", path: "/addmenu" },
   { name: "Subscriptions", path: "/subscriptions" },
   { name: "Reviews", path: "/Reviews" },
+  { name: "Payment", path: "/payment" },
 ];
 
 export default function NavBar({ children }: { children: React.ReactNode }) {
