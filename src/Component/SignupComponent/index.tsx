@@ -37,7 +37,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
     const response = await axios.post("https://localhost:7009/api/Auth/google", {
       token: credentialResponse.credential,
     });
-   
+    console.log("Google Auth Response:", response.data);
       alert("Login successful!");
     } catch (error) {
       console.error("Google Login Error:", error);
@@ -45,7 +45,7 @@ const SignupComponent: React.FC<SignupComponentProps> = ({
     }
   }
   const onGoogleFailure = () => {
-   
+    console.log("Google Login Failed");
     alert("Google login failed!");
   };
 
