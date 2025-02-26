@@ -17,43 +17,9 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import { Users } from "../ReviewContainer/types";
 
-interface Payment {
-  amount: number;
-  payment_date: string;
-  is_paid: boolean;
-}
 
-interface Order {
-  order_id: string;
-  menu_id: string;
-  start_date: string;
-  total_price: number;
-  transaction_id: string;
-  order_string: string;
-}
-
-interface Subscriptions {
-  sub_id: string;
-  menu_id: string;
-  start_date: string;
-  total_price: number;
-  transaction_id: string;
-  order_string: string;
-}
-
-interface Users {
-  user_name: string;
-  user_id: string;
-  address: string | null;
-  city: string | null;
-  ph_no: string;
-  email: string;
-  image: string | null;
-  order: Order[];
-  subscription: Subscriptions[];
-  payment_history: Payment[];
-}
 
 interface TableAtomProps {
   data: Users[];
