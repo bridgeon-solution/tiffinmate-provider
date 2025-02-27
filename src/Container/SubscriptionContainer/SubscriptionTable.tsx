@@ -51,7 +51,7 @@ const SubscriptionTable: React.FC<TableProps> = ({ data, loading }) => {
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 
   const handleOpenModal = (categories: Category[] | undefined) => {
-    setSelectedCategories(categories ?? []); // Ensure it's always an array
+    setSelectedCategories(categories ?? []); 
     setOpen(true);
   };
 

@@ -102,9 +102,10 @@ const DisplayMenu: React.FC = () => {
       })));
       
       setOpenModal(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       
-      toast.error("Failed to add item");
+      toast.error("Failed to add item",);
     } finally {
       setIsSubmitting(false);
     }
@@ -123,8 +124,9 @@ const DisplayMenu: React.FC = () => {
         
         setMenuList(menuData || []);
         setLoading(false);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (err) {
-        setError("Failed to get menu items. Please try again later.");
+        setError("Failed to get menu items. Please try again later.",);
         setLoading(false);
       }
     };

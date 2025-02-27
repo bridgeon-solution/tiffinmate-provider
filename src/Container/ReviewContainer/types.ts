@@ -18,7 +18,13 @@ export interface Orders {
   menu_name?: string;
   total_price?:number;
   start_date?: string;
+  order_id: string;
+  menu_id: string;
+  transaction_id: string;
+  order_string: string;
 }
+
+
 export interface amount {
   
   user_name: string;
@@ -27,16 +33,19 @@ export interface amount {
   is_paid?: string;
 }
 export interface Users {
-  user_id:string;
+  user_id: string;
   user_name: string;
   address: string;
-  city?: string;
+  city: string | null;
   ph_no?: string;
   email?: string;
-  image?: string;
-  payment_history?:Payment[];
-  order?:Orders[]
+  image?: string | null;  
+  payment_history?: Payment[];
+  order?: Orders[];
+  subscription?: Subscriptions[];
 }
+
+
 export interface Payment {
   
   user_name: string;
@@ -55,7 +64,19 @@ export interface Subscriptions {
   total_price: number;
   start_date: string;
   is_active: boolean;
+  sub_id: string;
+  menu_id: string;
+  transaction_id: string;
+  order_string: string;
 }
+
+
+
+
+
+
+
+
 interface FoodItem {
   food_name: string;
   price: number;
