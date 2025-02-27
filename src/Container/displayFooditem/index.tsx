@@ -1,8 +1,9 @@
 import  { useEffect, useState } from 'react';
-import { Getcategory, Getfooditem } from '../../Services/AddMenu';
+import { DeleteFoodItems, DeleteMenu, Getcategory, Getfooditem } from '../../Services/AddMenu';
 import MenuDisplay from '../../Component/displayfood';
 
 interface FoodItem {
+  id:string;
   category_id: string;
   provider_id: string;
   menu_id: string;
@@ -41,6 +42,7 @@ const MenuDisplayContainer: React.FC = () => {
         const foodResponse = await Getfooditem(providerId);
         setMenuList(menuResponse);
         setFoodItems(foodResponse);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err:any) {
         setError(err.message || 'An error occurred while fetching data.');
         
@@ -51,9 +53,13 @@ const MenuDisplayContainer: React.FC = () => {
 
     fetchData();
   }, []);
-
+  const handleDeleteFoodItem = async (id: string) => {
+    await DeleteFoodItems(id);
+    setFoodItems(prevItems => prevItems.filter(item => item.id !== id));
+  };
+  
   return (
-    <MenuDisplay menuList={menuList} foodItems={foodItems} loading={loading} error={error} />
+    <MenuDisplay menuList={menuList} foodItems={foodItems} loading={loading} error={error}  onDelete={handleDeleteFoodItem}  />
   );
 };
 
