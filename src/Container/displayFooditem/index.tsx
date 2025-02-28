@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import { DeleteFoodItems, DeleteMenu, Getcategory, Getfooditem } from '../../Services/AddMenu';
+import { DeleteFoodItems, Getcategory, Getfooditem } from '../../Services/AddMenu';
 import MenuDisplay from '../../Component/displayfood';
 
 interface FoodItem {

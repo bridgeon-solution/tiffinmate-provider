@@ -42,7 +42,7 @@ export const DeleteMenu = async (menuid: string) => {
   try {
     const token = localStorage.getItem("token"); 
 
-    const response = await api.delete(`/FoodItem/menuitems?menu_id=${menuid}`, {
+   await api.delete(`/FoodItem/menuitems?menu_id=${menuid}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -61,7 +61,7 @@ export const DeleteFoodItems = async (foodid: string) => {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await api.delete(`/FoodItem/fooditems?fooditem_id=${foodid}`, {
+    await api.delete(`/FoodItem/fooditems?fooditem_id=${foodid}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
