@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AddMenuItem, GetMenu  } from "../../Services/AddMenu/index";
+import { AddMenuItem, DeleteMenu, GetMenu  } from "../../Services/AddMenu/index";
 import Displaymenu from "../../Component/DisplayMenu";
 import FoodItemForm from "../../Component/AddFoodItem";
 import { SelectChangeEvent } from "@mui/material";
@@ -111,31 +111,41 @@ const DisplayMenu: React.FC = () => {
     }
   };
   
-    const fetchMenuData = async () => {
-      try {
-        setLoading(true);
-        const providerId = localStorage.getItem("id");
-        if (!providerId) {
-          setError("Provider ID is missing.");
-          setLoading(false);
-          return;
-        }
-        const menuData = await GetMenu(providerId);
-        
-        setMenuList(menuData || []);
+  const fetchMenuData = async () => {
+    try {
+      setLoading(true);
+      setError(null); 
+      const providerId = localStorage.getItem("id");
+      if (!providerId) {
+        setError("Failed to fetch orders: Error: Token not found. Please log in again.");
         setLoading(false);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        setError("Failed to get menu items. Please try again later.",);
-        setLoading(false);
+        return;
       }
-    };
+      
+      const menuData = await GetMenu(providerId);
+  
+      if (!menuData || menuData.length === 0) {
+        setMenuList([]);
+      } else {
+        setMenuList(menuData);
+      }
+      setLoading(false);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // setError("Failed to get menu items. Please try again later.");
+      setLoading(false);
+    }
+  };
+  
 
     useEffect(() => {
       fetchMenuData();
     }, []);
  
-
+    const handleDeleteMenu=async(id:string)=>{
+      await DeleteMenu(id);
+      setMenuList(pre=>pre.filter((item=>item.id!==id)));
+    }
   const addfooditem = (menuId: string) => {
     setSelectedMenuId(menuId); 
     setOpenModal(true);  
@@ -162,6 +172,7 @@ const DisplayMenu: React.FC = () => {
         loading={Loading}
         error={Error}
         addfooditem={(menuId: string) => addfooditem(menuId)}
+        onDeleteMenu={handleDeleteMenu}
       />
     </div>
   );

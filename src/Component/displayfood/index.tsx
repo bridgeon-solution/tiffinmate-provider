@@ -1,8 +1,10 @@
 import React from 'react';
-import { Container, Typography, Box, Card, CardContent, CardMedia, CircularProgress } from '@mui/material';
+import { Container, Typography, Box, Card, CardContent, CardMedia, CircularProgress, IconButton } from '@mui/material';
 import { useParams } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface FoodItem {
+  id:string;
   category_id: string;
   provider_id: string;
   menu_id: string;
@@ -26,9 +28,13 @@ interface MenuDisplayProps {
   foodItems: FoodItem[];
   loading: boolean;
   error: string | null;
+  onDelete: (id: string) => void;
+ 
 }
 
-const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading, error }) => {
+const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading, error,onDelete }) => {
+  
+
   const { menuid} = useParams();
   if (loading) {
     return (
@@ -83,7 +89,7 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading,
               ) : (
                 filteredFoodItems.map((food) => (
                   <Box key={food.food_name} sx={{ minWidth: 250, marginRight: 2 }}>
-                    <Card sx={{ display: 'flex', flexDirection: 'column', padding: 1, borderRadius: 2, height: 250, width: '100%', boxShadow: 4 }}>
+                    <Card sx={{position: "relative", display: 'flex', flexDirection: 'column', padding: 1, borderRadius: 2, height: 250, width: '100%', boxShadow: 4 }}>
                       <CardMedia
                         component="img"
                         height="140"
@@ -136,6 +142,17 @@ const MenuDisplay: React.FC<MenuDisplayProps> = ({ menuList, foodItems, loading,
                         >
                           ₹{food.price}
                         </Typography>
+                        <IconButton
+    onClick={() => onDelete(food.id)}
+    sx={{
+      position: "absolute",
+      top: 8,
+      right: 8,
+      color: "red",
+    }}
+  >
+    <DeleteIcon />
+  </IconButton>
                       </CardContent>
                     </Card>
                   </Box>
