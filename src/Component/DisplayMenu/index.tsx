@@ -1,6 +1,9 @@
-import React from 'react';
+
 import { CircularProgress, Box, Typography, Card, CardContent, CardMedia, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
+
+import { IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface Menu {
   id: string;
@@ -15,10 +18,15 @@ interface DisplaymenuProps {
   loading: boolean;
   error: string | null;
   addfooditem: (menuId: string) => void;
+    onDeleteMenu:(id:string)=>void;
+  
 }
 
-const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, addfooditem }) => {
-
+const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, addfooditem,onDeleteMenu }) => {
+  // const  handleDelete=async(id: string)=>{
+  //   await DeleteMenu(id);
+  //   window.location.reload();
+  // }
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -47,14 +55,15 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
             <Grid item key={menu.id} xs={12} sm={6} md={4} lg={3} sx={{ display: 'flex', justifyContent: 'center' }}>
               <Card
                 sx={{
+                  position: "relative", 
                   borderRadius: 4,
-                  textAlign: 'center',
+                  textAlign: "center",
                   height: 400,
-                  width:300,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  margin: 'auto',
-                  overflow:'hidden',
+                  width: 300,
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: "auto",
+                  overflow: "hidden",
                 }}
               >
                 {menu.image && (
@@ -104,6 +113,7 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                   >
                     ₹{menu.monthly_plan_amount}
                   </Typography>
+                  
 
                   <Box
                     
@@ -123,6 +133,17 @@ const Displaymenu: React.FC<DisplaymenuProps> = ({ menuList, loading, error, add
                     >
                       Add Food
                     </Typography>
+                    <IconButton
+    onClick={() => onDeleteMenu(menu.id)}
+    sx={{
+      position: "absolute",
+      top: 8,
+      right: 8,
+      color: "red",
+    }}
+  >
+    <DeleteIcon />
+  </IconButton>
                     <Link
                       to={`/menu/${menu.id}`}
                       style={{
